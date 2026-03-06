@@ -6,8 +6,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -28,10 +30,16 @@ data class Questao(
     val materia: String,
     val identificacao: String,
     val pergunta: String,
-    val nomeImagem: String?, // Nome do arquivo em res/drawable
+    val nomeImagem: String?,
     val opcoes: List<String>,
     val respostaCorreta: Int,
     val explicacao: String
+)
+
+data class ResultadoMateria(
+    val materia: String,
+    var total: Int = 0,
+    var acertos: Int = 0
 )
 
 class MainActivity : ComponentActivity() {
@@ -53,8 +61,10 @@ fun SimuladoApp() {
     var listaQuestoes by remember { mutableStateOf<List<Questao>>(emptyList()) }
     var carregando by remember { mutableStateOf(true) }
     var indiceQuestao by remember { mutableIntStateOf(0) }
-    var pontuacao by remember { mutableIntStateOf(0) }
     var simuladoFinalizado by remember { mutableStateOf(false) }
+    
+    // Mapa para armazenar resultados por matéria
+    val estatisticas = remember { mutableStateMapOf<String, ResultadoMateria>() }
 
     LaunchedEffect(Unit) {
         listaQuestoes = carregarQuestoesDoArquivo(context, "questoes.txt")
@@ -67,7 +77,7 @@ fun SimuladoApp() {
         }
     } else if (listaQuestoes.isEmpty()) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Nenhuma questão encontrada no arquivo.")
+            Text("Erro ao carregar simulado.")
         }
     } else if (!simuladoFinalizado) {
         TelaQuestao(
@@ -75,7 +85,11 @@ fun SimuladoApp() {
             numeroAtual = indiceQuestao + 1,
             total = listaQuestoes.size,
             onProxima = { acertou ->
-                if (acertou) pontuacao++
+                val q = listaQuestoes[indiceQuestao]
+                val status = estatisticas.getOrPut(q.materia) { ResultadoMateria(q.materia) }
+                status.total++
+                if (acertou) status.acertos++
+
                 if (indiceQuestao < listaQuestoes.size - 1) {
                     indiceQuestao++
                 } else {
@@ -84,9 +98,9 @@ fun SimuladoApp() {
             }
         )
     } else {
-        TelaResultado(pontuacao, listaQuestoes.size) {
+        TelaDesempenho(estatisticas.values.toList()) {
             indiceQuestao = 0
-            pontuacao = 0
+            estatisticas.clear()
             simuladoFinalizado = false
         }
     }
@@ -103,16 +117,13 @@ fun carregarQuestoesDoArquivo(context: Context, fileName: String): List<Questao>
             val linhas = bloco.trim().lines().filter { it.isNotBlank() }
             if (linhas.size >= 5) {
                 val materia = linhas[0].trim()
-                val identificacao = linhas[1].trim()
-                
+                val id = linhas[1].trim()
                 val indexOpcaoA = linhas.indexOfFirst { it.trim().startsWith("a)") }
                 if (indexOpcaoA == -1) continue
 
-                // Detectar se existe a tag de imagem
-                val linhaImagem = linhas.find { it.startsWith("IMAGEM:", ignoreCase = true) }
-                val nomeImagem = linhaImagem?.substringAfter(":")?.trim()
+                val linhaImg = linhas.find { it.startsWith("IMAGEM:", ignoreCase = true) }
+                val nomeImagem = linhaImg?.substringAfter(":")?.trim()
 
-                // O enunciado é tudo entre o ID e as Opções, removendo a linha da imagem se existir
                 val pergunta = linhas.subList(2, indexOpcaoA)
                     .filter { !it.startsWith("IMAGEM:", ignoreCase = true) }
                     .joinToString("\n").trim()
@@ -130,7 +141,7 @@ fun carregarQuestoesDoArquivo(context: Context, fileName: String): List<Questao>
                 val explicacao = linhas.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }
                     ?.substringAfter(":")?.trim() ?: ""
 
-                questoes.add(Questao(materia, identificacao, pergunta, nomeImagem, opcoes, indexResp, explicacao))
+                questoes.add(Questao(materia, id, pergunta, nomeImagem, opcoes, indexResp, explicacao))
             }
         }
     } catch (e: Exception) { e.printStackTrace() }
@@ -153,15 +164,14 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, onProxima: (Bool
 
         Text(text = questao.pergunta, fontSize = 18.sp, fontWeight = FontWeight.Medium)
 
-        // SEÇÃO DE IMAGEM
         questao.nomeImagem?.let { nome ->
-            val resourceId = context.resources.getIdentifier(nome, "drawable", context.packageName)
-            if (resourceId != 0) {
+            val id = context.resources.getIdentifier(nome, "drawable", context.packageName)
+            if (id != 0) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Card(elevation = CardDefaults.cardElevation(4.dp), modifier = Modifier.align(Alignment.CenterHorizontally)) {
                     Image(
-                        painter = painterResource(id = resourceId),
-                        contentDescription = "Imagem da questão",
+                        painter = painterResource(id = id),
+                        contentDescription = null,
                         modifier = Modifier.fillMaxWidth().heightIn(max = 280.dp),
                         contentScale = ContentScale.Fit
                     )
@@ -211,10 +221,102 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, onProxima: (Bool
 }
 
 @Composable
-fun TelaResultado(pontos: Int, total: Int, onReiniciar: () -> Unit) {
-    Column(modifier = Modifier.fillMaxSize().padding(32.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        Text("Simulado Concluído!", fontSize = 24.sp, fontWeight = FontWeight.Bold)
-        Text("$pontos de $total acertos", fontSize = 42.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF1B5E20))
-        Button(onClick = onReiniciar, modifier = Modifier.padding(top = 32.dp)) { Text("Refazer Simulado") }
+fun TelaDesempenho(resultados: List<ResultadoMateria>, onReiniciar: () -> Unit) {
+    val totalAcertos = resultados.sumOf { it.acertos }
+    val totalQuestoes = resultados.sumOf { it.total }
+    val porcentagemGeral = if (totalQuestoes > 0) (totalAcertos.toFloat() / totalQuestoes * 100).toInt() else 0
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp)
+            .verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("Resultado Final", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
+        
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // Card de Resumo Geral
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFFE8F5E9))
+        ) {
+            Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Desempenho Geral", fontWeight = FontWeight.Bold)
+                Text("$porcentagemGeral%", fontSize = 48.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF2E7D32))
+                Text("Você acertou $totalAcertos de $totalQuestoes questões")
+            }
+        }
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        Text("Desempenho por Matéria", fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.fillMaxWidth())
+        
+        Spacer(modifier = Modifier.height(16.dp))
+
+        // Lista de matérias com barras de progresso
+        resultados.forEach { res ->
+            val porcentagem = (res.acertos.toFloat() / res.total * 100).toInt()
+            val corBarra = when {
+                porcentagem >= 70 -> Color(0xFF4CAF50)
+                porcentagem >= 50 -> Color(0xFFFFC107)
+                else -> Color(0xFFF44336)
+            }
+
+            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    Text(res.materia, fontWeight = FontWeight.Medium)
+                    Text("$porcentagem%", fontWeight = FontWeight.Bold, color = corBarra)
+                }
+                LinearProgressIndicator(
+                    progress = { res.acertos.toFloat() / res.total },
+                    modifier = Modifier.fillMaxWidth().height(10.dp).padding(top = 4.dp),
+                    color = corBarra,
+                    strokeCap = androidx.compose.ui.graphics.StrokeCap.Round
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        // Dicas de Estudo Dinâmicas
+        val materiaRuim = resultados.filter { (it.acertos.toFloat() / it.total) < 0.6 }.map { it.materia }
+        if (materiaRuim.isNotEmpty()) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF3E0))
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("💡 Onde focar agora:", fontWeight = FontWeight.Bold, color = Color(0xFFE65100))
+                    Text(
+                        "Baseado nos seus erros, recomendamos revisar os conteúdos de: ${materiaRuim.joinToString(", ")}.",
+                        fontSize = 14.sp
+                    )
+                }
+            }
+        } else if (totalQuestoes > 0) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFE3F2FD))
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text("🏆 Parabéns!", fontWeight = FontWeight.Bold, color = Color(0xFF0D47A1))
+                    Text("Você teve um ótimo desempenho em todas as matérias!", fontSize = 14.sp)
+                }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+        Button(
+            onClick = onReiniciar,
+            modifier = Modifier.fillMaxWidth().height(56.dp),
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Text("Refazer Simulado", fontSize = 18.sp)
+        }
+        
+        Spacer(modifier = Modifier.height(24.dp))
     }
 }
