@@ -13,10 +13,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,7 +39,7 @@ import kotlinx.coroutines.withContext
 data class Materia(
     val nome: String,
     val arquivo: String,
-    val icone: String // Emojis para facilitar
+    val icone: String
 )
 
 data class Questao(
@@ -74,17 +73,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SimuladoManager() {
-    var materiaSelecionada by remember { mutableStateOf<Materia?>(null) }
+    // Usar o nome da matéria para salvar o estado no giro
+    var materiaEscolhidaNome by rememberSaveable { mutableStateOf<String?>(null) }
     
-    if (materiaSelecionada == null) {
-        TelaSelecaoMateria { materiaSelecionada = it }
-    } else {
-        SimuladoApp(materiaSelecionada!!) { materiaSelecionada = null }
-    }
-}
-
-@Composable
-fun TelaSelecaoMateria(onMateriaEscolhida: (Materia) -> Unit) {
     val materias = listOf(
         Materia("Português", "questoesPortugues.txt", "📚"),
         Materia("Matemática", "questoesMatematica.txt", "📐"),
@@ -95,6 +86,17 @@ fun TelaSelecaoMateria(onMateriaEscolhida: (Materia) -> Unit) {
         Materia("Simulado Geral", "questoes.txt", "📝")
     )
 
+    val materiaSelecionada = materias.find { it.nome == materiaEscolhidaNome }
+
+    if (materiaSelecionada == null) {
+        TelaSelecaoMateria(materias) { materiaEscolhidaNome = it.nome }
+    } else {
+        SimuladoApp(materiaSelecionada) { materiaEscolhidaNome = null }
+    }
+}
+
+@Composable
+fun TelaSelecaoMateria(materias: List<Materia>, onMateriaEscolhida: (Materia) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize().padding(24.dp).verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -102,7 +104,6 @@ fun TelaSelecaoMateria(onMateriaEscolhida: (Materia) -> Unit) {
         Spacer(modifier = Modifier.height(32.dp))
         Text("O que vamos estudar hoje?", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
         Text("Selecione uma matéria para iniciar", fontSize = 14.sp, color = Color.Gray)
-        
         Spacer(modifier = Modifier.height(32.dp))
 
         materias.forEach { materia ->
@@ -127,8 +128,10 @@ fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
     val context = LocalContext.current
     var listaQuestoes by remember { mutableStateOf<List<Questao>>(emptyList()) }
     var carregando by remember { mutableStateOf(true) }
-    var indiceQuestao by remember { mutableIntStateOf(0) }
-    var simuladoFinalizado by remember { mutableStateOf(false) }
+    var indiceQuestao by rememberSaveable { mutableIntStateOf(0) }
+    var simuladoFinalizado by rememberSaveable { mutableStateOf(false) }
+    
+    // Armazenar as estatísticas e as respostas já dadas para persistirem no giro
     val estatisticas = remember { mutableStateMapOf<String, ResultadoMateria>() }
     val respostasUsuario = remember { mutableStateMapOf<Int, Int>() }
 
@@ -136,7 +139,7 @@ fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
         carregando = true
         var questoes = carregarQuestoesDaInternet(materia.arquivo)
         if (questoes.isEmpty()) {
-            questoes = carregarQuestoesDoArquivo(context, "questoes.txt") // Fallback
+            questoes = carregarQuestoesDoArquivo(context, "questoes.txt")
         }
         listaQuestoes = questoes
         carregando = false
@@ -190,15 +193,12 @@ suspend fun carregarQuestoesDaInternet(nomeArquivo: String): List<Questao> {
         try {
             val timestamp = System.currentTimeMillis()
             val urlGit = "https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$nomeArquivo?t=$timestamp"
-            
             val url = URL(urlGit)
             val connection = url.openConnection() as HttpURLConnection
             connection.connectTimeout = 10000
             connection.useCaches = false
-            
             if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-                val reader = BufferedReader(InputStreamReader(connection.getInputStream()))
-                val texto = reader.readText()
+                val texto = connection.inputStream.bufferedReader().use { it.readText() }
                 parsearConteudoTxt(texto)
             } else emptyList()
         } catch (e: Exception) { emptyList() }
@@ -243,8 +243,8 @@ fun parsearConteudoTxt(content: String): List<Questao> {
 
 @Composable
 fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: Int, onVoltar: (() -> Unit)?, onProxima: (Int) -> Unit) {
-    var selecionado by remember(questao) { mutableIntStateOf(respostaJaDada) }
-    var respondeu by remember(questao) { mutableStateOf(respostaJaDada != -1) }
+    var selecionado by rememberSaveable(questao) { mutableIntStateOf(respostaJaDada) }
+    var respondeu by rememberSaveable(questao) { mutableStateOf(respostaJaDada != -1) }
     val context = LocalContext.current
 
     Column(modifier = Modifier.fillMaxSize()) {
