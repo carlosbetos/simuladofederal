@@ -59,6 +59,9 @@ EXPLICAÇÃO: Equação: $2(x^3 - 500) = 24 \rightarrow x^3 = 512 \rightarrow x 
 QUESTÃO 21
 Sabendo que A = 3.8 - 15/3, B = 6.5 - 2².√9 e C = (9-3)² / (23+1).
 O valor de P no diagrama a seguir é um número:
+
+IMAGEM: https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/esquema_questao_48.png
+
 a) decimal exato.
 b) par.
 c) primo.
