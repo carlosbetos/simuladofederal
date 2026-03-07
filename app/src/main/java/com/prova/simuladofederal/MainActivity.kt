@@ -8,10 +8,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -34,11 +37,17 @@ import java.net.URL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
+data class Materia(
+    val nome: String,
+    val arquivo: String,
+    val icone: String // Emojis para facilitar
+)
+
 data class Questao(
     val materia: String,
     val identificacao: String,
     val pergunta: String,
-    val caminhoImagem: String?, // Pode ser um link (http) ou nome local
+    val caminhoImagem: String?,
     val opcoes: List<String>,
     val respostaCorreta: Int,
     val explicacao: String
@@ -56,7 +65,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme(colorScheme = lightColorScheme(primary = Color(0xFF1B5E20))) {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    SimuladoApp()
+                    SimuladoManager()
                 }
             }
         }
@@ -64,7 +73,57 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun SimuladoApp() {
+fun SimuladoManager() {
+    var materiaSelecionada by remember { mutableStateOf<Materia?>(null) }
+    
+    if (materiaSelecionada == null) {
+        TelaSelecaoMateria { materiaSelecionada = it }
+    } else {
+        SimuladoApp(materiaSelecionada!!) { materiaSelecionada = null }
+    }
+}
+
+@Composable
+fun TelaSelecaoMateria(onMateriaEscolhida: (Materia) -> Unit) {
+    val materias = listOf(
+        Materia("Português", "questoesPortugues.txt", "📚"),
+        Materia("Matemática", "questoesMatematica.txt", "📐"),
+        Materia("Química", "questoesQuimica.txt", "🧪"),
+        Materia("Biologia", "questoesBiologia.txt", "🧬"),
+        Materia("Geografia", "questoesGeografia.txt", "🌎"),
+        Materia("História", "questoesHistoria.txt", "⏳"),
+        Materia("Simulado Geral", "questoes.txt", "📝")
+    )
+
+    Column(
+        modifier = Modifier.fillMaxSize().padding(24.dp).verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(32.dp))
+        Text("O que vamos estudar hoje?", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
+        Text("Selecione uma matéria para iniciar", fontSize = 14.sp, color = Color.Gray)
+        
+        Spacer(modifier = Modifier.height(32.dp))
+
+        materias.forEach { materia ->
+            Card(
+                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { onMateriaEscolhida(materia) },
+                shape = RoundedCornerShape(16.dp),
+                elevation = CardDefaults.cardElevation(4.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White)
+            ) {
+                Row(modifier = Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Text(materia.icone, fontSize = 32.sp)
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Text(materia.nome, fontSize = 18.sp, fontWeight = FontWeight.Medium)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
     val context = LocalContext.current
     var listaQuestoes by remember { mutableStateOf<List<Questao>>(emptyList()) }
     var carregando by remember { mutableStateOf(true) }
@@ -73,16 +132,12 @@ fun SimuladoApp() {
     val estatisticas = remember { mutableStateMapOf<String, ResultadoMateria>() }
     val respostasUsuario = remember { mutableStateMapOf<Int, Int>() }
 
-    LaunchedEffect(Unit) {
-        // PRIORIDADE 1: INTERNET (GIT)
-        var questoes = carregarQuestoesDaInternet()
-        
-        // PRIORIDADE 2: LOCAL (FALLBACK)
+    LaunchedEffect(materia) {
+        carregando = true
+        var questoes = carregarQuestoesDaInternet(materia.arquivo)
         if (questoes.isEmpty()) {
-            Log.d("SIMULADO", "Falha ao baixar do Git. Usando arquivo local.")
-            questoes = carregarQuestoesDoArquivo(context, "questoes.txt")
+            questoes = carregarQuestoesDoArquivo(context, "questoes.txt") // Fallback
         }
-        
         listaQuestoes = questoes
         carregando = false
     }
@@ -92,12 +147,15 @@ fun SimuladoApp() {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 CircularProgressIndicator()
                 Spacer(modifier = Modifier.height(12.dp))
-                Text("Sincronizando questões do Git...", color = Color.Gray, fontSize = 14.sp)
+                Text("Baixando questões de ${materia.nome}...", color = Color.Gray)
             }
         }
     } else if (listaQuestoes.isEmpty()) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Nenhuma questão encontrada. Verifique sua conexão.")
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Erro ao carregar questões.")
+                Button(onClick = onVoltarMenu) { Text("Voltar") }
+            }
         }
     } else if (!simuladoFinalizado) {
         TelaQuestao(
@@ -105,7 +163,7 @@ fun SimuladoApp() {
             numeroAtual = indiceQuestao + 1,
             total = listaQuestoes.size,
             respostaJaDada = respostasUsuario[indiceQuestao] ?: -1,
-            onVoltar = if (indiceQuestao > 0) { { indiceQuestao-- } } else null,
+            onVoltar = if (indiceQuestao > 0) { { indiceQuestao -= 1 } } else onVoltarMenu,
             onProxima = { selecionado ->
                 val q = listaQuestoes[indiceQuestao]
                 if (!respostasUsuario.containsKey(indiceQuestao)) {
@@ -123,39 +181,27 @@ fun SimuladoApp() {
             }
         )
     } else {
-        TelaDesempenho(estatisticas.values.toList()) {
-            indiceQuestao = 0
-            estatisticas.clear()
-            respostasUsuario.clear()
-            simuladoFinalizado = false
-        }
+        TelaDesempenho(estatisticas.values.toList(), onVoltarMenu)
     }
 }
 
-suspend fun carregarQuestoesDaInternet(): List<Questao> {
+suspend fun carregarQuestoesDaInternet(nomeArquivo: String): List<Questao> {
     return withContext(Dispatchers.IO) {
         try {
             val timestamp = System.currentTimeMillis()
-            val urlGit = "https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/questoes.txt?t=$timestamp"
+            val urlGit = "https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$nomeArquivo?t=$timestamp"
             
             val url = URL(urlGit)
             val connection = url.openConnection() as HttpURLConnection
             connection.connectTimeout = 10000
-            connection.readTimeout = 10000
             connection.useCaches = false
-            connection.setRequestProperty("Cache-Control", "no-cache")
             
             if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                 val reader = BufferedReader(InputStreamReader(connection.getInputStream()))
                 val texto = reader.readText()
                 parsearConteudoTxt(texto)
-            } else {
-                emptyList()
-            }
-        } catch (e: Exception) {
-            Log.e("SIMULADO", "Erro na rede: ${e.message}")
-            emptyList()
-        }
+            } else emptyList()
+        } catch (e: Exception) { emptyList() }
     }
 }
 
@@ -164,16 +210,12 @@ fun carregarQuestoesDoArquivo(context: Context, fileName: String): List<Questao>
         val stream = context.assets.open(fileName)
         val content = stream.bufferedReader().use { it.readText() }
         parsearConteudoTxt(content)
-    } catch (e: Exception) { 
-        Log.e("SIMULADO", "Erro no arquivo local: ${e.message}")
-        emptyList() 
-    }
+    } catch (e: Exception) { emptyList() }
 }
 
 fun parsearConteudoTxt(content: String): List<Questao> {
     val questoes = mutableListOf<Questao>()
     val blocos = content.split("---")
-
     for (bloco in blocos) {
         val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
         if (linhas.size >= 5) {
@@ -181,34 +223,18 @@ fun parsearConteudoTxt(content: String): List<Questao> {
             val id = linhas[1]
             val indexOpcaoA = linhas.indexOfFirst { it.startsWith("a)") }
             if (indexOpcaoA == -1) continue
-
             val linhaImg = linhas.find { it.startsWith("IMAGEM:") }
             val caminhoImagem = linhaImg?.substringAfter(":")?.trim()
-
-            val pergunta = linhas.subList(2, indexOpcaoA)
-                .filter { !it.startsWith("IMAGEM:") }
-                .joinToString("\n")
-            
+            val pergunta = linhas.subList(2, indexOpcaoA).filter { !it.startsWith("IMAGEM:") }.joinToString("\n")
             val opcoes = listOf(
                 linhas[indexOpcaoA].substringAfter("a)").trim(),
                 linhas[indexOpcaoA+1].substringAfter("b)").trim(),
                 linhas[indexOpcaoA+2].substringAfter("c)").trim(),
                 linhas[indexOpcaoA+3].substringAfter("d)").trim()
             )
-
-            val respLine = linhas.find { it.contains("RESPOSTA:") }
-            val resp = respLine?.substringAfter(":")?.trim()?.lowercase() ?: "a"
-            val indexResp = when(resp) {
-                "a" -> 0
-                "b" -> 1
-                "c" -> 2
-                "d" -> 3
-                else -> 0
-            }
-            
-            val explicacao = linhas.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }
-                ?.substringAfter(":")?.trim() ?: ""
-
+            val resp = linhas.find { it.contains("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
+            val indexResp = when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }
+            val explicacao = linhas.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: ""
             questoes.add(Questao(materia, id, pergunta, caminhoImagem, opcoes, indexResp, explicacao))
         }
     }
@@ -236,25 +262,14 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
 
             Text(text = questao.pergunta, fontSize = 17.sp, fontWeight = FontWeight.Medium, lineHeight = 24.sp)
 
-            // EXIBIÇÃO DA IMAGEM (DINÂMICA OU LOCAL)
             questao.caminhoImagem?.let { caminho ->
                 Spacer(modifier = Modifier.height(16.dp))
                 Card(elevation = CardDefaults.cardElevation(4.dp)) {
                     if (caminho.startsWith("http")) {
-                        AsyncImage(
-                            model = ImageRequest.Builder(LocalContext.current)
-                                .data(caminho)
-                                .crossfade(true)
-                                .build(),
-                            contentDescription = "Imagem da questão",
-                            modifier = Modifier.fillMaxWidth().heightIn(max = 300.dp),
-                            contentScale = ContentScale.Fit
-                        )
+                        AsyncImage(model = ImageRequest.Builder(LocalContext.current).data(caminho).crossfade(true).build(), contentDescription = null, modifier = Modifier.fillMaxWidth().heightIn(max = 300.dp), contentScale = ContentScale.Fit)
                     } else {
                         val id = context.resources.getIdentifier(caminho, "drawable", context.packageName)
-                        if (id != 0) {
-                            Image(painter = painterResource(id = id), contentDescription = null, modifier = Modifier.fillMaxWidth().heightIn(max = 280.dp), contentScale = ContentScale.Fit)
-                        }
+                        if (id != 0) Image(painter = painterResource(id = id), contentDescription = null, modifier = Modifier.fillMaxWidth().heightIn(max = 280.dp), contentScale = ContentScale.Fit)
                     }
                 }
             }
@@ -299,13 +314,11 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
 
         Surface(tonalElevation = 8.dp, shadowElevation = 12.dp, modifier = Modifier.fillMaxWidth()) {
             Row(modifier = Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                if (onVoltar != null) {
-                    OutlinedButton(onClick = onVoltar, modifier = Modifier.weight(1f).height(52.dp)) { Text("Anterior") }
-                }
+                if (onVoltar != null) OutlinedButton(onClick = onVoltar, modifier = Modifier.weight(1f).height(52.dp)) { Text(if (numeroAtual == 1) "Sair" else "Anterior") }
                 if (!respondeu) {
-                    Button(onClick = { respondeu = true }, enabled = selecionado != -1, modifier = Modifier.weight(if (onVoltar != null) 2f else 1f).height(52.dp)) { Text("Confirmar") }
+                    Button(onClick = { respondeu = true }, enabled = selecionado != -1, modifier = Modifier.weight(2f).height(52.dp)) { Text("Confirmar") }
                 } else {
-                    Button(onClick = { onProxima(selecionado) }, modifier = Modifier.weight(if (onVoltar != null) 2f else 1f).height(52.dp)) { Text("Próxima") }
+                    Button(onClick = { onProxima(selecionado) }, modifier = Modifier.weight(2f).height(52.dp), colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2E7D32))) { Text("Próxima") }
                 }
             }
         }
@@ -313,15 +326,14 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
 }
 
 @Composable
-fun TelaDesempenho(resultados: List<ResultadoMateria>, onReiniciar: () -> Unit) {
+fun TelaDesempenho(resultados: List<ResultadoMateria>, onVoltar: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize().padding(24.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("Fim do Simulado", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
+        Text("Simulado Concluído", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
         Spacer(modifier = Modifier.height(24.dp))
         val totalA = resultados.sumOf { it.acertos }
         val totalQ = resultados.sumOf { it.total }
         Card(modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = Color(0xFFE8F5E9))) {
             Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Desempenho Geral")
                 Text("$totalA de $totalQ", fontSize = 48.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF2E7D32))
             }
         }
@@ -334,6 +346,6 @@ fun TelaDesempenho(resultados: List<ResultadoMateria>, onReiniciar: () -> Unit) 
             }
         }
         Spacer(modifier = Modifier.height(40.dp))
-        Button(onClick = onReiniciar, modifier = Modifier.fillMaxWidth().height(52.dp)) { Text("Refazer Simulado") }
+        Button(onClick = onVoltar, modifier = Modifier.fillMaxWidth().height(52.dp)) { Text("Voltar ao Menu") }
     }
 }

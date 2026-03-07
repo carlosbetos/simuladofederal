@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.prova.simuladofederal"
-    compileSdk = 35
+    compileSdk = 36 // Atualizado de 35 para 36 conforme erro do sistema
 
     defaultConfig {
         applicationId = "com.prova.simuladofederal"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36 // Atualizado de 35 para 36
         versionCode = 1
         versionName = "1.0"
 

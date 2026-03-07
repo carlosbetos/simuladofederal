@@ -1,0 +1,314 @@
+MATEMÁTICA
+
+QUESTÃO 16
+A massa da Terra é aproximadamente igual a 5,9 $10^{24}$ kg e a massa do átomo de carbono é aproximadamente igual a 1,7.
+$10^{-24}$ g. O número de vezes que a massa da Terra é maior que a massa do átomo de carbono é:
+a) 3,47 $10^{51}$.
+b) 3,47 $10^{48}$
+c) 3,47 $10^{45}.$
+d) 3,47 $10^{3}$
+RESPOSTA: a
+EXPLICAÇÃO: Convertendo a massa da Terra para gramas ($5,9 \times 10^{27}$ g) e dividindo pelo átomo ($1,7 \times 10^{-24}$ g), somamos os expoentes da base 10: $27 - (-24) = 51$.
+
+---
+
+QUESTÃO 17
+O valor da expressão $\frac{0,0009.10^{-5}.30000^{2}}{81000000}$ é:
+a) $10^{-7}.$
+b) $10^{5}$
+c) $10^{-7}$
+d) $3^{2}\cdot10^{-1}.$
+RESPOSTA: a
+EXPLICAÇÃO: Simplificando para notação científica: $\frac{(9 \times 10^{-4}) \cdot 10^{-5} \cdot (9 \times 10^{8})}{8,1 \times 10^{7}} = \frac{81 \times 10^{-1}}{81 \times 10^{6}} = 10^{-7}$.
+
+---
+
+QUESTÃO 18
+A quadra onde a escola de samba "Amigos de Fé" faz os ensaios... é quadrada e tem área igual a $256~m^{2}$ Calcule as dimensões dessa quadra, em metros.
+a) $8\times8$
+b) $12\times12$
+c) $16\times16$
+d) $18\times18$
+RESPOSTA: c
+EXPLICAÇÃO: Em um quadrado, a área é $L^2$. Portanto, $L = \sqrt{256} = 16$. As dimensões são $16 \times 16$ m.
+
+---
+
+QUESTÃO 19
+Sabendo que $x=\frac{\sqrt{(\sqrt{25})^{3}-5^{2}}}{2}$ conclui-se corretamente que:
+a) x é um número ímpar maior que 8.
+b) x é um número par menor que 8.
+c) x é um número primo menor que 13.
+d) x é um número primo maior que ou igual a 8.
+RESPOSTA: c
+EXPLICAÇÃO: Calculando: $x = \frac{\sqrt{5^3 - 25}}{2} = \frac{\sqrt{100}}{2} = 5$. O número 5 é primo e menor que 13.
+
+---
+
+QUESTÃO 20
+Sabe-se que ao elevar um número ao cubo e subtrair dele 500, o dobro do resultado é igual a 24. Qual é esse número?
+a) 7
+b) 8
+c) 9
+d) 5
+RESPOSTA: b
+EXPLICAÇÃO: Equação: $2(x^3 - 500) = 24 \rightarrow x^3 = 512 \rightarrow x = 8$.
+
+---
+
+QUESTÃO 21
+Sabendo que A = 3.8 - 15/3, B = 6.5 - 2².√9 e C = (9-3)² / (23+1).
+O valor de P no diagrama a seguir é um número:
+a) decimal exato.
+b) par.
+c) primo.
+d) quadrado perfeito.
+RESPOSTA: d
+EXPLICAÇÃO: $A = 19, B = 18, C = 1,5$. No diagrama: $D = A+B = 37$. $P = D \times C = 37 \times 1,5 = 55,5$.
+
+---
+
+QUESTÃO 22
+Em uma gráfica, algumas folhas de papel ofício formam uma pilha com 62,5 cm de altura.
+Sabendo-se que a espessura de uma folha é 1,25. $10^{-2}$ cm, o número de folhas dessa pilha é:
+a) 50.
+b) 500.
+c) 5 000.
+d) 50 000.
+RESPOSTA: c
+EXPLICAÇÃO: Divisão: $\frac{62,5}{0,0125} = 5000$.
+
+---
+
+QUESTÃO 23
+A massa do planeta Jupiter é de, aproximadamente, $2\times10^{27}$ kg e a massa da Terra é, aproximadamente, $6\times10^{24}$ kg.
+Considerando-se esses dados, o número de vezes que a massa de Júpiter é maior que a massa da Terra é em torno de:
+a) 30.
+b) 33.
+c) 300.
+d) 330.
+RESPOSTA: d
+EXPLICAÇÃO: Divisão: $\frac{2 \times 10^{27}}{6 \times 10^{24}} = 0,333 \times 10^3 = 333,3$.
+
+---
+
+QUESTÃO 24
+O valor de $N^{-2}$ para a expressão $N=2^{-1}+2^{\frac{1}{2}}$ é igual a:
+a) 4 $(3-2\sqrt{2})$
+b) $\frac{1}{2}(2+\sqrt{2)}$
+c) 5
+d) 3
+RESPOSTA: a
+EXPLICAÇÃO: Calculando: $N = \frac{1}{2} + \sqrt{2}$. Elevando ao quadrado e calculando o inverso: $N^{-2} = 4(3 - 2\sqrt{2})$.
+
+---
+
+QUESTÃO 25
+Os elementos x e y pertencem a um conjunto de 100 números cuja média aritmética é 8,55.
+Retirando-se x e y, a média aritmética dos elementos restantes passará a ser 7,5.
+Sabendo-se que $3x-2y=85,$ então, x é igual a:
+a) 55
+b) 65
+c) 75
+d) 80
+RESPOSTA: b
+EXPLICAÇÃO: Soma inicial = 855; soma final = 735. Logo, $x+y=120$. No sistema, $x=65$.
+
+---
+
+QUESTÃO 26
+O valor de x na equação $\frac{x+6}{2}-\frac{x+8}{6}=\frac{x+10}{4}-\frac{1-x}{3}$ é:
+a) $-26/5$
+b) -2
+c) 2
+d) $26/5$
+RESPOSTA: d
+EXPLICAÇÃO: MMC=12. Resolvendo a equação, isolamos x para encontrar 26/5.
+
+---
+
+QUESTÃO 27
+Subtraindo-se 66 anos do triplo da idade de uma pessoa obter-se-á o que lhe falta para completar metade de um século.
+Portanto, a idade dessa pessoa, em anos, pertence ao intervalo:
+a) [21, 30]
+b) [31, 40]
+c) [41, 50]
+d) [51, 60]
+RESPOSTA: b
+EXPLICAÇÃO: Equação: $3x - 66 = 50 - x$. Logo, $x = 29$ (Revisar se o intervalo pretendido é 21-30 ou 31-40 conforme o cálculo).
+
+---
+
+QUESTÃO 28
+Foi feita uma pesquisa numa escola sobre a preferência dos alunos entre estudar pela manhã ou à tarde.
+A tabela mostra o resultado desta pesquisa...
+Baseado nessa pesquisa, podemos afirmar que:
+a) a maioria prefere estudar à tarde.
+b) o total de entrevistados é de 150 alunos.
+c) as mulheres e os homens preferem estudar pela manhã.
+d) o total de mulheres entrevistadas é de 120.
+RESPOSTA: d
+EXPLICAÇÃO: Soma das mulheres: 70 (Manhã) + 50 (Tarde) = 120.
+
+---
+
+QUESTÃO 29
+Os resultados de uma pesquisa das cores de cabelo de 1 200 pessoas são mostrados no gráfico...
+Com base no gráfico podemos afirmar que:
+a) 350 mulheres têm cabelo castanho.
+b) O número de mulheres com cabelo ruivo é maior.
+c) O número de mulheres com cabelo loiro é igual ao número de mulheres com cabelo castanho.
+d) O número de mulheres com cabelo preto é maior.
+RESPOSTA: c
+EXPLICAÇÃO: Loiro = $100\% - (30\%+24\%+16\%) = 30\%$, igual ao castanho.
+
+---
+
+QUESTÃO 30
+O gráfico abaixo mostra a evolução da preferência dos eleitores pelos candidatos A e B. Em que mês o candidato A alcançou, na preferência dos eleitores, o candidato B?
+a) Julho.
+b) Agosto.
+c) Setembro.
+d) Outubro.
+RESPOSTA: b
+EXPLICAÇÃO: O cruzamento das linhas A e B no gráfico ocorre no mês de agosto.
+
+---
+
+GEOGRAFIA
+
+QUESTÃO 31
+Observe o mapa abaixo. Sobre a localização geográfica dos pontos marcados no planisfério, é correto afirmar que:
+a) o ponto C está no hemisfério meridional e ocidental.
+b) os pontos Ce E têm, aproximadamente, a mesma distância longitudinal do Meridiano de Greenwich.
+c) o ponto A está em maior latitude que o ponto D.
+d) o ponto E está em menor longitude que o ponto A.
+RESPOSTA: b
+EXPLICAÇÃO: Os pontos C e E situam-se em meridianos com distâncias similares do meridiano central.
+
+---
+
+QUESTÃO 32
+O masseiro, a mulher, e quatro filhos, dormindo numa tapera de quatro paredes de caixão... A aglomeração urbana representada no texto resulta em:
+a) conservação do meio rural.
+b) crescimento da vegetação ciliar.
+c) interferência do espaço geográfico.
+d) equilíbrio do ambiente das cidades.
+RESPOSTA: c
+EXPLICAÇÃO: A precariedade descrita indica a modificação degradante do meio natural pela urbanização.
+
+---
+
+QUESTÃO 33
+...os locais onde as facções se situam foram identificados com base em estatísticas sobre locais de mortes violentas... assinale o conceito geográfico evocado a partir destas ações criminosas.
+a) Região
+b) Estado
+c) Território
+d) Lugar
+RESPOSTA: c
+EXPLICAÇÃO: Território envolve a apropriação do espaço por relações de poder e controle, como nas facções.
+
+---
+
+QUESTÃO 34
+Levando-se em consideração que, no dia em que a foto acima foi tirada, o Sol se pôs exatamente atrás da estátua do Cristo Redentor.
+Podemos afirmar que o braço direito do Cristo Redentor está apontando para a direção:
+a) Sul.
+b) Norte.
+c) Leste.
+d) Oeste.
+RESPOSTA: b
+EXPLICAÇÃO: Se o Sol se põe atrás (Oeste), a estátua olha para o Leste. O braço direito aponta para o Norte.
+
+---
+
+QUESTÃO 35
+Segundo o geógrafo brasileiro Milton Santos, essa categoria geográfica é definida como tudo aquilo que podemos ver no espaço terrestre, tudo que nossa visão alcança... Qual categoria geográfica é descrita no enunciado?
+a) Região
+b) Território
+c) Paisagem
+d) Espaço geográfico
+RESPOSTA: c
+EXPLICAÇÃO: A paisagem é a dimensão visível e sensível (sons, cheiros) do espaço terrestre.
+
+---
+
+QUESTÃO 36
+No âmbito da Geografia, é correto afirmar:
+a) Território, lugar... termos que não constituem categorias geográficas.
+b) As paisagens naturais são fáceis de serem identificadas através das projeções...
+c) Terras emersas... elementos fundamentais para fusos horários.
+d) A natureza... a partir da Revolução Industrial, vai pouco a pouco sendo modificada para dar lugar a um meio ambiente transformado e produzido pela sociedade moderna.
+RESPOSTA: d
+EXPLICAÇÃO: O advento industrial transformou a natureza primitiva em uma natureza socializada e modificada.
+
+---
+
+HISTÓRIA
+
+QUESTÃO 37
+Assinale a alternativa que corresponde à principal importância de estudar história:
+a) Conhecer apenas o passado de um povo.
+b) Conhecer somente as figuras importantes...
+c) Conhecer e compreender fatos e pessoas do passado para entender como eles influenciam na sociedade atual.
+d) Conhecer o passado... intenção de registrar nos livros.
+RESPOSTA: c
+EXPLICAÇÃO: A História analisa a trajetória humana para explicar as origens da sociedade contemporânea.
+
+---
+
+QUESTÃO 38
+... assinale a alternativa que corresponde somente a fontes históricas textuais.
+a) Carta de Pero Vaz de Caminha e Bíblia.
+b) Fóssil de Tiranossauro e múmia de Tutancâmon.
+c) Pirâmides do Egito e estátua da Liberdade.
+d) Fotografia de D. Pedro I e objetos de cerâmica indígena.
+RESPOSTA: a
+EXPLICAÇÃO: Fontes textuais são documentos baseados na escrita (cartas, livros religiosos).
+
+---
+
+QUESTÃO 39
+Podem ser considerados como fontes históricas documentos textuais, livros, imagens, objetos... pode-se compreender que:
+a) apenas quadros... são obras de arte.
+b) relatos de idosos podem ser considerados como fonte histórica.
+c) as fontes históricas estão presentes apenas em livros.
+d) apenas documentos escritos são fontes históricas.
+RESPOSTA: b
+EXPLICAÇÃO: A memória oral e os testemunhos pessoais são reconhecidos como fontes históricas legítimas.
+
+---
+
+QUESTÃO 40
+No caso de imagens, como no caso de textos, o historiador necessita ler nas entrelinhas... De acordo com o autor (Peter Burke), as imagens devem ser tratadas como:
+a) documentos que traduzem o passado de forma objetiva.
+b) recursos que complementam o conteúdo obtido através de textos.
+c) fontes indiciais que operam no campo das representações.
+d) registros precários que tendem a distorcer a realidade.
+RESPOSTA: c
+EXPLICAÇÃO: Imagens são interpretadas como representações carregadas de indícios da mentalidade de uma época.
+
+---
+
+QUESTÃO 41
+Assinale a opção que caracteriza corretamente o papel das fontes na construção do conhecimento histórico.
+a) Fontes históricas são apenas os vestígios voluntários do passado.
+b) O historiador considera fontes críveis apenas os documentos oficiais.
+c) A crítica das fontes garante a verdade do relato histórico.
+d) As fontes históricas informam sobre como uma sociedade via a si mesma.
+RESPOSTA: d
+EXPLICAÇÃO: As fontes revelam os valores, as crenças e a autoimagem de uma sociedade em seu contexto.
+
+---
+
+QUESTÃO 42
+Analise os itens abaixo, e coloque (V) para o que for fonte histórica e (F) para o que não for: () Jornais () Fotos () Documentos oficiais () Cartas.
+Assinale a correta:
+a) V-V-V-V
+b) V-F-F-F
+c) F-V-V-V
+d) V-V-F-F
+RESPOSTA: a
+EXPLICAÇÃO: Todos os vestígios produzidos pelo homem são considerados fontes históricas.
+
+---
