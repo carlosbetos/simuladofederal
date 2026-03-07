@@ -3,6 +3,8 @@ CIÊNCIAS DA NATUREZA /  QUÍMICA
 QUESTÃO 43
 Observe a imagem: Um béquer contém água, óleo e areia. Após repouso, observam-se três fases distintas.
 Sobre esse sistema, é correto afirmar:
+
+IMAGEM: https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/questao43quimica.png
 a) Substância pura simples...
 b) Mistura homogênea...
 c) Mistura heterogênea trifásica, formada por substâncias diferentes.
