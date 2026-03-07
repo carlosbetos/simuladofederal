@@ -2,6 +2,7 @@ package com.prova.simuladofederal
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
@@ -24,8 +25,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.net.HttpURLConnection
 import java.net.URL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -34,7 +38,7 @@ data class Questao(
     val materia: String,
     val identificacao: String,
     val pergunta: String,
-    val nomeImagem: String?,
+    val caminhoImagem: String?, // Pode ser um link (http) ou nome local
     val opcoes: List<String>,
     val respostaCorreta: Int,
     val explicacao: String
@@ -70,11 +74,12 @@ fun SimuladoApp() {
     val respostasUsuario = remember { mutableStateMapOf<Int, Int>() }
 
     LaunchedEffect(Unit) {
-        // 1. TENTA PRIMEIRO A INTERNET (GIT)
+        // PRIORIDADE 1: INTERNET (GIT)
         var questoes = carregarQuestoesDaInternet()
         
-        // 2. SE FALHAR (SEM INTERNET OU ERRO), USA O LOCAL
+        // PRIORIDADE 2: LOCAL (FALLBACK)
         if (questoes.isEmpty()) {
+            Log.d("SIMULADO", "Falha ao baixar do Git. Usando arquivo local.")
             questoes = carregarQuestoesDoArquivo(context, "questoes.txt")
         }
         
@@ -87,12 +92,12 @@ fun SimuladoApp() {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 CircularProgressIndicator()
                 Spacer(modifier = Modifier.height(12.dp))
-                Text("Sincronizando com o Git...", color = Color.Gray, fontSize = 14.sp)
+                Text("Sincronizando questões do Git...", color = Color.Gray, fontSize = 14.sp)
             }
         }
     } else if (listaQuestoes.isEmpty()) {
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("Nenhuma questão encontrada. Verifique a internet.")
+            Text("Nenhuma questão encontrada. Verifique sua conexão.")
         }
     } else if (!simuladoFinalizado) {
         TelaQuestao(
@@ -130,21 +135,26 @@ fun SimuladoApp() {
 suspend fun carregarQuestoesDaInternet(): List<Questao> {
     return withContext(Dispatchers.IO) {
         try {
-            // URL com Timestamp para forçar o download da versão mais nova (burlar cache)
             val timestamp = System.currentTimeMillis()
             val urlGit = "https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/questoes.txt?t=$timestamp"
             
             val url = URL(urlGit)
-            val connection = url.openConnection()
-            connection.connectTimeout = 8000
-            connection.useCaches = false // Desabilita cache interno do Android
+            val connection = url.openConnection() as HttpURLConnection
+            connection.connectTimeout = 10000
+            connection.readTimeout = 10000
+            connection.useCaches = false
+            connection.setRequestProperty("Cache-Control", "no-cache")
             
-            val reader = BufferedReader(InputStreamReader(connection.getInputStream()))
-            val texto = reader.readText()
-            parsearConteudoTxt(texto)
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                val reader = BufferedReader(InputStreamReader(connection.getInputStream()))
+                val texto = reader.readText()
+                parsearConteudoTxt(texto)
+            } else {
+                emptyList()
+            }
         } catch (e: Exception) {
-            e.printStackTrace()
-            emptyList<Questao>()
+            Log.e("SIMULADO", "Erro na rede: ${e.message}")
+            emptyList()
         }
     }
 }
@@ -154,7 +164,10 @@ fun carregarQuestoesDoArquivo(context: Context, fileName: String): List<Questao>
         val stream = context.assets.open(fileName)
         val content = stream.bufferedReader().use { it.readText() }
         parsearConteudoTxt(content)
-    } catch (e: Exception) { emptyList() }
+    } catch (e: Exception) { 
+        Log.e("SIMULADO", "Erro no arquivo local: ${e.message}")
+        emptyList() 
+    }
 }
 
 fun parsearConteudoTxt(content: String): List<Questao> {
@@ -170,7 +183,7 @@ fun parsearConteudoTxt(content: String): List<Questao> {
             if (indexOpcaoA == -1) continue
 
             val linhaImg = linhas.find { it.startsWith("IMAGEM:") }
-            val nomeImagem = linhaImg?.substringAfter(":")?.trim()
+            val caminhoImagem = linhaImg?.substringAfter(":")?.trim()
 
             val pergunta = linhas.subList(2, indexOpcaoA)
                 .filter { !it.startsWith("IMAGEM:") }
@@ -183,13 +196,20 @@ fun parsearConteudoTxt(content: String): List<Questao> {
                 linhas[indexOpcaoA+3].substringAfter("d)").trim()
             )
 
-            val resp = linhas.find { it.contains("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
-            val indexResp = when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }
+            val respLine = linhas.find { it.contains("RESPOSTA:") }
+            val resp = respLine?.substringAfter(":")?.trim()?.lowercase() ?: "a"
+            val indexResp = when(resp) {
+                "a" -> 0
+                "b" -> 1
+                "c" -> 2
+                "d" -> 3
+                else -> 0
+            }
             
             val explicacao = linhas.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }
                 ?.substringAfter(":")?.trim() ?: ""
 
-            questoes.add(Questao(materia, id, pergunta, nomeImagem, opcoes, indexResp, explicacao))
+            questoes.add(Questao(materia, id, pergunta, caminhoImagem, opcoes, indexResp, explicacao))
         }
     }
     return questoes
@@ -214,13 +234,28 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
                 Text(questao.materia, modifier = Modifier.padding(12.dp), color = Color(0xFF2E7D32), fontWeight = FontWeight.Bold)
             }
 
-            Text(text = questao.pergunta, fontSize = 17.sp, fontWeight = FontWeight.Medium)
+            Text(text = questao.pergunta, fontSize = 17.sp, fontWeight = FontWeight.Medium, lineHeight = 24.sp)
 
-            questao.nomeImagem?.let { nome ->
-                val id = context.resources.getIdentifier(nome, "drawable", context.packageName)
-                if (id != 0) {
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Image(painter = painterResource(id = id), contentDescription = null, modifier = Modifier.fillMaxWidth().heightIn(max = 280.dp), contentScale = ContentScale.Fit)
+            // EXIBIÇÃO DA IMAGEM (DINÂMICA OU LOCAL)
+            questao.caminhoImagem?.let { caminho ->
+                Spacer(modifier = Modifier.height(16.dp))
+                Card(elevation = CardDefaults.cardElevation(4.dp)) {
+                    if (caminho.startsWith("http")) {
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(caminho)
+                                .crossfade(true)
+                                .build(),
+                            contentDescription = "Imagem da questão",
+                            modifier = Modifier.fillMaxWidth().heightIn(max = 300.dp),
+                            contentScale = ContentScale.Fit
+                        )
+                    } else {
+                        val id = context.resources.getIdentifier(caminho, "drawable", context.packageName)
+                        if (id != 0) {
+                            Image(painter = painterResource(id = id), contentDescription = null, modifier = Modifier.fillMaxWidth().heightIn(max = 280.dp), contentScale = ContentScale.Fit)
+                        }
+                    }
                 }
             }
 
@@ -256,7 +291,7 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
                         Text("Explicação do Professor", fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
                     }
                     Card(modifier = Modifier.fillMaxWidth().padding(top = 8.dp), colors = CardDefaults.cardColors(containerColor = Color(0xFFF9FBE7))) {
-                        Text(text = questao.explicacao, modifier = Modifier.padding(16.dp), fontSize = 14.sp, fontStyle = FontStyle.Italic)
+                        Text(text = questao.explicacao, modifier = Modifier.padding(16.dp), fontSize = 14.sp, fontStyle = FontStyle.Italic, lineHeight = 22.sp)
                     }
                 }
             }
@@ -280,13 +315,13 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
 @Composable
 fun TelaDesempenho(resultados: List<ResultadoMateria>, onReiniciar: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize().padding(24.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("Simulado Concluído", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
+        Text("Fim do Simulado", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
         Spacer(modifier = Modifier.height(24.dp))
         val totalA = resultados.sumOf { it.acertos }
         val totalQ = resultados.sumOf { it.total }
         Card(modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = Color(0xFFE8F5E9))) {
             Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Seu Resultado")
+                Text("Desempenho Geral")
                 Text("$totalA de $totalQ", fontSize = 48.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF2E7D32))
             }
         }

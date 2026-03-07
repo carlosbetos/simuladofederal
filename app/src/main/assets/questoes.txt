@@ -116,7 +116,7 @@ EXPLICAÇÃO: Na alternativa B, "Para mim" indica o ponto de vista ou opinião d
 QUESTÃO 07
 Considere as afirmações relacionadas à leitura dos textos 1 e 2. Mundo Monstro: "PAGUÊ R$ 380,00 POR ESTA CALÇA! [...] R$ 75,00 POR UM LIVRO? ABSURDO!!".
 
-IMAGEM:tirinha_questao7
+IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/tirinha_questao7.png
 I- O texto 1 faz uma crítica ao surgimento de livrarias na atualidade;
 o texto 2 faz uma crítica ao leitor jovem.
 II- O texto 1 critica o apelo mercadológico no mercado editorial, especialmente ao falar em "mcdonaldização" do hábito de ler;
@@ -610,7 +610,7 @@ EXPLICAÇÃO: Em unicelulares, a mitose é o processo de reprodução assexuada 
 QUESTÃO 48
 Analise o esquema das ploidias (A: 2n->2n; B: n->n; C: 2n->n,n,n,n). Representam:
 
-IMAGEM: esquema_questao_48
+IMAGEM: https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/esquema_questao_48.png
 
 a) meiose, meiose e mitose.
 b) mitose, meiose e meiose.
