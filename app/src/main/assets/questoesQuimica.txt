@@ -1,0 +1,94 @@
+CIÊNCIAS DA NATUREZA /  QUÍMICA
+
+QUESTÃO 43
+Observe a imagem: Um béquer contém água, óleo e areia. Após repouso, observam-se três fases distintas.
+Sobre esse sistema, é correto afirmar:
+a) Substância pura simples...
+b) Mistura homogênea...
+c) Mistura heterogênea trifásica, formada por substâncias diferentes.
+d) Substância composta em três estados físicos.
+RESPOSTA: c
+EXPLICAÇÃO: O sistema apresenta separação visível de seus três componentes.
+
+---
+
+QUESTÃO 44
+Considere: Oxigênio (O2), Ozônio (O3), Água (H2O), Gás carbônico (CO2). Sobre a classificação:
+a) O2 e O3 são compostas.
+b) H2O é substância simples...
+c) O2 e O3 são substâncias simples; H2O e CO2 são substâncias compostas.
+d) Todas são misturas gasosas puras.
+RESPOSTA: c
+EXPLICAÇÃO: Simples possuem um elemento; compostas possuem dois ou mais elementos.
+
+---
+
+QUESTÃO 45
+Em um dia quente, cubos de gelo são colocados em um copo com água.
+Após alguns minutos, parte do gelo derrete... Sobre esse processo:
+a) O gelo sofre vaporização...
+b) O gelo sofre fusão, absorvendo energia térmica do meio externo.
+c) O processo é exotérmico...
+d) Ocorre reação química...
+RESPOSTA: b
+EXPLICAÇÃO: Fusão é a transição do estado sólido para o líquido com absorção de calor.
+
+---
+
+QUESTÃO 46
+Procedimentos: I. Queima de papel; II. Açúcar em água; III. Amassar lata.
+Apenas fenômenos físicos em:
+a) I e III, apenas.
+b) I, apenas
+c) II e III, apenas.
+d) I, II e III.
+RESPOSTA: c
+EXPLICAÇÃO: A queima é fenômeno químico; dissolução e deformação mecânica são físicos.
+
+---
+
+QUESTÃO 47
+Desta forma, nos organismos unicelulares, a mitose será responsável por:
+a) formar gametas...
+b) estimular o crescimento...
+c) gerar descendentes geneticamente iguais.
+d) produzir número equivalente de células da meiose.
+RESPOSTA: c
+EXPLICAÇÃO: Em unicelulares, a mitose é o processo de reprodução assexuada (clonagem).
+
+---
+
+QUESTÃO 48
+Analise o esquema das ploidias (A: 2n->2n; B: n->n; C: 2n->n,n,n,n). Representam:
+
+IMAGEM: https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/esquema_questao_48.png
+
+a) meiose, meiose e mitose.
+b) mitose, meiose e meiose.
+c) meiose, mitose e mitose.
+d) mitose, mitose e meiose.
+RESPOSTA: d
+EXPLICAÇÃO: Mitose mantém a ploidia; meiose reduz a carga cromossômica à metade.
+
+---
+
+QUESTÃO 49
+Na superfície de uma lagoa são encontradas algas microscópicas fotossintetizantes... texto implica os conceitos de:
+a) indivíduo e biotipo.
+b) comunidade e bioma.
+c) população e biocenose.
+d) habitat e nicho ecológico
+RESPOSTA: d
+EXPLICAÇÃO: Habitat é o local físico; nicho ecológico é a função e relações do ser no meio.
+
+---
+
+QUESTÃO 50
+"O ciclo celular é regulado por uma série de proteínas que garantem a divisão celular ordenada e precisa" (Alberts et al., 2014).
+Qual evento abaixo ocorre durante a fase S do ciclo celular?
+a) Duplicação de DNA
+b) Formação de proteínas
+c) Formação do fuso mitótico
+d) Checagem de danos do DNA
+RESPOSTA: a
+EXPLICAÇÃO: A fase S (síntese) é marcada especificamente pela replicação fiel do DNA.
