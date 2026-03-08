@@ -46,7 +46,7 @@ data class Materia(val nome: String, val arquivo: String, val icone: String)
 data class Questao(val materia: String, val identificacao: String, val pergunta: String, val caminhoImagem: String?, val opcoes: List<String>, val respostaCorreta: Int, val explicacao: String)
 data class ResultadoMateria(val materia: String, var total: Int = 0, var acertos: Int = 0)
 data class GlossarioItem(val termo: String, val definicao: String, val exemplo: String)
-data class VideoItem(val titulo: String, val descricao: String, val url: String)
+data class VideoItem(val titulo: String, val url: String)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,7 +97,6 @@ fun AppNavegacao() {
     }
 }
 
-// --- TELA PRINCIPAL (MENU) ---
 @Composable
 fun TelaPrincipal(onSimuladosClick: () -> Unit, onGlossarioClick: () -> Unit, onVideosClick: () -> Unit) {
     Column(
@@ -106,10 +105,10 @@ fun TelaPrincipal(onSimuladosClick: () -> Unit, onGlossarioClick: () -> Unit, on
         verticalArrangement = Arrangement.Center
     ) {
         Text("Federal Simu", fontSize = 36.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF1B5E20))
-        Text("Preparação para Escolas Federais", fontSize = 14.sp, color = Color.Gray)
+        Text("Preparação de Elite", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.height(48.dp))
 
-        MenuButton("Questões e Simulados", "Pratique por disciplina", Icons.Default.PlayArrow, Color(0xFF1B5E20), onSimuladosClick)
+        MenuButton("Iniciar Simulado", "Pratique por disciplina", Icons.Default.PlayArrow, Color(0xFF1B5E20), onSimuladosClick)
         MenuButton("Glossário", "Termos importantes", Icons.Default.Info, Color(0xFF2E7D32), onGlossarioClick)
         MenuButton("Aulas em Vídeo", "Dicas do YouTube", Icons.Default.Search, Color(0xFF388E3C), onVideosClick)
     }
@@ -134,16 +133,17 @@ fun MenuButton(titulo: String, subtitulo: String, icone: ImageVector, cor: Color
     }
 }
 
-// --- TELA GLOSSÁRIO ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TelaGlossario(onVoltar: () -> Unit) {
     var glossario by remember { mutableStateOf<List<GlossarioItem>>(emptyList()) }
     var filtro by remember { mutableStateOf("") }
     var carregando by remember { mutableStateOf(true) }
+    val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        glossario = carregarGlossarioDoGit()
+        val remoto = carregarGlossarioDoGit()
+        glossario = if (remoto.isNotEmpty()) remoto else carregarGlossarioLocal(context)
         carregando = false
     }
 
@@ -168,9 +168,12 @@ fun TelaGlossario(onVoltar: () -> Unit) {
             if (carregando) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             } else {
-                val listaFiltrada = glossario.filter { it.termo.contains(filtro, ignoreCase = true) }
+                val listaExibicao = glossario
+                    .filter { it.termo.contains(filtro, ignoreCase = true) }
+                    .sortedBy { it.termo }
+
                 Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                    listaFiltrada.forEach { item ->
+                    listaExibicao.forEach { item ->
                         Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), shape = RoundedCornerShape(12.dp)) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 Text(item.termo, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color(0xFF1B5E20))
@@ -178,7 +181,8 @@ fun TelaGlossario(onVoltar: () -> Unit) {
                                 Text(item.definicao, fontSize = 15.sp)
                                 if (item.exemplo.isNotEmpty()) {
                                     Spacer(modifier = Modifier.height(10.dp))
-                                    Text("💡 Exemplo: ${item.exemplo}", fontSize = 14.sp, fontStyle = FontStyle.Italic, color = Color.Gray)
+                                    Text("💡 Exemplo:", fontWeight = FontWeight.Bold, fontSize = 13.sp, color = Color(0xFF2E7D32))
+                                    Text(item.exemplo, fontSize = 14.sp, fontStyle = FontStyle.Italic)
                                 }
                             }
                         }
@@ -189,7 +193,6 @@ fun TelaGlossario(onVoltar: () -> Unit) {
     }
 }
 
-// --- TELA VÍDEOS ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TelaVideos(onVoltar: () -> Unit) {
@@ -198,7 +201,8 @@ fun TelaVideos(onVoltar: () -> Unit) {
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        videos = carregarVideosDoGit()
+        val remoto = carregarVideosDoGit()
+        videos = if (remoto.isNotEmpty()) remoto else carregarVideosLocal(context)
         carregando = false
     }
 
@@ -227,10 +231,7 @@ fun TelaVideos(onVoltar: () -> Unit) {
                                 Icon(Icons.Default.PlayArrow, contentDescription = null, tint = Color.White)
                             }
                             Spacer(modifier = Modifier.width(16.dp))
-                            Column {
-                                Text(video.titulo, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                                Text(video.descricao, fontSize = 13.sp, color = Color.Gray)
-                            }
+                            Text(video.titulo, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                         }
                     }
                 }
@@ -239,20 +240,69 @@ fun TelaVideos(onVoltar: () -> Unit) {
     }
 }
 
-// --- LÓGICA DE CARREGAMENTO (GIT) ---
+// --- LÓGICA DE PARSE DE ARQUIVOS (CAPTURANDO LINHAS SEGUINTES) ---
+fun parsearGlossario(texto: String): List<GlossarioItem> {
+    return texto.split("---").mapNotNull { bloco ->
+        val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
+        if (linhas.isEmpty()) return@mapNotNull null
+        
+        var termo = ""
+        var oQueE = ""
+        var exemplo = ""
+        
+        for (i in linhas.indices) {
+            val linha = linhas[i]
+            when {
+                linha.startsWith("Termo:", ignoreCase = true) -> {
+                    termo = linha.substringAfter(":").trim()
+                    if (termo.isEmpty() && i + 1 < linhas.size) termo = linhas[i+1]
+                }
+                linha.startsWith("O que é:", ignoreCase = true) -> {
+                    oQueE = linha.substringAfter(":").trim()
+                    if (oQueE.isEmpty() && i + 1 < linhas.size) oQueE = linhas[i+1]
+                }
+                linha.startsWith("Exemplo:", ignoreCase = true) -> {
+                    exemplo = linha.substringAfter(":").trim()
+                    if (exemplo.isEmpty() && i + 1 < linhas.size) exemplo = linhas[i+1]
+                }
+            }
+        }
+        if (termo.isNotBlank()) GlossarioItem(termo, oQueE, exemplo) else null
+    }
+}
+
+fun parsearVideos(texto: String): List<VideoItem> {
+    return texto.split("---").mapNotNull { bloco ->
+        val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
+        if (linhas.isEmpty()) return@mapNotNull null
+        
+        var tema = ""
+        var link = ""
+        
+        for (i in linhas.indices) {
+            val linha = linhas[i]
+            when {
+                linha.startsWith("Tema:", ignoreCase = true) -> {
+                    tema = linha.substringAfter(":").trim()
+                    if (tema.isEmpty() && i + 1 < linhas.size) tema = linhas[i+1]
+                }
+                linha.startsWith("Link:", ignoreCase = true) -> {
+                    link = linha.substringAfter(":").trim()
+                    if (link.isEmpty() && i + 1 < linhas.size) link = linhas[i+1]
+                }
+            }
+        }
+        if (tema.isNotBlank() && link.isNotBlank()) VideoItem(tema, link) else null
+    }
+}
+
+// --- CARREGAMENTO GIT ---
 suspend fun carregarGlossarioDoGit(): List<GlossarioItem> {
     return withContext(Dispatchers.IO) {
         try {
             val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/glossario.txt?t=${System.currentTimeMillis()}")
             val content = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
-            content.split("---").map { bloco ->
-                val linhas = bloco.trim().lines().map { it.trim() }
-                GlossarioItem(
-                    termo = linhas.find { it.startsWith("Termo:") }?.substringAfter(":")?.trim() ?: "",
-                    definicao = linhas.find { it.startsWith("O que é:") }?.substringAfter(":")?.trim() ?: "",
-                    exemplo = linhas.find { it.startsWith("Exemplo:") }?.substringAfter(":")?.trim() ?: ""
-                )
-            }.filter { it.termo.isNotEmpty() }
+            parsearGlossario(content)
         } catch (e: Exception) { emptyList() }
     }
 }
@@ -262,38 +312,36 @@ suspend fun carregarVideosDoGit(): List<VideoItem> {
         try {
             val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/videos.txt?t=${System.currentTimeMillis()}")
             val content = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
-            content.split("---").map { bloco ->
-                val linhas = bloco.trim().lines().map { it.trim() }
-                VideoItem(
-                    titulo = linhas.find { it.startsWith("Título:") }?.substringAfter(":")?.trim() ?: "",
-                    descricao = linhas.find { it.startsWith("Descrição:") }?.substringAfter(":")?.trim() ?: "",
-                    url = linhas.find { it.startsWith("URL:") }?.substringAfter(":")?.trim() ?: ""
-                )
-            }.filter { it.titulo.isNotEmpty() }
+            parsearVideos(content)
         } catch (e: Exception) { emptyList() }
     }
 }
 
-// --- TELA SELEÇÃO MATÉRIA ---
+// --- CARREGAMENTO LOCAL ---
+fun carregarGlossarioLocal(context: Context): List<GlossarioItem> {
+    return try {
+        val content = context.assets.open("glossario.txt").bufferedReader().use { it.readText() }
+        parsearGlossario(content)
+    } catch (e: Exception) { emptyList() }
+}
+
+fun carregarVideosLocal(context: Context): List<VideoItem> {
+    return try {
+        val content = context.assets.open("videos.txt").bufferedReader().use { it.readText() }
+        parsearVideos(content)
+    } catch (e: Exception) { emptyList() }
+}
+
+// --- COMPONENTES DO SIMULADO ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TelaSelecaoMateria(materias: List<Materia>, onMateriaEscolhida: (Materia) -> Unit, onVoltar: () -> Unit) {
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Escolha a Matéria") },
-                navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }
-            )
-        }
+        topBar = { TopAppBar(title = { Text("Escolha a Matéria") }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }
     ) { padding ->
         Column(modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())) {
             materias.forEach { materia ->
-                Card(
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { onMateriaEscolhida(materia) },
-                    shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
-                    elevation = CardDefaults.cardElevation(2.dp)
-                ) {
+                Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { onMateriaEscolhida(materia) }, shape = RoundedCornerShape(16.dp)) {
                     Row(modifier = Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
                         Text(materia.icone, fontSize = 32.sp)
                         Spacer(modifier = Modifier.width(16.dp))
@@ -319,7 +367,7 @@ fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
         carregando = true
         var questoes = carregarQuestoesDaInternet(materia.arquivo)
         if (questoes.isEmpty()) {
-            questoes = carregarQuestoesDoArquivo(context, "questoes.txt")
+            questoes = carregarQuestoesDoArquivo(context, materia.arquivo)
         }
         listaQuestoes = questoes
         carregando = false
@@ -362,7 +410,8 @@ suspend fun carregarQuestoesDaInternet(nomeArquivo: String): List<Questao> {
 
 fun carregarQuestoesDoArquivo(context: Context, fileName: String): List<Questao> {
     return try {
-        val content = context.assets.open(fileName).bufferedReader().use { it.readText() }
+        val stream = context.assets.open(fileName)
+        val content = stream.bufferedReader().use { it.readText() }
         parsearConteudoTxt(content)
     } catch (e: Exception) { emptyList() }
 }
