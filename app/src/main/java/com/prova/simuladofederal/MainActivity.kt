@@ -1,6 +1,8 @@
 package com.prova.simuladofederal
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -13,12 +15,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -36,27 +41,12 @@ import java.net.URL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-data class Materia(
-    val nome: String,
-    val arquivo: String,
-    val icone: String
-)
-
-data class Questao(
-    val materia: String,
-    val identificacao: String,
-    val pergunta: String,
-    val caminhoImagem: String?,
-    val opcoes: List<String>,
-    val respostaCorreta: Int,
-    val explicacao: String
-)
-
-data class ResultadoMateria(
-    val materia: String,
-    var total: Int = 0,
-    var acertos: Int = 0
-)
+// --- MODELOS DE DADOS ---
+data class Materia(val nome: String, val arquivo: String, val icone: String)
+data class Questao(val materia: String, val identificacao: String, val pergunta: String, val caminhoImagem: String?, val opcoes: List<String>, val respostaCorreta: Int, val explicacao: String)
+data class ResultadoMateria(val materia: String, var total: Int = 0, var acertos: Int = 0)
+data class GlossarioItem(val termo: String, val definicao: String, val exemplo: String)
+data class VideoItem(val titulo: String, val descricao: String, val url: String)
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,7 +54,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MaterialTheme(colorScheme = lightColorScheme(primary = Color(0xFF1B5E20))) {
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    SimuladoManager()
+                    AppNavegacao()
                 }
             }
         }
@@ -72,10 +62,10 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun SimuladoManager() {
-    // Usar o nome da matéria para salvar o estado no giro
-    var materiaEscolhidaNome by rememberSaveable { mutableStateOf<String?>(null) }
-    
+fun AppNavegacao() {
+    var telaAtual by rememberSaveable { mutableStateOf("home") }
+    var materiaSelecionadaNome by rememberSaveable { mutableStateOf<String?>(null) }
+
     val materias = listOf(
         Materia("Português", "questoesPortugues.txt", "📚"),
         Materia("Matemática", "questoesMatematica.txt", "📐"),
@@ -86,37 +76,229 @@ fun SimuladoManager() {
         Materia("Simulado Geral", "questoes.txt", "📝")
     )
 
-    val materiaSelecionada = materias.find { it.nome == materiaEscolhidaNome }
+    val materiaSelecionada = materias.find { it.nome == materiaSelecionadaNome }
 
-    if (materiaSelecionada == null) {
-        TelaSelecaoMateria(materias) { materiaEscolhidaNome = it.nome }
-    } else {
-        SimuladoApp(materiaSelecionada) { materiaEscolhidaNome = null }
+    when (telaAtual) {
+        "home" -> TelaPrincipal(
+            onSimuladosClick = { telaAtual = "selecao_materia" },
+            onGlossarioClick = { telaAtual = "glossario" },
+            onVideosClick = { telaAtual = "videos" }
+        )
+        "selecao_materia" -> TelaSelecaoMateria(materias, { 
+            materiaSelecionadaNome = it.nome
+            telaAtual = "simulado"
+        }, { telaAtual = "home" })
+        "simulado" -> SimuladoApp(materiaSelecionada!!) {
+            materiaSelecionadaNome = null
+            telaAtual = "home"
+        }
+        "glossario" -> TelaGlossario { telaAtual = "home" }
+        "videos" -> TelaVideos { telaAtual = "home" }
+    }
+}
+
+// --- TELA PRINCIPAL (MENU) ---
+@Composable
+fun TelaPrincipal(onSimuladosClick: () -> Unit, onGlossarioClick: () -> Unit, onVideosClick: () -> Unit) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(24.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text("Federal Simu", fontSize = 36.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF1B5E20))
+        Text("Preparação para Escolas Federais", fontSize = 14.sp, color = Color.Gray)
+        Spacer(modifier = Modifier.height(48.dp))
+
+        MenuButton("Questões e Simulados", "Pratique por disciplina", Icons.Default.PlayArrow, Color(0xFF1B5E20), onSimuladosClick)
+        MenuButton("Glossário", "Termos importantes", Icons.Default.Info, Color(0xFF2E7D32), onGlossarioClick)
+        MenuButton("Aulas em Vídeo", "Dicas do YouTube", Icons.Default.Search, Color(0xFF388E3C), onVideosClick)
     }
 }
 
 @Composable
-fun TelaSelecaoMateria(materias: List<Materia>, onMateriaEscolhida: (Materia) -> Unit) {
-    Column(
-        modifier = Modifier.fillMaxSize().padding(24.dp).verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
+fun MenuButton(titulo: String, subtitulo: String, icone: ImageVector, cor: Color, onClick: () -> Unit) {
+    Card(
+        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { onClick() },
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = cor),
+        elevation = CardDefaults.cardElevation(4.dp)
     ) {
-        Spacer(modifier = Modifier.height(32.dp))
-        Text("O que vamos estudar hoje?", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
-        Text("Selecione uma matéria para iniciar", fontSize = 14.sp, color = Color.Gray)
-        Spacer(modifier = Modifier.height(32.dp))
+        Row(modifier = Modifier.padding(24.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(icone, contentDescription = null, tint = Color.White, modifier = Modifier.size(32.dp))
+            Spacer(modifier = Modifier.width(20.dp))
+            Column {
+                Text(titulo, color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(subtitulo, color = Color.White.copy(alpha = 0.8f), fontSize = 13.sp)
+            }
+        }
+    }
+}
 
-        materias.forEach { materia ->
-            Card(
-                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { onMateriaEscolhida(materia) },
-                shape = RoundedCornerShape(16.dp),
-                elevation = CardDefaults.cardElevation(4.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White)
-            ) {
-                Row(modifier = Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Text(materia.icone, fontSize = 32.sp)
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Text(materia.nome, fontSize = 18.sp, fontWeight = FontWeight.Medium)
+// --- TELA GLOSSÁRIO ---
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TelaGlossario(onVoltar: () -> Unit) {
+    var glossario by remember { mutableStateOf<List<GlossarioItem>>(emptyList()) }
+    var filtro by remember { mutableStateOf("") }
+    var carregando by remember { mutableStateOf(true) }
+
+    LaunchedEffect(Unit) {
+        glossario = carregarGlossarioDoGit()
+        carregando = false
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Glossário") },
+                navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }
+            )
+        }
+    ) { padding ->
+        Column(modifier = Modifier.padding(padding).padding(16.dp)) {
+            OutlinedTextField(
+                value = filtro,
+                onValueChange = { filtro = it },
+                label = { Text("Buscar termo...") },
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = { Icon(Icons.Default.Search, null) },
+                shape = RoundedCornerShape(12.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            if (carregando) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+            } else {
+                val listaFiltrada = glossario.filter { it.termo.contains(filtro, ignoreCase = true) }
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    listaFiltrada.forEach { item ->
+                        Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), shape = RoundedCornerShape(12.dp)) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Text(item.termo, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color(0xFF1B5E20))
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Text(item.definicao, fontSize = 15.sp)
+                                if (item.exemplo.isNotEmpty()) {
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    Text("💡 Exemplo: ${item.exemplo}", fontSize = 14.sp, fontStyle = FontStyle.Italic, color = Color.Gray)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// --- TELA VÍDEOS ---
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TelaVideos(onVoltar: () -> Unit) {
+    var videos by remember { mutableStateOf<List<VideoItem>>(emptyList()) }
+    var carregando by remember { mutableStateOf(true) }
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        videos = carregarVideosDoGit()
+        carregando = false
+    }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Aulas e Dicas") },
+                navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }
+            )
+        }
+    ) { padding ->
+        if (carregando) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+        } else {
+            Column(modifier = Modifier.padding(padding).verticalScroll(rememberScrollState()).padding(16.dp)) {
+                videos.forEach { video ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
+                            context.startActivity(intent)
+                        },
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))
+                    ) {
+                        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Box(modifier = Modifier.size(50.dp).background(Color.Red, RoundedCornerShape(25.dp)), contentAlignment = Alignment.Center) {
+                                Icon(Icons.Default.PlayArrow, contentDescription = null, tint = Color.White)
+                            }
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Column {
+                                Text(video.titulo, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                                Text(video.descricao, fontSize = 13.sp, color = Color.Gray)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// --- LÓGICA DE CARREGAMENTO (GIT) ---
+suspend fun carregarGlossarioDoGit(): List<GlossarioItem> {
+    return withContext(Dispatchers.IO) {
+        try {
+            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/glossario.txt?t=${System.currentTimeMillis()}")
+            val content = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
+            content.split("---").map { bloco ->
+                val linhas = bloco.trim().lines().map { it.trim() }
+                GlossarioItem(
+                    termo = linhas.find { it.startsWith("Termo:") }?.substringAfter(":")?.trim() ?: "",
+                    definicao = linhas.find { it.startsWith("O que é:") }?.substringAfter(":")?.trim() ?: "",
+                    exemplo = linhas.find { it.startsWith("Exemplo:") }?.substringAfter(":")?.trim() ?: ""
+                )
+            }.filter { it.termo.isNotEmpty() }
+        } catch (e: Exception) { emptyList() }
+    }
+}
+
+suspend fun carregarVideosDoGit(): List<VideoItem> {
+    return withContext(Dispatchers.IO) {
+        try {
+            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/videos.txt?t=${System.currentTimeMillis()}")
+            val content = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
+            content.split("---").map { bloco ->
+                val linhas = bloco.trim().lines().map { it.trim() }
+                VideoItem(
+                    titulo = linhas.find { it.startsWith("Título:") }?.substringAfter(":")?.trim() ?: "",
+                    descricao = linhas.find { it.startsWith("Descrição:") }?.substringAfter(":")?.trim() ?: "",
+                    url = linhas.find { it.startsWith("URL:") }?.substringAfter(":")?.trim() ?: ""
+                )
+            }.filter { it.titulo.isNotEmpty() }
+        } catch (e: Exception) { emptyList() }
+    }
+}
+
+// --- TELA SELEÇÃO MATÉRIA ---
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TelaSelecaoMateria(materias: List<Materia>, onMateriaEscolhida: (Materia) -> Unit, onVoltar: () -> Unit) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Escolha a Matéria") },
+                navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }
+            )
+        }
+    ) { padding ->
+        Column(modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())) {
+            materias.forEach { materia ->
+                Card(
+                    modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { onMateriaEscolhida(materia) },
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    elevation = CardDefaults.cardElevation(2.dp)
+                ) {
+                    Row(modifier = Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Text(materia.icone, fontSize = 32.sp)
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(materia.nome, fontSize = 18.sp, fontWeight = FontWeight.Medium)
+                    }
                 }
             }
         }
@@ -130,8 +312,6 @@ fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
     var carregando by remember { mutableStateOf(true) }
     var indiceQuestao by rememberSaveable { mutableIntStateOf(0) }
     var simuladoFinalizado by rememberSaveable { mutableStateOf(false) }
-    
-    // Armazenar as estatísticas e as respostas já dadas para persistirem no giro
     val estatisticas = remember { mutableStateMapOf<String, ResultadoMateria>() }
     val respostasUsuario = remember { mutableStateMapOf<Int, Int>() }
 
@@ -146,20 +326,7 @@ fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
     }
 
     if (carregando) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                CircularProgressIndicator()
-                Spacer(modifier = Modifier.height(12.dp))
-                Text("Baixando questões de ${materia.nome}...", color = Color.Gray)
-            }
-        }
-    } else if (listaQuestoes.isEmpty()) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Erro ao carregar questões.")
-                Button(onClick = onVoltarMenu) { Text("Voltar") }
-            }
-        }
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
     } else if (!simuladoFinalizado) {
         TelaQuestao(
             questao = listaQuestoes[indiceQuestao],
@@ -175,12 +342,7 @@ fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
                     if (selecionado == q.respostaCorreta) status.acertos++
                     respostasUsuario[indiceQuestao] = selecionado
                 }
-
-                if (indiceQuestao < listaQuestoes.size - 1) {
-                    indiceQuestao++
-                } else {
-                    simuladoFinalizado = true
-                }
+                if (indiceQuestao < listaQuestoes.size - 1) indiceQuestao++ else simuladoFinalizado = true
             }
         )
     } else {
@@ -191,24 +353,16 @@ fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
 suspend fun carregarQuestoesDaInternet(nomeArquivo: String): List<Questao> {
     return withContext(Dispatchers.IO) {
         try {
-            val timestamp = System.currentTimeMillis()
-            val urlGit = "https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$nomeArquivo?t=$timestamp"
-            val url = URL(urlGit)
-            val connection = url.openConnection() as HttpURLConnection
-            connection.connectTimeout = 10000
-            connection.useCaches = false
-            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-                val texto = connection.inputStream.bufferedReader().use { it.readText() }
-                parsearConteudoTxt(texto)
-            } else emptyList()
+            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$nomeArquivo?t=${System.currentTimeMillis()}")
+            val texto = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
+            parsearConteudoTxt(texto)
         } catch (e: Exception) { emptyList() }
     }
 }
 
 fun carregarQuestoesDoArquivo(context: Context, fileName: String): List<Questao> {
     return try {
-        val stream = context.assets.open(fileName)
-        val content = stream.bufferedReader().use { it.readText() }
+        val content = context.assets.open(fileName).bufferedReader().use { it.readText() }
         parsearConteudoTxt(content)
     } catch (e: Exception) { emptyList() }
 }
@@ -219,23 +373,16 @@ fun parsearConteudoTxt(content: String): List<Questao> {
     for (bloco in blocos) {
         val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
         if (linhas.size >= 5) {
-            val materia = linhas[0]
-            val id = linhas[1]
-            val indexOpcaoA = linhas.indexOfFirst { it.startsWith("a)") }
-            if (indexOpcaoA == -1) continue
-            val linhaImg = linhas.find { it.startsWith("IMAGEM:") }
-            val caminhoImagem = linhaImg?.substringAfter(":")?.trim()
-            val pergunta = linhas.subList(2, indexOpcaoA).filter { !it.startsWith("IMAGEM:") }.joinToString("\n")
-            val opcoes = listOf(
-                linhas[indexOpcaoA].substringAfter("a)").trim(),
-                linhas[indexOpcaoA+1].substringAfter("b)").trim(),
-                linhas[indexOpcaoA+2].substringAfter("c)").trim(),
-                linhas[indexOpcaoA+3].substringAfter("d)").trim()
-            )
+            val materia = linhas[0]; val id = linhas[1]
+            val idxA = linhas.indexOfFirst { it.startsWith("a)") }
+            if (idxA == -1) continue
+            val img = linhas.find { it.startsWith("IMAGEM:") }?.substringAfter(":")?.trim()
+            val perg = linhas.subList(2, idxA).filter { !it.startsWith("IMAGEM:") }.joinToString("\n")
+            val opc = listOf(linhas[idxA].substringAfter("a)").trim(), linhas[idxA+1].substringAfter("b)").trim(), linhas[idxA+2].substringAfter("c)").trim(), linhas[idxA+3].substringAfter("d)").trim())
             val resp = linhas.find { it.contains("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
-            val indexResp = when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }
-            val explicacao = linhas.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: ""
-            questoes.add(Questao(materia, id, pergunta, caminhoImagem, opcoes, indexResp, explicacao))
+            val idxResp = when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }
+            val expl = linhas.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: ""
+            questoes.add(Questao(materia, id, perg, img, opc, idxResp, expl))
         }
     }
     return questoes
@@ -255,13 +402,10 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
                 Text("$numeroAtual de $total", fontSize = 12.sp, color = Color.Gray)
             }
             LinearProgressIndicator(progress = { numeroAtual.toFloat() / total }, modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp))
-
             Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))) {
                 Text(questao.materia, modifier = Modifier.padding(12.dp), color = Color(0xFF2E7D32), fontWeight = FontWeight.Bold)
             }
-
             Text(text = questao.pergunta, fontSize = 17.sp, fontWeight = FontWeight.Medium, lineHeight = 24.sp)
-
             questao.caminhoImagem?.let { caminho ->
                 Spacer(modifier = Modifier.height(16.dp))
                 Card(elevation = CardDefaults.cardElevation(4.dp)) {
@@ -273,9 +417,7 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
                     }
                 }
             }
-
             Spacer(modifier = Modifier.height(24.dp))
-
             questao.opcoes.forEachIndexed { index, texto ->
                 val letra = when(index) { 0->"a"; 1->"b"; 2->"c"; else->"d" }
                 val cor = when {
@@ -293,15 +435,12 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
                     Text(text = "$letra) $texto", textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth())
                 }
             }
-
             AnimatedVisibility(visible = respondeu) {
                 Column(modifier = Modifier.padding(vertical = 16.dp)) {
                     Divider(color = Color.LightGray)
                     Spacer(modifier = Modifier.height(16.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(modifier = Modifier.size(36.dp).background(Color(0xFF1B5E20), RoundedCornerShape(18.dp)), contentAlignment = Alignment.Center) {
-                            Text("👨‍🏫", fontSize = 18.sp)
-                        }
+                        Box(modifier = Modifier.size(36.dp).background(Color(0xFF1B5E20), RoundedCornerShape(18.dp)), contentAlignment = Alignment.Center) { Text("👨‍🏫", fontSize = 18.sp) }
                         Spacer(modifier = Modifier.width(12.dp))
                         Text("Explicação do Professor", fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
                     }
@@ -311,7 +450,6 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
                 }
             }
         }
-
         Surface(tonalElevation = 8.dp, shadowElevation = 12.dp, modifier = Modifier.fillMaxWidth()) {
             Row(modifier = Modifier.padding(16.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (onVoltar != null) OutlinedButton(onClick = onVoltar, modifier = Modifier.weight(1f).height(52.dp)) { Text(if (numeroAtual == 1) "Sair" else "Anterior") }
