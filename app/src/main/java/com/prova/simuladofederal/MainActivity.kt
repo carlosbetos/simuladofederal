@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import org.json.JSONArray
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -42,7 +43,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 // --- MODELOS DE DADOS ---
-data class Materia(val nome: String, val arquivo: String, val icone: String)
+data class Materia(val nome: String, val pasta: String, val icone: String)
+data class SimuladoInfo(val nomeArquivo: String, val dataFormatada: String)
 data class Questao(val materia: String, val identificacao: String, val pergunta: String, val caminhoImagem: String?, val opcoes: List<String>, val respostaCorreta: Int, val explicacao: String)
 data class ResultadoMateria(val materia: String, var total: Int = 0, var acertos: Int = 0)
 data class GlossarioItem(val termo: String, val definicao: String, val exemplo: String)
@@ -64,19 +66,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavegacao() {
     var telaAtual by rememberSaveable { mutableStateOf("home") }
-    var materiaSelecionadaNome by rememberSaveable { mutableStateOf<String?>(null) }
-
-    val materias = listOf(
-        Materia("Português", "questoesPortugues.txt", "📚"),
-        Materia("Matemática", "questoesMatematica.txt", "📐"),
-        Materia("Química", "questoesQuimica.txt", "🧪"),
-        Materia("Biologia", "questoesBiologia.txt", "🧬"),
-        Materia("Geografia", "questoesGeografia.txt", "🌎"),
-        Materia("História", "questoesHistoria.txt", "⏳"),
-        Materia("Simulado Geral", "questoes.txt", "📝")
-    )
-
-    val materiaSelecionada = materias.find { it.nome == materiaSelecionadaNome }
+    var materiaSelecionada by remember { mutableStateOf<Materia?>(null) }
+    var simuladoSelecionadoArquivo by rememberSaveable { mutableStateOf<String?>(null) }
 
     when (telaAtual) {
         "home" -> TelaPrincipal(
@@ -84,12 +75,20 @@ fun AppNavegacao() {
             onGlossarioClick = { telaAtual = "glossario" },
             onVideosClick = { telaAtual = "videos" }
         )
-        "selecao_materia" -> TelaSelecaoMateria(materias, { 
-            materiaSelecionadaNome = it.nome
+        "selecao_materia" -> TelaSelecaoMateria(
+            onMateriaEscolhida = { 
+                materiaSelecionada = it
+                telaAtual = "selecao_data"
+            },
+            onVoltar = { telaAtual = "home" }
+        )
+        "selecao_data" -> TelaListaSimulados(materiaSelecionada!!, { arquivo ->
+            simuladoSelecionadoArquivo = arquivo
             telaAtual = "simulado"
-        }, { telaAtual = "home" })
-        "simulado" -> SimuladoApp(materiaSelecionada!!) {
-            materiaSelecionadaNome = null
+        }, { telaAtual = "selecao_materia" })
+        
+        "simulado" -> SimuladoApp(materiaSelecionada!!, simuladoSelecionadoArquivo!!) {
+            simuladoSelecionadoArquivo = null
             telaAtual = "home"
         }
         "glossario" -> TelaGlossario { telaAtual = "home" }
@@ -105,10 +104,10 @@ fun TelaPrincipal(onSimuladosClick: () -> Unit, onGlossarioClick: () -> Unit, on
         verticalArrangement = Arrangement.Center
     ) {
         Text("Federal Simu", fontSize = 36.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF1B5E20))
-        Text("Preparação de Elite", fontSize = 14.sp, color = Color.Gray)
+        Text("Preparação para Escolas Federais", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.height(48.dp))
 
-        MenuButton("Iniciar Simulado", "Pratique por disciplina", Icons.Default.PlayArrow, Color(0xFF1B5E20), onSimuladosClick)
+        MenuButton("Simulados por Matéria", "Escolha disciplina e data", Icons.Default.PlayArrow, Color(0xFF1B5E20), onSimuladosClick)
         MenuButton("Glossário", "Termos importantes", Icons.Default.Info, Color(0xFF2E7D32), onGlossarioClick)
         MenuButton("Aulas em Vídeo", "Dicas do YouTube", Icons.Default.Search, Color(0xFF388E3C), onVideosClick)
     }
@@ -135,209 +134,18 @@ fun MenuButton(titulo: String, subtitulo: String, icone: ImageVector, cor: Color
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TelaGlossario(onVoltar: () -> Unit) {
-    var glossario by remember { mutableStateOf<List<GlossarioItem>>(emptyList()) }
-    var filtro by remember { mutableStateOf("") }
-    var carregando by remember { mutableStateOf(true) }
-    val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        val remoto = carregarGlossarioDoGit()
-        glossario = if (remoto.isNotEmpty()) remoto else carregarGlossarioLocal(context)
-        carregando = false
-    }
+fun TelaSelecaoMateria(onMateriaEscolhida: (Materia) -> Unit, onVoltar: () -> Unit) {
+    val materias = listOf(
+        Materia("Português", "portugues", "📚"),
+        Materia("Matemática", "matematica", "📐"),
+        Materia("Química", "quimica", "🧪"),
+        Materia("Biologia", "biologia", "🧬"),
+        Materia("Geografia", "geografia", "🌎"),
+        Materia("História", "historia", "⏳")
+    )
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Glossário") },
-                navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }
-            )
-        }
-    ) { padding ->
-        Column(modifier = Modifier.padding(padding).padding(16.dp)) {
-            OutlinedTextField(
-                value = filtro,
-                onValueChange = { filtro = it },
-                label = { Text("Buscar termo...") },
-                modifier = Modifier.fillMaxWidth(),
-                leadingIcon = { Icon(Icons.Default.Search, null) },
-                shape = RoundedCornerShape(12.dp)
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            if (carregando) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
-            } else {
-                val listaExibicao = glossario
-                    .filter { it.termo.contains(filtro, ignoreCase = true) }
-                    .sortedBy { it.termo }
-
-                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                    listaExibicao.forEach { item ->
-                        Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), shape = RoundedCornerShape(12.dp)) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Text(item.termo, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color(0xFF1B5E20))
-                                Spacer(modifier = Modifier.height(6.dp))
-                                Text(item.definicao, fontSize = 15.sp)
-                                if (item.exemplo.isNotEmpty()) {
-                                    Spacer(modifier = Modifier.height(10.dp))
-                                    Text("💡 Exemplo:", fontWeight = FontWeight.Bold, fontSize = 13.sp, color = Color(0xFF2E7D32))
-                                    Text(item.exemplo, fontSize = 14.sp, fontStyle = FontStyle.Italic)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TelaVideos(onVoltar: () -> Unit) {
-    var videos by remember { mutableStateOf<List<VideoItem>>(emptyList()) }
-    var carregando by remember { mutableStateOf(true) }
-    val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        val remoto = carregarVideosDoGit()
-        videos = if (remoto.isNotEmpty()) remoto else carregarVideosLocal(context)
-        carregando = false
-    }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Aulas e Dicas") },
-                navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }
-            )
-        }
-    ) { padding ->
-        if (carregando) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
-        } else {
-            Column(modifier = Modifier.padding(padding).verticalScroll(rememberScrollState()).padding(16.dp)) {
-                videos.forEach { video ->
-                    Card(
-                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
-                            context.startActivity(intent)
-                        },
-                        colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))
-                    ) {
-                        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Box(modifier = Modifier.size(50.dp).background(Color.Red, RoundedCornerShape(25.dp)), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.PlayArrow, contentDescription = null, tint = Color.White)
-                            }
-                            Spacer(modifier = Modifier.width(16.dp))
-                            Text(video.titulo, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-// --- LÓGICA DE PARSE DE ARQUIVOS (CAPTURANDO LINHAS SEGUINTES) ---
-fun parsearGlossario(texto: String): List<GlossarioItem> {
-    return texto.split("---").mapNotNull { bloco ->
-        val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
-        if (linhas.isEmpty()) return@mapNotNull null
-        
-        var termo = ""
-        var oQueE = ""
-        var exemplo = ""
-        
-        for (i in linhas.indices) {
-            val linha = linhas[i]
-            when {
-                linha.startsWith("Termo:", ignoreCase = true) -> {
-                    termo = linha.substringAfter(":").trim()
-                    if (termo.isEmpty() && i + 1 < linhas.size) termo = linhas[i+1]
-                }
-                linha.startsWith("O que é:", ignoreCase = true) -> {
-                    oQueE = linha.substringAfter(":").trim()
-                    if (oQueE.isEmpty() && i + 1 < linhas.size) oQueE = linhas[i+1]
-                }
-                linha.startsWith("Exemplo:", ignoreCase = true) -> {
-                    exemplo = linha.substringAfter(":").trim()
-                    if (exemplo.isEmpty() && i + 1 < linhas.size) exemplo = linhas[i+1]
-                }
-            }
-        }
-        if (termo.isNotBlank()) GlossarioItem(termo, oQueE, exemplo) else null
-    }
-}
-
-fun parsearVideos(texto: String): List<VideoItem> {
-    return texto.split("---").mapNotNull { bloco ->
-        val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
-        if (linhas.isEmpty()) return@mapNotNull null
-        
-        var tema = ""
-        var link = ""
-        
-        for (i in linhas.indices) {
-            val linha = linhas[i]
-            when {
-                linha.startsWith("Tema:", ignoreCase = true) -> {
-                    tema = linha.substringAfter(":").trim()
-                    if (tema.isEmpty() && i + 1 < linhas.size) tema = linhas[i+1]
-                }
-                linha.startsWith("Link:", ignoreCase = true) -> {
-                    link = linha.substringAfter(":").trim()
-                    if (link.isEmpty() && i + 1 < linhas.size) link = linhas[i+1]
-                }
-            }
-        }
-        if (tema.isNotBlank() && link.isNotBlank()) VideoItem(tema, link) else null
-    }
-}
-
-// --- CARREGAMENTO GIT ---
-suspend fun carregarGlossarioDoGit(): List<GlossarioItem> {
-    return withContext(Dispatchers.IO) {
-        try {
-            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/glossario.txt?t=${System.currentTimeMillis()}")
-            val content = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
-            parsearGlossario(content)
-        } catch (e: Exception) { emptyList() }
-    }
-}
-
-suspend fun carregarVideosDoGit(): List<VideoItem> {
-    return withContext(Dispatchers.IO) {
-        try {
-            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/videos.txt?t=${System.currentTimeMillis()}")
-            val content = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
-            parsearVideos(content)
-        } catch (e: Exception) { emptyList() }
-    }
-}
-
-// --- CARREGAMENTO LOCAL ---
-fun carregarGlossarioLocal(context: Context): List<GlossarioItem> {
-    return try {
-        val content = context.assets.open("glossario.txt").bufferedReader().use { it.readText() }
-        parsearGlossario(content)
-    } catch (e: Exception) { emptyList() }
-}
-
-fun carregarVideosLocal(context: Context): List<VideoItem> {
-    return try {
-        val content = context.assets.open("videos.txt").bufferedReader().use { it.readText() }
-        parsearVideos(content)
-    } catch (e: Exception) { emptyList() }
-}
-
-// --- COMPONENTES DO SIMULADO ---
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TelaSelecaoMateria(materias: List<Materia>, onMateriaEscolhida: (Materia) -> Unit, onVoltar: () -> Unit) {
-    Scaffold(
-        topBar = { TopAppBar(title = { Text("Escolha a Matéria") }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }
+        topBar = { TopAppBar(title = { Text("Escolha a Disciplina") }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }
     ) { padding ->
         Column(modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())) {
             materias.forEach { materia ->
@@ -353,8 +161,87 @@ fun TelaSelecaoMateria(materias: List<Materia>, onMateriaEscolhida: (Materia) ->
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
+fun TelaListaSimulados(materia: Materia, onSimuladoEscolhido: (String) -> Unit, onVoltar: () -> Unit) {
+    var simulados by remember { mutableStateOf<List<SimuladoInfo>>(emptyList()) }
+    var carregando by remember { mutableStateOf(true) }
+    val context = LocalContext.current
+
+    LaunchedEffect(materia) {
+        val listaRemota = carregarListaSimuladosDoGit(materia.pasta)
+        simulados = if (listaRemota.isNotEmpty()) listaRemota else carregarListaSimuladosLocal(context, materia.pasta)
+        carregando = false
+    }
+
+    Scaffold(
+        topBar = { TopAppBar(title = { Text("Simulados: ${materia.nome}") }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }
+    ) { padding ->
+        if (carregando) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+        } else if (simulados.isEmpty()) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text("Nenhum simulado disponível para esta data.") }
+        } else {
+            Column(modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())) {
+                simulados.forEach { simulado ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { onSimuladoEscolhido(simulado.nomeArquivo) },
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Row(modifier = Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Default.DateRange, contentDescription = null, tint = Color(0xFF1B5E20))
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Text("Simulado de ${simulado.dataFormatada}", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// --- FUNÇÃO PARA LISTAR ARQUIVOS NO GIT (USANDO API DO GITHUB) ---
+suspend fun carregarListaSimuladosDoGit(pasta: String): List<SimuladoInfo> {
+    return withContext(Dispatchers.IO) {
+        try {
+            // API para listar conteúdos de uma pasta
+            val url = URL("https://api.github.com/repos/carlosbetos/simuladofederal/contents/app/src/main/assets/$pasta")
+            val connection = url.openConnection() as HttpURLConnection
+            connection.setRequestProperty("Accept", "application/vnd.github.v3+json")
+            
+            if (connection.responseCode == 200) {
+                val jsonStr = connection.inputStream.bufferedReader().use { it.readText() }
+                val array = JSONArray(jsonStr)
+                val lista = mutableListOf<SimuladoInfo>()
+                for (i in 0 until array.length()) {
+                    val file = array.getJSONObject(i)
+                    val name = file.getString("name")
+                    if (name.endsWith(".txt")) {
+                        lista.add(SimuladoInfo(name, extrairDataDoNome(name)))
+                    }
+                }
+                lista.sortedByDescending { it.dataFormatada }
+            } else emptyList()
+        } catch (e: Exception) { emptyList() }
+    }
+}
+
+fun carregarListaSimuladosLocal(context: Context, pasta: String): List<SimuladoInfo> {
+    return try {
+        context.assets.list(pasta)?.filter { it.endsWith(".txt") }?.map { 
+            SimuladoInfo(it, extrairDataDoNome(it))
+        } ?: emptyList()
+    } catch (e: Exception) { emptyList() }
+}
+
+fun extrairDataDoNome(nome: String): String {
+    // Exemplo: matematica-05-03-26.txt -> 05/03/26
+    val parteData = nome.substringAfter("-").substringBefore(".txt")
+    return parteData.replace("-", "/")
+}
+
+@Composable
+fun SimuladoApp(materia: Materia, nomeArquivo: String, onVoltarMenu: () -> Unit) {
     val context = LocalContext.current
     var listaQuestoes by remember { mutableStateOf<List<Questao>>(emptyList()) }
     var carregando by remember { mutableStateOf(true) }
@@ -363,11 +250,13 @@ fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
     val estatisticas = remember { mutableStateMapOf<String, ResultadoMateria>() }
     val respostasUsuario = remember { mutableStateMapOf<Int, Int>() }
 
-    LaunchedEffect(materia) {
+    LaunchedEffect(nomeArquivo) {
         carregando = true
-        var questoes = carregarQuestoesDaInternet(materia.arquivo)
+        // O caminho agora inclui a pasta da disciplina
+        val path = "${materia.pasta}/$nomeArquivo"
+        var questoes = carregarQuestoesDaInternet(path)
         if (questoes.isEmpty()) {
-            questoes = carregarQuestoesDoArquivo(context, materia.arquivo)
+            questoes = carregarQuestoesDoArquivo(context, path)
         }
         listaQuestoes = questoes
         carregando = false
@@ -398,19 +287,19 @@ fun SimuladoApp(materia: Materia, onVoltarMenu: () -> Unit) {
     }
 }
 
-suspend fun carregarQuestoesDaInternet(nomeArquivo: String): List<Questao> {
+suspend fun carregarQuestoesDaInternet(path: String): List<Questao> {
     return withContext(Dispatchers.IO) {
         try {
-            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$nomeArquivo?t=${System.currentTimeMillis()}")
+            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$path?t=${System.currentTimeMillis()}")
             val texto = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
             parsearConteudoTxt(texto)
         } catch (e: Exception) { emptyList() }
     }
 }
 
-fun carregarQuestoesDoArquivo(context: Context, fileName: String): List<Questao> {
+fun carregarQuestoesDoArquivo(context: Context, path: String): List<Questao> {
     return try {
-        val stream = context.assets.open(fileName)
+        val stream = context.assets.open(path)
         val content = stream.bufferedReader().use { it.readText() }
         parsearConteudoTxt(content)
     } catch (e: Exception) { emptyList() }
@@ -422,7 +311,7 @@ fun parsearConteudoTxt(content: String): List<Questao> {
     for (bloco in blocos) {
         val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
         if (linhas.size >= 5) {
-            val materia = linhas[0]; val id = linhas[1]
+            val mat = linhas[0]; val id = linhas[1]
             val idxA = linhas.indexOfFirst { it.startsWith("a)") }
             if (idxA == -1) continue
             val img = linhas.find { it.startsWith("IMAGEM:") }?.substringAfter(":")?.trim()
@@ -431,7 +320,7 @@ fun parsearConteudoTxt(content: String): List<Questao> {
             val resp = linhas.find { it.contains("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
             val idxResp = when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }
             val expl = linhas.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: ""
-            questoes.add(Questao(materia, id, perg, img, opc, idxResp, expl))
+            questoes.add(Questao(mat, id, perg, img, opc, idxResp, expl))
         }
     }
     return questoes
@@ -534,5 +423,167 @@ fun TelaDesempenho(resultados: List<ResultadoMateria>, onVoltar: () -> Unit) {
         }
         Spacer(modifier = Modifier.height(40.dp))
         Button(onClick = onVoltar, modifier = Modifier.fillMaxWidth().height(52.dp)) { Text("Voltar ao Menu") }
+    }
+}
+
+// --- TELA GLOSSÁRIO ---
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TelaGlossario(onVoltar: () -> Unit) {
+    var glossario by remember { mutableStateOf<List<GlossarioItem>>(emptyList()) }
+    var filtro by remember { mutableStateOf("") }
+    var carregando by remember { mutableStateOf(true) }
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        val remoto = carregarGlossarioDoGit()
+        glossario = if (remoto.isNotEmpty()) remoto else carregarGlossarioLocal(context)
+        carregando = false
+    }
+
+    Scaffold(
+        topBar = { TopAppBar(title = { Text("Glossário") }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }
+    ) { padding ->
+        Column(modifier = Modifier.padding(padding).padding(16.dp)) {
+            OutlinedTextField(
+                value = filtro,
+                onValueChange = { filtro = it },
+                label = { Text("Buscar termo...") },
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = { Icon(Icons.Default.Search, null) },
+                shape = RoundedCornerShape(12.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            if (carregando) {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+            } else {
+                val listaExibicao = glossario.filter { it.termo.contains(filtro, ignoreCase = true) }.sortedBy { it.termo }
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    listaExibicao.forEach { item ->
+                        Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), shape = RoundedCornerShape(12.dp)) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Text(item.termo, fontWeight = FontWeight.Bold, fontSize = 18.sp, color = Color(0xFF1B5E20))
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Text(item.definicao, fontSize = 15.sp)
+                                if (item.exemplo.isNotEmpty()) {
+                                    Spacer(modifier = Modifier.height(10.dp))
+                                    Text("💡 Exemplo: ${item.exemplo}", fontSize = 14.sp, fontStyle = FontStyle.Italic, color = Color.Gray)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// --- TELA VÍDEOS ---
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TelaVideos(onVoltar: () -> Unit) {
+    var videos by remember { mutableStateOf<List<VideoItem>>(emptyList()) }
+    var carregando by remember { mutableStateOf(true) }
+    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        val remoto = carregarVideosDoGit()
+        videos = if (remoto.isNotEmpty()) remoto else carregarVideosLocal(context)
+        carregando = false
+    }
+
+    Scaffold(
+        topBar = { TopAppBar(title = { Text("Aulas e Dicas") }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }
+    ) { padding ->
+        if (carregando) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+        } else {
+            Column(modifier = Modifier.padding(padding).verticalScroll(rememberScrollState()).padding(16.dp)) {
+                videos.forEach { video ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
+                            context.startActivity(intent)
+                        },
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))
+                    ) {
+                        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Box(modifier = Modifier.size(50.dp).background(Color.Red, RoundedCornerShape(25.dp)), contentAlignment = Alignment.Center) {
+                                Icon(Icons.Default.PlayArrow, contentDescription = null, tint = Color.White)
+                            }
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Text(video.titulo, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+suspend fun carregarGlossarioDoGit(): List<GlossarioItem> {
+    return withContext(Dispatchers.IO) {
+        try {
+            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/glossario.txt?t=${System.currentTimeMillis()}")
+            val content = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
+            parsearGlossario(content)
+        } catch (e: Exception) { emptyList() }
+    }
+}
+
+suspend fun carregarVideosDoGit(): List<VideoItem> {
+    return withContext(Dispatchers.IO) {
+        try {
+            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/videos.txt?t=${System.currentTimeMillis()}")
+            val content = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
+            parsearVideos(content)
+        } catch (e: Exception) { emptyList() }
+    }
+}
+
+fun carregarGlossarioLocal(context: Context): List<GlossarioItem> {
+    return try {
+        val content = context.assets.open("glossario.txt").bufferedReader().use { it.readText() }
+        parsearGlossario(content)
+    } catch (e: Exception) { emptyList() }
+}
+
+fun carregarVideosLocal(context: Context): List<VideoItem> {
+    return try {
+        val content = context.assets.open("videos.txt").bufferedReader().use { it.readText() }
+        parsearVideos(content)
+    } catch (e: Exception) { emptyList() }
+}
+
+fun parsearGlossario(texto: String): List<GlossarioItem> {
+    return texto.split("---").mapNotNull { bloco ->
+        val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
+        if (linhas.isEmpty()) return@mapNotNull null
+        var termo = ""; var oQueE = ""; var exemplo = ""
+        for (i in linhas.indices) {
+            val linha = linhas[i]
+            when {
+                linha.startsWith("Termo:", true) -> { termo = linha.substringAfter(":").trim(); if (termo.isEmpty() && i+1 < linhas.size) termo = linhas[i+1] }
+                linha.startsWith("O que é:", true) -> { oQueE = linha.substringAfter(":").trim(); if (oQueE.isEmpty() && i+1 < linhas.size) oQueE = linhas[i+1] }
+                linha.startsWith("Exemplo:", true) -> { exemplo = linha.substringAfter(":").trim(); if (exemplo.isEmpty() && i+1 < linhas.size) exemplo = linhas[i+1] }
+            }
+        }
+        if (termo.isNotBlank()) GlossarioItem(termo, oQueE, exemplo) else null
+    }
+}
+
+fun parsearVideos(texto: String): List<VideoItem> {
+    return texto.split("---").mapNotNull { bloco ->
+        val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
+        if (linhas.isEmpty()) return@mapNotNull null
+        var tema = ""; var link = ""
+        for (i in linhas.indices) {
+            val linha = linhas[i]
+            when {
+                linha.startsWith("Tema:", true) -> { tema = linha.substringAfter(":").trim(); if (tema.isEmpty() && i+1 < linhas.size) tema = linhas[i+1] }
+                linha.startsWith("Link:", true) -> { link = linha.substringAfter(":").trim(); if (link.isEmpty() && i+1 < linhas.size) link = linhas[i+1] }
+            }
+        }
+        if (tema.isNotBlank() && link.isNotBlank()) VideoItem(tema, link) else null
     }
 }
