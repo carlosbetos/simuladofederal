@@ -104,10 +104,10 @@ fun TelaPrincipal(onSimuladosClick: () -> Unit, onGlossarioClick: () -> Unit, on
         verticalArrangement = Arrangement.Center
     ) {
         Text("Federal Simu", fontSize = 36.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF1B5E20))
-        Text("Preparação para Escolas Federais", fontSize = 14.sp, color = Color.Gray)
+        Text("Preparação de Elite", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.height(48.dp))
 
-        MenuButton("Simulados por Matéria", "Escolha disciplina e data", Icons.Default.PlayArrow, Color(0xFF1B5E20), onSimuladosClick)
+        MenuButton("Iniciar Simulado", "Pratique por disciplina", Icons.Default.PlayArrow, Color(0xFF1B5E20), onSimuladosClick)
         MenuButton("Glossário", "Termos importantes", Icons.Default.Info, Color(0xFF2E7D32), onGlossarioClick)
         MenuButton("Aulas em Vídeo", "Dicas do YouTube", Icons.Default.Search, Color(0xFF388E3C), onVideosClick)
     }
@@ -180,7 +180,7 @@ fun TelaListaSimulados(materia: Materia, onSimuladoEscolhido: (String) -> Unit, 
         if (carregando) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
         } else if (simulados.isEmpty()) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text("Nenhum simulado disponível para esta data.") }
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text("Nenhum simulado disponível.") }
         } else {
             Column(modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())) {
                 simulados.forEach { simulado ->
@@ -200,15 +200,12 @@ fun TelaListaSimulados(materia: Materia, onSimuladoEscolhido: (String) -> Unit, 
     }
 }
 
-// --- FUNÇÃO PARA LISTAR ARQUIVOS NO GIT (USANDO API DO GITHUB) ---
 suspend fun carregarListaSimuladosDoGit(pasta: String): List<SimuladoInfo> {
     return withContext(Dispatchers.IO) {
         try {
-            // API para listar conteúdos de uma pasta
             val url = URL("https://api.github.com/repos/carlosbetos/simuladofederal/contents/app/src/main/assets/$pasta")
             val connection = url.openConnection() as HttpURLConnection
             connection.setRequestProperty("Accept", "application/vnd.github.v3+json")
-            
             if (connection.responseCode == 200) {
                 val jsonStr = connection.inputStream.bufferedReader().use { it.readText() }
                 val array = JSONArray(jsonStr)
@@ -216,9 +213,7 @@ suspend fun carregarListaSimuladosDoGit(pasta: String): List<SimuladoInfo> {
                 for (i in 0 until array.length()) {
                     val file = array.getJSONObject(i)
                     val name = file.getString("name")
-                    if (name.endsWith(".txt")) {
-                        lista.add(SimuladoInfo(name, extrairDataDoNome(name)))
-                    }
+                    if (name.endsWith(".txt")) lista.add(SimuladoInfo(name, extrairDataDoNome(name)))
                 }
                 lista.sortedByDescending { it.dataFormatada }
             } else emptyList()
@@ -228,14 +223,11 @@ suspend fun carregarListaSimuladosDoGit(pasta: String): List<SimuladoInfo> {
 
 fun carregarListaSimuladosLocal(context: Context, pasta: String): List<SimuladoInfo> {
     return try {
-        context.assets.list(pasta)?.filter { it.endsWith(".txt") }?.map { 
-            SimuladoInfo(it, extrairDataDoNome(it))
-        } ?: emptyList()
+        context.assets.list(pasta)?.filter { it.endsWith(".txt") }?.map { SimuladoInfo(it, extrairDataDoNome(it)) } ?: emptyList()
     } catch (e: Exception) { emptyList() }
 }
 
 fun extrairDataDoNome(nome: String): String {
-    // Exemplo: matematica-05-03-26.txt -> 05/03/26
     val parteData = nome.substringAfter("-").substringBefore(".txt")
     return parteData.replace("-", "/")
 }
@@ -252,12 +244,9 @@ fun SimuladoApp(materia: Materia, nomeArquivo: String, onVoltarMenu: () -> Unit)
 
     LaunchedEffect(nomeArquivo) {
         carregando = true
-        // O caminho agora inclui a pasta da disciplina
         val path = "${materia.pasta}/$nomeArquivo"
         var questoes = carregarQuestoesDaInternet(path)
-        if (questoes.isEmpty()) {
-            questoes = carregarQuestoesDoArquivo(context, path)
-        }
+        if (questoes.isEmpty()) { questoes = carregarQuestoesDoArquivo(context, path) }
         listaQuestoes = questoes
         carregando = false
     }
@@ -283,47 +272,74 @@ fun SimuladoApp(materia: Materia, nomeArquivo: String, onVoltarMenu: () -> Unit)
             }
         )
     } else {
-        TelaDesempenho(estatisticas.values.toList(), onVoltarMenu)
+        TelaDesempenho(materia.nome, extrairDataDoNome(nomeArquivo), estatisticas.values.toList(), onVoltarMenu)
     }
 }
 
-suspend fun carregarQuestoesDaInternet(path: String): List<Questao> {
-    return withContext(Dispatchers.IO) {
-        try {
-            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$path?t=${System.currentTimeMillis()}")
-            val texto = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
-            parsearConteudoTxt(texto)
-        } catch (e: Exception) { emptyList() }
-    }
-}
+@Composable
+fun TelaDesempenho(materiaNome: String, dataSimulado: String, resultados: List<ResultadoMateria>, onVoltar: () -> Unit) {
+    val context = LocalContext.current
+    val totalA = resultados.sumOf { it.acertos }
+    val totalQ = resultados.sumOf { it.total }
+    val pGeral = if (totalQ > 0) (totalA.toFloat() / totalQ * 100).toInt() else 0
 
-fun carregarQuestoesDoArquivo(context: Context, path: String): List<Questao> {
-    return try {
-        val stream = context.assets.open(path)
-        val content = stream.bufferedReader().use { it.readText() }
-        parsearConteudoTxt(content)
-    } catch (e: Exception) { emptyList() }
-}
-
-fun parsearConteudoTxt(content: String): List<Questao> {
-    val questoes = mutableListOf<Questao>()
-    val blocos = content.split("---")
-    for (bloco in blocos) {
-        val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
-        if (linhas.size >= 5) {
-            val mat = linhas[0]; val id = linhas[1]
-            val idxA = linhas.indexOfFirst { it.startsWith("a)") }
-            if (idxA == -1) continue
-            val img = linhas.find { it.startsWith("IMAGEM:") }?.substringAfter(":")?.trim()
-            val perg = linhas.subList(2, idxA).filter { !it.startsWith("IMAGEM:") }.joinToString("\n")
-            val opc = listOf(linhas[idxA].substringAfter("a)").trim(), linhas[idxA+1].substringAfter("b)").trim(), linhas[idxA+2].substringAfter("c)").trim(), linhas[idxA+3].substringAfter("d)").trim())
-            val resp = linhas.find { it.contains("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
-            val idxResp = when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }
-            val expl = linhas.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: ""
-            questoes.add(Questao(mat, id, perg, img, opc, idxResp, expl))
+    Column(modifier = Modifier.fillMaxSize().padding(24.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
+        Text("Simulado Concluído", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
+        Spacer(modifier = Modifier.height(24.dp))
+        Card(modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = Color(0xFFE8F5E9))) {
+            Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text("Desempenho: $pGeral%")
+                Text("$totalA de $totalQ acertos", fontSize = 48.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF2E7D32))
+            }
+        }
+        Spacer(modifier = Modifier.height(32.dp))
+        resultados.forEach { res ->
+            val p = (res.acertos.toFloat() / res.total * 100).toInt()
+            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+                Text("${res.materia}: $p%", fontWeight = FontWeight.Medium)
+                LinearProgressIndicator(progress = { res.acertos.toFloat() / res.total }, modifier = Modifier.fillMaxWidth().height(8.dp).padding(top = 4.dp))
+            }
+        }
+        Spacer(modifier = Modifier.height(40.dp))
+        Button(
+            onClick = {
+                enviarEmailRelatorio(context, materiaNome, dataSimulado, totalA, totalQ, resultados)
+                onVoltar()
+            },
+            modifier = Modifier.fillMaxWidth().height(56.dp),
+            shape = RoundedCornerShape(12.dp)
+        ) {
+            Text("Enviar Relatório e Sair", fontSize = 16.sp)
         }
     }
-    return questoes
+}
+
+fun enviarEmailRelatorio(context: Context, materia: String, data: String, acertos: Int, total: Int, detalhes: List<ResultadoMateria>) {
+    val porcentagem = if (total > 0) (acertos.toFloat() / total * 100).toInt() else 0
+    val corpoEmail = StringBuilder()
+    corpoEmail.append("Relatório de Desempenho - Federal Simu\n")
+    corpoEmail.append("--------------------------------------\n")
+    corpoEmail.append("Disciplina: $materia\n")
+    corpoEmail.append("Data do Simulado: $data\n")
+    corpoEmail.append("Resultado Geral: $porcentagem% ($acertos de $total acertos)\n\n")
+    corpoEmail.append("Desempenho por Categoria:\n")
+    detalhes.forEach {
+        val p = (it.acertos.toFloat() / it.total * 100).toInt()
+        corpoEmail.append("- ${it.materia}: $p% (${it.acertos}/${it.total})\n")
+    }
+    
+    val intent = Intent(Intent.ACTION_SENDTO).apply {
+        this.data = Uri.parse("mailto:")
+        putExtra(Intent.EXTRA_EMAIL, arrayOf("carlosbetos@gmail.com"))
+        putExtra(Intent.EXTRA_SUBJECT, "📊 Simulado Concluído: $materia ($data)")
+        putExtra(Intent.EXTRA_TEXT, corpoEmail.toString())
+    }
+    
+    try {
+        context.startActivity(Intent.createChooser(intent, "Enviar relatório via..."))
+    } catch (e: Exception) {
+        Log.e("EMAIL", "Erro ao abrir app de email")
+    }
 }
 
 @Composable
@@ -401,32 +417,6 @@ fun TelaQuestao(questao: Questao, numeroAtual: Int, total: Int, respostaJaDada: 
     }
 }
 
-@Composable
-fun TelaDesempenho(resultados: List<ResultadoMateria>, onVoltar: () -> Unit) {
-    Column(modifier = Modifier.fillMaxSize().padding(24.dp).verticalScroll(rememberScrollState()), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("Simulado Concluído", fontSize = 28.sp, fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20))
-        Spacer(modifier = Modifier.height(24.dp))
-        val totalA = resultados.sumOf { it.acertos }
-        val totalQ = resultados.sumOf { it.total }
-        Card(modifier = Modifier.fillMaxWidth(), colors = CardDefaults.cardColors(containerColor = Color(0xFFE8F5E9))) {
-            Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("$totalA de $totalQ", fontSize = 48.sp, fontWeight = FontWeight.ExtraBold, color = Color(0xFF2E7D32))
-            }
-        }
-        Spacer(modifier = Modifier.height(32.dp))
-        resultados.forEach { res ->
-            val p = (res.acertos.toFloat() / res.total * 100).toInt()
-            Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
-                Text("${res.materia}: $p%", fontWeight = FontWeight.Medium)
-                LinearProgressIndicator(progress = { res.acertos.toFloat() / res.total }, modifier = Modifier.fillMaxWidth().height(8.dp).padding(top = 4.dp))
-            }
-        }
-        Spacer(modifier = Modifier.height(40.dp))
-        Button(onClick = onVoltar, modifier = Modifier.fillMaxWidth().height(52.dp)) { Text("Voltar ao Menu") }
-    }
-}
-
-// --- TELA GLOSSÁRIO ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TelaGlossario(onVoltar: () -> Unit) {
@@ -445,14 +435,7 @@ fun TelaGlossario(onVoltar: () -> Unit) {
         topBar = { TopAppBar(title = { Text("Glossário") }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }
     ) { padding ->
         Column(modifier = Modifier.padding(padding).padding(16.dp)) {
-            OutlinedTextField(
-                value = filtro,
-                onValueChange = { filtro = it },
-                label = { Text("Buscar termo...") },
-                modifier = Modifier.fillMaxWidth(),
-                leadingIcon = { Icon(Icons.Default.Search, null) },
-                shape = RoundedCornerShape(12.dp)
-            )
+            OutlinedTextField(value = filtro, onValueChange = { filtro = it }, label = { Text("Buscar termo...") }, modifier = Modifier.fillMaxWidth(), leadingIcon = { Icon(Icons.Default.Search, null) }, shape = RoundedCornerShape(12.dp))
             Spacer(modifier = Modifier.height(16.dp))
             if (carregando) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
@@ -478,7 +461,6 @@ fun TelaGlossario(onVoltar: () -> Unit) {
     }
 }
 
-// --- TELA VÍDEOS ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TelaVideos(onVoltar: () -> Unit) {
@@ -500,17 +482,9 @@ fun TelaVideos(onVoltar: () -> Unit) {
         } else {
             Column(modifier = Modifier.padding(padding).verticalScroll(rememberScrollState()).padding(16.dp)) {
                 videos.forEach { video ->
-                    Card(
-                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable {
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
-                            context.startActivity(intent)
-                        },
-                        colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))
-                    ) {
+                    Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url)); context.startActivity(intent) }, colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))) {
                         Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-                            Box(modifier = Modifier.size(50.dp).background(Color.Red, RoundedCornerShape(25.dp)), contentAlignment = Alignment.Center) {
-                                Icon(Icons.Default.PlayArrow, contentDescription = null, tint = Color.White)
-                            }
+                            Box(modifier = Modifier.size(50.dp).background(Color.Red, RoundedCornerShape(25.dp)), contentAlignment = Alignment.Center) { Icon(Icons.Default.PlayArrow, contentDescription = null, tint = Color.White) }
                             Spacer(modifier = Modifier.width(16.dp))
                             Text(video.titulo, fontWeight = FontWeight.Bold, fontSize = 16.sp)
                         }
@@ -521,6 +495,7 @@ fun TelaVideos(onVoltar: () -> Unit) {
     }
 }
 
+// --- FUNÇÕES DE CARREGAMENTO (GIT) ---
 suspend fun carregarGlossarioDoGit(): List<GlossarioItem> {
     return withContext(Dispatchers.IO) {
         try {
@@ -542,17 +517,11 @@ suspend fun carregarVideosDoGit(): List<VideoItem> {
 }
 
 fun carregarGlossarioLocal(context: Context): List<GlossarioItem> {
-    return try {
-        val content = context.assets.open("glossario.txt").bufferedReader().use { it.readText() }
-        parsearGlossario(content)
-    } catch (e: Exception) { emptyList() }
+    return try { val content = context.assets.open("glossario.txt").bufferedReader().use { it.readText() }; parsearGlossario(content) } catch (e: Exception) { emptyList() }
 }
 
 fun carregarVideosLocal(context: Context): List<VideoItem> {
-    return try {
-        val content = context.assets.open("videos.txt").bufferedReader().use { it.readText() }
-        parsearVideos(content)
-    } catch (e: Exception) { emptyList() }
+    return try { val content = context.assets.open("videos.txt").bufferedReader().use { it.readText() }; parsearVideos(content) } catch (e: Exception) { emptyList() }
 }
 
 fun parsearGlossario(texto: String): List<GlossarioItem> {
@@ -586,4 +555,43 @@ fun parsearVideos(texto: String): List<VideoItem> {
         }
         if (tema.isNotBlank() && link.isNotBlank()) VideoItem(tema, link) else null
     }
+}
+
+suspend fun carregarQuestoesDaInternet(path: String): List<Questao> {
+    return withContext(Dispatchers.IO) {
+        try {
+            val url = URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$path?t=${System.currentTimeMillis()}")
+            val texto = url.openConnection().getInputStream().bufferedReader().use { it.readText() }
+            parsearConteudoTxt(texto)
+        } catch (e: Exception) { emptyList() }
+    }
+}
+
+fun carregarQuestoesDoArquivo(context: Context, path: String): List<Questao> {
+    return try {
+        val stream = context.assets.open(path)
+        val content = stream.bufferedReader().use { it.readText() }
+        parsearConteudoTxt(content)
+    } catch (e: Exception) { emptyList() }
+}
+
+fun parsearConteudoTxt(content: String): List<Questao> {
+    val questoes = mutableListOf<Questao>()
+    val blocos = content.split("---")
+    for (bloco in blocos) {
+        val linhas = bloco.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
+        if (linhas.size >= 5) {
+            val mat = linhas[0]; val id = linhas[1]
+            val idxA = linhas.indexOfFirst { it.startsWith("a)") }
+            if (idxA == -1) continue
+            val img = linhas.find { it.startsWith("IMAGEM:") }?.substringAfter(":")?.trim()
+            val perg = linhas.subList(2, idxA).filter { !it.startsWith("IMAGEM:") }.joinToString("\n")
+            val opc = listOf(linhas[idxA].substringAfter("a)").trim(), linhas[idxA+1].substringAfter("b)").trim(), linhas[idxA+2].substringAfter("c)").trim(), linhas[idxA+3].substringAfter("d)").trim())
+            val resp = linhas.find { it.contains("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
+            val idxResp = when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }
+            val expl = linhas.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: ""
+            questoes.add(Questao(mat, id, perg, img, opc, idxResp, expl))
+        }
+    }
+    return questoes
 }
