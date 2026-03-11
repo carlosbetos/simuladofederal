@@ -298,3 +298,15 @@ O que é:
 Algo que vem depois. No ensino técnico, é o curso feito por quem já terminou o ensino médio.
 Exemplo: Se o Gustavo já tivesse o diploma do 12º ano, faria um curso subsequente.
 
+---
+Termo:
+Léxico
+O que é:
+O conjunto de palavras que pertencem a uma determinada língua, a um autor ou a um grupo específico. É o "vocabulário" disponível para a comunicação.
+Exemplo: O léxico da obra de Maria Firmina dos Reis contém arcaísmos que refletem o vocabulário do século XIX.
+---
+Termo:
+Escravidão
+O que é:
+Sistema social e jurídico em que pessoas são tratadas como propriedade de outras, sendo privadas de sua liberdade e submetidas a trabalhos forçados.
+Exemplo: A obra Úrsula é considerada pioneira por descrever o infortúnio e o cativeiro de pessoas que viviam sob o regime de escravidão no Brasil.
