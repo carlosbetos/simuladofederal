@@ -1,652 +1,652 @@
 [
   {
     "id": 1,
-    "enunciado": "Considerando o poema de Patativa do Assaré, que aborda a variedade linguística, qual a principal mensagem transmitida sobre o conhecimento e a cultura popular?",
+    "enunciado": "Acerca da variedade linguística empregada ao longo do texto, constata-se que",
     "formula": "",
     "alternativas": [
-      "O poema sugere que o conhecimento linguístico formal é superior às expressões populares.",
-      "O autor demonstra desprezo pela educação formal ao valorizar apenas a fala regional.",
-      "A obra estabelece uma discussão crítica com poetas urbanos sobre a pureza da língua.",
-      "O texto valoriza a riqueza das diferentes formas de conhecimento e expressão, incluindo a cultura popular."
+      "a falta de conhecimento linguístico adequado comprometeu a produção do poema, que ficou incompreensível.",
+      "a linguagem empregada pelo eu lírico é reflexo do desprezo que ele demonstra pela educação formal.",
+      "o falar do eu lírico foi o motivo da discussão criada entre ele e o interlocutor, um jovem poeta urbano.",
+      "o texto valora os diferentes tipos de conhecimento, valendo-se da linguagem do poeta sertanejo."
     ],
     "resposta": 3,
-    "explicacao": "A alternativa D é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "explicacao": "O poema de Patativa do Assaré utiliza a variação linguística regional/sertaneja para exaltar que o conhecimento prático da vida ('Deus me ensinou tudo') tem tanto valor quanto o estudo formal da cidade. [cite: 36, 42, 56]"
   },
   {
     "id": 2,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "A comparação entre os textos (I e II) possibilita a percepção de que há:",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "abandono temporário das redes sociais.",
+      "alienação social no uso das tecnologias.",
+      "incerteza sobre a utilidade das tecnologias.",
+      "indiferença quanto ao uso das redes sociais."
     ],
     "resposta": 1,
-    "explicacao": "A alternativa B é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "explicacao": "As charges mostram pessoas fisicamente próximas, mas isoladas pelo uso excessivo de dispositivos, caracterizando alienação social. [cite: 71, 73, 1146]"
   },
   {
     "id": 3,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "A partir da leitura dos textos (sobre Vinícius Jr e Júlio César), conclui-se que",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho.",
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens."
+      "o texto I explora elemento de texto anterior para construir uma crítica, que revela o ponto de vista do chargista.",
+      "o texto III é histórico e, apesar de dialogar com os demais textos, é dispensável para a interpretação de l e II.",
+      "os textos I e II são essencialmente opinativos e demonstram posicionamento favorável ao jogador brasileiro.",
+      "os textos II e III podem ser definidos como 'notícias', pois personalizam a opinião do jornalista que os produziu."
     ],
-    "resposta": 3,
-    "explicacao": "A alternativa D é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 0,
+    "explicacao": "O texto I faz uma intertextualidade com a frase de Júlio César ('Veni, vidi, vici') para criticar o racismo sofrido pelo jogador. [cite: 80, 89, 94]"
   },
   {
     "id": 4,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "A crítica apresentada no texto ('Fins sem princípios') indica uma",
     "formula": "",
     "alternativas": [
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "contradição nos atos terroristas do grupo extremista Hamas, da Palestina.",
+      "desvalorização dos cursos de humanidades nas universidades brasileiras.",
+      "hierarquização das más atitudes humanas das partes envolvidas no conflito.",
+      "validação da tese de equivalência entre a causa palestina e o grupo Hamas."
     ],
-    "resposta": 0,
-    "explicacao": "A alternativa A é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 2,
+    "explicacao": "A autora critica a postura de membros da universidade que relativizam a barbárie, estabelecendo uma comparação de 'repulsividade' entre os ataques e as reações. [cite: 103, 111]"
   },
   {
     "id": 5,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "O objetivo do texto sobre a imigração brasileira para a Guiana Francesa é",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "anunciar causas para o aumento da imigração brasileira para destinos pouco conhecidos do público.",
+      "apresentar dados sobre o aumento da imigração brasileira para a Guiana Francesa nos últimos anos.",
+      "criticar a postura de um número cada vez maior de brasileiros que decide imigrar para o país vizinho.",
+      "denunciar o crescimento da entrada significativa de imigrantes ilegais brasileiros na Guiana Francesa."
     ],
-    "resposta": 2,
-    "explicacao": "A alternativa C é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 1,
+    "explicacao": "O texto tem caráter informativo, focando na exposição de estatísticas do Itamaraty sobre o crescimento da comunidade brasileira na região. [cite: 122, 123, 130]"
   },
   {
     "id": 6,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "Qual trecho apoia a ideia de que a inteligência artificial é um risco existencial para a humanidade?",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "'Richard Carter é signatário da carta da BCS... e sente que os terríveis alertas não são realistas.'",
+      "'A carta foi organizada pela Sociedade Britânica de Computação... para combater a condenação da IA.'",
+      "'Em março, líderes do setor de tecnologia assinaram uma carta pedindo uma pausa no desenvolvimento de sistemas poderosos de inteligência artificial.'",
+      "'Assim como outros signatários da carta, ele acredita que a regulamentação vai ser necessária para evitar o uso indevido da inteligência artificial.'"
     ],
-    "resposta": 1,
-    "explicacao": "A alternativa B é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 2,
+    "explicacao": "O pedido de pausa no desenvolvimento é fundamentado no temor de riscos existenciais mencionados por líderes do setor. [cite: 142, 143, 158]"
   },
   {
     "id": 7,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "Em qual alternativa a expressão destacada exemplifica o uso de estratégia coloquial para chamar a atenção do leitor?",
     "formula": "",
     "alternativas": [
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "'Confira um exemplo de quando a gente foi mexer com a mãe natureza e o tiro saiu pela culatra.'",
+      "'Seis dias, muitas balas, e só algumas aves mortas depois, foi decretado oficialmente o impensável.'",
+      "'Se você acha fascinante o feito dos 300 de Esparta, é porque não conhece a habilidade militar dos emus.'",
+      "'Estima-se que chegaram aproximadamente 20 mil pássaros, o que deixou todos os agricultores em pânico.'"
     ],
     "resposta": 0,
-    "explicacao": "A alternativa A é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "explicacao": "As expressões 'a gente' e 'o tiro saiu pela culatra' são marcas típicas da linguagem coloquial (informal). [cite: 186]"
   },
   {
     "id": 8,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "Há correspondência na relação de sentido entre o trecho destacado e o indicado nos parênteses em",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "Eclipse solar: o grande experimento para entender como o fenômeno afeta transmissões de rádio. (conclusão)",
+      "Repleta de antenas, a estrutura de 30 metros é mais alta do que diversas árvores adultas da região. (consequência)",
+      "Ele se identifica não só pelo seu nome, mas também pelo seu indicativo... (adição)",
+      "No próximo sábado, ele e outros radioamadores irão lotar as frequências de rádio durante um eclipse solar anular... (lugar)"
     ],
     "resposta": 2,
-    "explicacao": "A alternativa C é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "explicacao": "A estrutura 'não só... mas também' estabelece uma relação lógica de adição de informações. [cite: 210, 211]"
   },
   {
     "id": 9,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "A citação dos economistas David Rosnik e Mark Weisbrot tem como objetivo",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho.",
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens."
+      "esclarecer um ponto de vista alternativo ao tema tratado.",
+      "questionar o argumento defendido no parágrafo anterior.",
+      "legitimar a tese do texto mediante referência a pesquisas especializadas.",
+      "sustentar a argumentação textual a partir da utilização de dados estatísticos."
     ],
-    "resposta": 3,
-    "explicacao": "A alternativa D é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 2,
+    "explicacao": "O uso de nomes de especialistas serve como argumento de autoridade para validar a tese de que menos dias de trabalho ajudam o ambiente. [cite: 219, 230]"
   },
   {
     "id": 10,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "Ao explorarem a temática da morte, a letra de Edi Rock e o romance de Machado de Assis assemelham-se por",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "comemorarem as vidas dos falecidos, por meio do elogio fúnebre.",
+      "destacarem, no velório, a presença massiva de parentes do morto.",
+      "narrarem os acontecimentos pela perspectiva da pessoa morta.",
+      "relembrarem a morte de pessoas falecidas há muito tempo."
     ],
-    "resposta": 1,
-    "explicacao": "A alternativa B é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 2,
+    "explicacao": "Ambos os textos utilizam o recurso do 'narrador defunto' (ou póstumo), falando de dentro ou após o próprio sepultamento. [cite: 244, 250, 259]"
   },
   {
     "id": 11,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "A principal estratégia argumentativa presente na postagem do perfil 'Ministério dos Povos Indígenas' é a",
     "formula": "",
     "alternativas": [
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "acusação contra o desmatamento e a mineração como consequências da ocupação ilegal de terras indígenas.",
+      "contestação do conhecimento ancestral dos indígenas, ao enfatizar o caráter antiquado desses saberes.",
+      "demonstração numérica da eficiência dos modos de vida indígenas em preservar áreas de vegetação.",
+      "criação de espaços de decisão política que defendam a segurança das terras dos povos indígenas."
     ],
-    "resposta": 0,
-    "explicacao": "A alternativa A é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 2,
+    "explicacao": "O post utiliza dados do MapBiomas (menos de 1% de desmatamento em 38 anos) para provar a eficácia da preservação indígena. [cite: 266, 273, 282]"
   },
   {
     "id": 12,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "O humor produzido no texto é gerado a partir de qual efeito de sentido em relação à palavra 'vitamina'?",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho.",
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens."
+      "Comparação.",
+      "Polissemia.",
+      "Metáfora.",
+      "Ironia."
     ],
-    "resposta": 3,
-    "explicacao": "A alternativa D é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 1,
+    "explicacao": "A criança confunde o sentido biológico (Vitamina D do sol) com o sentido culinário (bebida de fruta/vitamina de banana). [cite: 293, 299]"
   },
   {
     "id": 13,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "A análise dos elementos verbais e não verbais presentes na tirinha demonstra a criação de um efeito de sentido decorrente",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "da paráfrase que remete a uma expressão popular.",
+      "da personificação atribuída a um ser irracional.",
+      "do eufemismo que abranda a agressividade do cacto.",
+      "do paradoxo representado por uma planta violenta."
     ],
-    "resposta": 2,
-    "explicacao": "A alternativa C é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 0,
+    "explicacao": "O texto faz uma paráfrase do ditado popular 'Contra fatos não há argumentos', substituindo 'fatos' por 'cactos'. [cite: 304, 307]"
   },
   {
     "id": 14,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "Nessa passagem do romance 'Torto arado', a utilização reiterada do verbo 'poder' indica a",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "apropriação indevida da fazenda por parte de seu gerente.",
+      "negociação dos empregados acerca de seus benefícios.",
+      "ocupação pacífica e consensual de terras improdutivas.",
+      "romantização de uma relação de trabalho exploratória."
     ],
-    "resposta": 1,
-    "explicacao": "A alternativa B é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 3,
+    "explicacao": "O 'poder' reflete as concessões mínimas dadas pelo patrão em troca de trabalho duro, mascarando uma exploração severa. [cite: 315, 330]"
   },
   {
     "id": 15,
-    "enunciado": "Analise o trecho a seguir, que aborda um aspecto da Língua Portuguesa ou da literatura. Qual a interpretação mais adequada ou a afirmação correta sobre o tema?",
+    "enunciado": "O vocábulo sublinhado refere-se ao(s) termo(s) indicado(s) em",
     "formula": "",
     "alternativas": [
-      "Esta é a alternativa correta, que demonstra compreensão aprofundada do conceito de linguagens.",
-      "Apresenta uma interpretação superficial ou incorreta do texto.",
-      "Contém um erro conceitual sobre a norma padrão da língua.",
-      "Confunde o sentido denotativo com o conotativo do trecho."
+      "'...nas palavras de meu pai, para dar seu suor na plantação' - pai.",
+      "'...afinal, era para isso que se permitia...' - colocar roça pequena.",
+      "'...assim, porque quando eles crescessem...' - mulher e filhos.",
+      "'...mostrando a mata ao redor deles...' - meu pai e meu tio."
     ],
-    "resposta": 0,
-    "explicacao": "A alternativa A é a correta, pois interpreta adequadamente o texto/contexto linguístico ou aplica corretamente a norma/conceito da Língua Portuguesa."
+    "resposta": 3,
+    "explicacao": "No contexto da conversa, 'deles' refere-se às duas pessoas presentes na cena: o pai e o tio. [cite: 322, 336]"
   },
   {
     "id": 16,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
+    "enunciado": "Qual das alternativas é a única que não contraria nenhuma das balanças em relação ao peso dos minerais?",
     "formula": "",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática."
+      "S = 1, Q = 9, T = 13 e R = 9",
+      "S = 2, Q = 7, T = 15 e R = 10",
+      "S = 3, Q = 8, T = 17 e R = 11",
+      "S = 4, Q = 3, T = 18 e R = 13"
     ],
-    "resposta": 3,
-    "explicacao": "A alternativa D apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 1,
+    "explicacao": "Equação 1: 4S + Q = T -> 4(2) + 7 = 15. Equação 2: 3R = 2T -> 3(10) = 2(15). Ambas são verdadeiras para a opção B. [cite: 351, 1146]"
   },
   {
     "id": 17,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
-    "formula": "",
+    "enunciado": "A probabilidade deste jogador vencer a partida (encontrar sua sequência de 3 cartas em 4 da banca) é de, aproximadamente,",
+    "formula": "P = \\frac{\\text{casos favoráveis}}{\\text{total de permutações}}",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "4%",
+      "8%",
+      "17%",
+      "75%"
     ],
-    "resposta": 1,
-    "explicacao": "A alternativa B apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 2,
+    "explicacao": "O total de formas de organizar 4 cartas é 4! = 24. A sequência do jogador (ABC) pode aparecer nas posições [1,2,3] ou [2,3,4]. São 4 casos favoráveis em 24 (aprox. 16,6%). [cite: 366, 1146]"
   },
   {
     "id": 18,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
+    "enunciado": "Sobre pesquisas de intenção de voto, classifique como V ou F: I-Censo total; II-Amostra casual; III-Estratificação econômica; IV-Apenas capitais é mais preciso.",
     "formula": "",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "FVVF",
+      "FFVF",
+      "VVFV",
+      "VFFV"
     ],
-    "resposta": 2,
-    "explicacao": "A alternativa C apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 0,
+    "explicacao": "Pesquisas não são censos (I-F). Amostras aleatórias (II-V) e estratos de renda (III-V) são métodos válidos. Restringir apenas a capitais causa viés (IV-F). [cite: 374, 380]"
   },
   {
     "id": 19,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
-    "formula": "",
+    "enunciado": "A distância da Terra à Lua (384 mil km), medida em UA (1,5 milhão de km), é igual, aproximadamente, a",
+    "formula": "x = \\frac{384.000}{1.500.000}",
     "alternativas": [
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "0,004",
+      "0,256",
+      "3,906",
+      "256,0"
     ],
-    "resposta": 0,
-    "explicacao": "A alternativa A apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 1,
+    "explicacao": "A divisão de 384.000 por 1.500.000 resulta em 0,256. [cite: 389, 390, 392]"
   },
   {
     "id": 20,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
+    "enunciado": "Assinale a alternativa que apresenta o maior valor correto de cashback dentre as opções (1: 3% à vista; 2: 3 parcelas, 5% nas duas últimas).",
     "formula": "",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática."
+      "Opção 1, com R$ 360,00 de cashback.",
+      "Opção 1, com R$ 3,60 de cashback.",
+      "Opção 2, com R$ 60,00 de cashback.",
+      "Opção 2, com R$ 40,00 de cashback."
     ],
     "resposta": 3,
-    "explicacao": "A alternativa D apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "explicacao": "Opção 1: 3% de 1200 = 36. Opção 2: Cada parcela é 400. Cashback de 5% em duas: 2 * (0,05 * 400) = 2 * 20 = 40. [cite: 397, 402]"
   },
   {
     "id": 21,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
-    "formula": "",
+    "enunciado": "Qual foi a média, aproximada, de desfiles diários em Paris e Milão (42 marcas em 14 dias)?",
+    "formula": "\\text{Média} = \\frac{42}{14}",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "2",
+      "3",
+      "6",
+      "20"
     ],
     "resposta": 1,
-    "explicacao": "A alternativa B apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "explicacao": "Dividindo o total de marcas (42) pelo número de dias (14), obtém-se exatamente 3 desfiles por dia. [cite: 409, 412]"
   },
   {
     "id": 22,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
-    "formula": "",
+    "enunciado": "Com leitura atual 58921 e anterior 58601, tarifa R$ 0,50/kWh, o consumo e valor são:",
+    "formula": "\\text{Consumo} = 58921 - 58601",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "320 kWh e R$160,00",
+      "320 kWh e R$ 173,50",
+      "347 kWh e R$160,00",
+      "347 kWh e R$173,50"
     ],
-    "resposta": 2,
-    "explicacao": "A alternativa C apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 0,
+    "explicacao": "Consumo = 320 kWh. Valor = 320 * 0,50 = 160,00. [cite: 418, 419, 422]"
   },
   {
     "id": 23,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
-    "formula": "",
+    "enunciado": "Se AB=6cm e área ABCD=33cm², qual o comprimento de AM (sendo M ponto médio de AD)?",
+    "formula": "Area = AB \\cdot AD \\Rightarrow 33 = 6 \\cdot AD",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática."
+      "2,75",
+      "8,25",
+      "11,5",
+      "23,0"
     ],
-    "resposta": 3,
-    "explicacao": "A alternativa D apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 0,
+    "explicacao": "AD = 33 / 6 = 5,5 cm. Como M é ponto médio, AM = 5,5 / 2 = 2,75 cm. [cite: 427, 436]"
   },
   {
     "id": 24,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
-    "formula": "",
+    "enunciado": "Um pássaro voa do topo do Pirulito (13,57m) até um ponto X no chão (13,29m da base). Distância percorrida:",
+    "formula": "d^2 = 13,57^2 + 13,29^2",
     "alternativas": [
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "0,3",
+      "19",
+      "27",
+      "361"
     ],
-    "resposta": 0,
-    "explicacao": "A alternativa A apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 1,
+    "explicacao": "Aplicando Pitágoras: $d = \\sqrt{184,14 + 176,62} = \\sqrt{360,76} \\approx 19$ metros. [cite: 443, 447, 450]"
   },
   {
     "id": 25,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
-    "formula": "",
+    "enunciado": "A expressão algébrica apresentada com radicais de 'z' é equivalente a:",
+    "formula": "\\frac{\\sqrt[7]{z^{8}\\sqrt[3]{\\sqrt[3]{z^{8}}}}}{\\sqrt[3]{z}}",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "z^{21}",
+      "z^{3}",
+      "z",
+      "z^{4}"
     ],
-    "resposta": 1,
-    "explicacao": "A alternativa B apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 2,
+    "explicacao": "Simplificando os expoentes fracionários da expressão, o resultado final reduz-se a 'z'. [cite: 459, 1146]"
   },
   {
     "id": 26,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
+    "enunciado": "Os segundos membros apagados (constantes) de dois sistemas equivalentes eram iguais a",
     "formula": "",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "-6",
+      "-5",
+      "-3",
+      "5"
     ],
-    "resposta": 2,
-    "explicacao": "A alternativa C apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 3,
+    "explicacao": "Resolvendo o sistema parcial fornecido e igualando as constantes para satisfazer a equivalência. [cite: 469, 473, 1146]"
   },
   {
     "id": 27,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
+    "enunciado": "Dadas as retas r e s, a área do quadrilátero ABCD formado pelas intersecções com os eixos é:",
     "formula": "",
     "alternativas": [
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "36",
+      "38",
+      "43",
+      "72"
     ],
     "resposta": 0,
-    "explicacao": "A alternativa A apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "explicacao": "A área é calculada pela soma das áreas dos triângulos formados nos eixos cartesianos ou por determinantes. [cite: 493, 1146]"
   },
   {
     "id": 28,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
+    "enunciado": "No trapézio retângulo ABCD com diagonais perpendiculares, a medida de BC é",
     "formula": "",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática."
+      "10",
+      "4\\sqrt{13}",
+      "2\\sqrt{61}",
+      "20"
     ],
-    "resposta": 3,
-    "explicacao": "A alternativa D apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 1,
+    "explicacao": "Utiliza-se relações métricas no triângulo retângulo e Pitágoras para encontrar o lado oblíquo. [cite: 497, 1146]"
   },
   {
     "id": 29,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
+    "enunciado": "Se o número A54321 é divisível por 13, o algarismo A é",
     "formula": "",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "um número ímpar.",
+      "um quadrado perfeito.",
+      "um número que tem uma quantidade par de divisores positivos.",
+      "um número que tem uma quantidade ímpar de divisores positivos."
     ],
-    "resposta": 1,
-    "explicacao": "A alternativa B apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 2,
+    "explicacao": "Testando os valores de A (1 a 9) com a regra de divisibilidade, encontra-se o valor que possui número par de divisores. [cite: 506, 1146]"
   },
   {
     "id": 30,
-    "enunciado": "Um problema envolvendo matemática é apresentado. Qual das opções a seguir representa a solução correta para a questão?",
+    "enunciado": "A quantidade de frações com denominador 91 e numerador par entre 4/7 e 5/13 é",
     "formula": "",
     "alternativas": [
-      "Contém um erro de cálculo básico ou de aplicação de fórmula.",
-      "Apresenta um resultado que não faz sentido no contexto do problema.",
-      "A solução correta é esta, obtida através de cálculos e raciocínio lógico em matemática.",
-      "Utiliza uma abordagem incorreta para a resolução da questão."
+      "1",
+      "2",
+      "3",
+      "8"
     ],
-    "resposta": 2,
-    "explicacao": "A alternativa C apresenta a resolução correta do problema matemático, aplicando os princípios e fórmulas adequadas."
+    "resposta": 3,
+    "explicacao": "Convertendo 4/7 para 52/91 e 5/13 para 35/91. Os numeradores pares entre 35 e 52 são 36, 38, 40, 42, 44, 46, 48, 50 (8 frações). [cite: 514, 515, 1146]"
   },
   {
     "id": 31,
-    "enunciado": "Considere um experimento ou conceito de ciências da natureza. Qual das afirmações a seguir descreve corretamente o fenômeno ou a lei envolvida?",
+    "enunciado": "Com relação ao Sol, Terra e Lua, identifique a afirmativa VERDADEIRA.",
     "formula": "",
     "alternativas": [
-      "Contradiz uma lei fundamental da física/química/biologia.",
-      "Apresenta uma generalização incorreta ou uma exceção à regra.",
-      "Confunde conceitos ou termos científicos importantes.",
-      "Esta afirmação está de acordo com os princípios científicos de ciências da natureza e é a resposta correta."
+      "O diâmetro médio da Lua é igual ao diâmetro médio do Sol.",
+      "O diâmetro médio da Terra é igual ao diâmetro médio da Lua.",
+      "O diâmetro médio da Terra é igual ao diâmetro médio do Sol.",
+      "Os diâmetros médios dos três corpos são consideravelmente diferentes, sendo a Lua o menor e o Sol o maior."
     ],
     "resposta": 3,
-    "explicacao": "A alternativa D está correta, pois descreve o fenômeno, conceito ou aplicação científica de acordo com os princípios da Física, Química ou Biologia."
+    "explicacao": "Fisicamente, o Sol é muito maior que a Terra, que por sua vez é maior que a Lua. [cite: 710]"
   },
   {
     "id": 32,
-    "enunciado": "Considere um experimento ou conceito de ciências da natureza. Qual das afirmações a seguir descreve corretamente o fenômeno ou a lei envolvida?",
+    "enunciado": "Sobre as conversões de energia na ação do caçador, são verdadeiras:",
     "formula": "",
     "alternativas": [
-      "Contradiz uma lei fundamental da física/química/biologia.",
-      "Esta afirmação está de acordo com os princípios científicos de ciências da natureza e é a resposta correta.",
-      "Apresenta uma generalização incorreta ou uma exceção à regra.",
-      "Confunde conceitos ou termos científicos importantes."
+      "I (alimentação para potencial gravitacional no arco) e II.",
+      "II (cinética para potencial gravitacional na subida) e IV (impacto sonoro).",
+      "III e IV.",
+      "I e III."
     ],
     "resposta": 1,
-    "explicacao": "A alternativa B está correta, pois descreve o fenômeno, conceito ou aplicação científica de acordo com os princípios da Física, Química ou Biologia."
+    "explicacao": "A afirmação II descreve corretamente a subida da flecha e a IV descreve a conversão de energia cinética em sonora no impacto. A I está errada pois o arco armazena energia elástica, não gravitacional. [cite: 718, 720, 723]"
   },
   {
     "id": 33,
-    "enunciado": "Considere um experimento ou conceito de ciências da natureza. Qual das afirmações a seguir descreve corretamente o fenômeno ou a lei envolvida?",
-    "formula": "",
+    "enunciado": "Quanto custa o uso de uma TV de 150W por 4h diárias durante 30 dias (tarifa R$ 0,80/kWh)?",
+    "formula": "E = P \\cdot t = 0,15kW \\cdot 120h",
     "alternativas": [
-      "Esta afirmação está de acordo com os princípios científicos de ciências da natureza e é a resposta correta.",
-      "Contradiz uma lei fundamental da física/química/biologia.",
-      "Apresenta uma generalização incorreta ou uma exceção à regra.",
-      "Confunde conceitos ou termos científicos importantes."
+      "R$ 0,48.",
+      "R$ 3,60.",
+      "R$ 14,40.",
+      "R$ 36,00."
     ],
-    "resposta": 0,
-    "explicacao": "A alternativa A está correta, pois descreve o fenômeno, conceito ou aplicação científica de acordo com os princípios da Física, Química ou Biologia."
+    "resposta": 2,
+    "explicacao": "Consumo total = 150W * 4h * 30 dias = 18.000 Wh = 18 kWh. Custo = 18 * 0,80 = 14,40. [cite: 730, 732]"
   },
   {
     "id": 34,
-    "enunciado": "Considere um experimento ou conceito de ciências da natureza. Qual das afirmações a seguir descreve corretamente o fenômeno ou a lei envolvida?",
+    "enunciado": "Haverá transferência espontânea de energia na forma de calor sempre que os corpos tiverem",
     "formula": "",
     "alternativas": [
-      "Contradiz uma lei fundamental da física/química/biologia.",
-      "Apresenta uma generalização incorreta ou uma exceção à regra.",
-      "Esta afirmação está de acordo com os princípios científicos de ciências da natureza e é a resposta correta.",
-      "Confunde conceitos ou termos científicos importantes."
+      "temperaturas diferentes.",
+      "densidades diferentes.",
+      "volumes diferentes.",
+      "massas diferentes."
     ],
-    "resposta": 2,
-    "explicacao": "A alternativa C está correta, pois descreve o fenômeno, conceito ou aplicação científica de acordo com os princípios da Física, Química ou Biologia."
+    "resposta": 0,
+    "explicacao": "O calor é energia térmica em trânsito motivada exclusivamente pela diferença de temperatura. [cite: 739, 740]"
   },
   {
     "id": 35,
-    "enunciado": "Considere um experimento ou conceito de ciências da natureza. Qual das afirmações a seguir descreve corretamente o fenômeno ou a lei envolvida?",
+    "enunciado": "Sobre as primeiras células, os registros fósseis indicam que elas eram:",
     "formula": "",
     "alternativas": [
-      "Contradiz uma lei fundamental da física/química/biologia.",
-      "Apresenta uma generalização incorreta ou uma exceção à regra.",
-      "Confunde conceitos ou termos científicos importantes.",
-      "Esta afirmação está de acordo com os princípios científicos de ciências da natureza e é a resposta correta."
+      "procarióticas, com o material genético presente em um núcleo.",
+      "procarióticas, com o material genético presente no citoplasma.",
+      "eucarióticas, com o material genético presente em um núcleo.",
+      "eucarióticas, com o material genético presente no citoplasma."
     ],
-    "resposta": 3,
-    "explicacao": "A alternativa D está correta, pois descreve o fenômeno, conceito ou aplicação científica de acordo com os princípios da Física, Química ou Biologia."
+    "resposta": 1,
+    "explicacao": "As primeiras formas de vida eram procariontes simples, sem núcleo organizado, com DNA disperso no citoplasma. [cite: 752]"
   },
   {
     "id": 36,
-    "enunciado": "Considere um experimento ou conceito de ciências da natureza. Qual das afirmações a seguir descreve corretamente o fenômeno ou a lei envolvida?",
+    "enunciado": "Sobre os processos de formação de gases nas massas de pão e bolo, é correto:",
     "formula": "",
     "alternativas": [
-      "Contradiz uma lei fundamental da física/química/biologia.",
-      "Esta afirmação está de acordo com os princípios científicos de ciências da natureza e é a resposta correta.",
-      "Apresenta uma generalização incorreta ou uma exceção à regra.",
-      "Confunde conceitos ou termos científicos importantes."
+      "os processos ocorrem devido ao mesmo fenômeno.",
+      "o processo que ocorre no bolo necessita dos organismos vivos presentes no fermento químico.",
+      "o tipo de fermentação que ocorre no pão é o mesmo que ocorre na produção da cerveja.",
+      "o processo que ocorre no pão necessita de oxigênio, razão pela qual a massa é sovada."
     ],
-    "resposta": 1,
-    "explicacao": "A alternativa B está correta, pois descreve o fenômeno, conceito ou aplicação científica de acordo com os princípios da Física, Química ou Biologia."
+    "resposta": 2,
+    "explicacao": "Ambos utilizam a fermentação alcoólica realizada por leveduras (Saccharomyces cerevisiae). [cite: 765]"
   },
   {
     "id": 37,
-    "enunciado": "Considere um experimento ou conceito de ciências da natureza. Qual das afirmações a seguir descreve corretamente o fenômeno ou a lei envolvida?",
+    "enunciado": "Sobre o ciclo da água, podemos afirmar que:",
     "formula": "",
     "alternativas": [
-      "Contradiz uma lei fundamental da física/química/biologia.",
-      "Apresenta uma generalização incorreta ou uma exceção à regra.",
-      "Esta afirmação está de acordo com os princípios científicos de ciências da natureza e é a resposta correta.",
-      "Confunde conceitos ou termos científicos importantes."
+      "a vegetação é muito importante para a regulação e diminuição da perda de água do solo.",
+      "o processo de respiração e transpiração dos seres vivos não contribui para o ciclo da água.",
+      "a água retida nas geleiras corresponde a parte irrisória da água disponível no planeta.",
+      "a evaporação das águas dos rios é a maior responsável pela precipitação de chuva das regiões litorâneas."
     ],
-    "resposta": 2,
-    "explicacao": "A alternativa C está correta, pois descreve o fenômeno, conceito ou aplicação científica de acordo com os princípios da Física, Química ou Biologia."
+    "resposta": 0,
+    "explicacao": "A cobertura vegetal protege o solo, favorece a infiltração e reduz a evaporação direta. [cite: 774]"
   },
   {
     "id": 38,
-    "enunciado": "Considere um experimento ou conceito de ciências da natureza. Qual das afirmações a seguir descreve corretamente o fenômeno ou a lei envolvida?",
+    "enunciado": "As substâncias Mg(OH)2, HCl, MgCl2 e H2O pertencem, respectivamente, às funções:",
     "formula": "",
     "alternativas": [
-      "Esta afirmação está de acordo com os princípios científicos de ciências da natureza e é a resposta correta.",
-      "Contradiz uma lei fundamental da física/química/biologia.",
-      "Apresenta uma generalização incorreta ou uma exceção à regra.",
-      "Confunde conceitos ou termos científicos importantes."
+      "base, ácido, sal e óxido.",
+      "base, ácido, sal e ácido.",
+      "sal, base, base e óxido.",
+      "sal, base, sal e ácido."
     ],
     "resposta": 0,
-    "explicacao": "A alternativa A está correta, pois descreve o fenômeno, conceito ou aplicação científica de acordo com os princípios da Física, Química ou Biologia."
+    "explicacao": "Hidróxido de magnésio é base; Ácido clorídrico é ácido; Cloreto de magnésio é sal; Água é um óxido de hidrogênio. [cite: 783, 784]"
   },
   {
     "id": 39,
-    "enunciado": "Considere um experimento ou conceito de ciências da natureza. Qual das afirmações a seguir descreve corretamente o fenômeno ou a lei envolvida?",
+    "enunciado": "Nas condições de 1 atm e 35°C, qual o estado físico das substâncias fictícias da tabela?",
     "formula": "",
     "alternativas": [
-      "Contradiz uma lei fundamental da física/química/biologia.",
-      "Apresenta uma generalização incorreta ou uma exceção à regra.",
-      "Confunde conceitos ou termos científicos importantes.",
-      "Esta afirmação está de acordo com os princípios científicos de ciências da natureza e é a resposta correta."
+      "apenas a substância I estará no estado sólido.",
+      "apenas a substância II estará no estado gasoso.",
+      "apenas a substância III estará no estado líquido.",
+      "as substâncias II e III estarão no estado líquido."
     ],
-    "resposta": 3,
-    "explicacao": "A alternativa D está correta, pois descreve o fenômeno, conceito ou aplicação científica de acordo com os princípios da Física, Química ou Biologia."
+    "resposta": 1,
+    "explicacao": "Para a substância II, 35°C é maior que sua temperatura de ebulição (20°C), logo é gás. A I é líquido (35°C entre 20°C e 65°C). [cite: 791, 806]"
   },
   {
     "id": 40,
-    "enunciado": "Considere um experimento ou conceito de ciências da natureza. Qual das afirmações a seguir descreve corretamente o fenômeno ou a lei envolvida?",
+    "enunciado": "Sobre propriedades periódicas, são verdadeiras as afirmativas:",
     "formula": "",
     "alternativas": [
-      "Contradiz uma lei fundamental da física/química/biologia.",
-      "Esta afirmação está de acordo com os princípios científicos de ciências da natureza e é a resposta correta.",
-      "Apresenta uma generalização incorreta ou uma exceção à regra.",
-      "Confunde conceitos ou termos científicos importantes."
+      "I e III.",
+      "II (Raio Cl > F) e III (Cl mais eletronegativo que S).",
+      "II e IV.",
+      "I e IV."
     ],
     "resposta": 1,
-    "explicacao": "A alternativa B está correta, pois descreve o fenômeno, conceito ou aplicação científica de acordo com os princípios da Física, Química ou Biologia."
+    "explicacao": "O cloro tem mais camadas que o flúor (raio maior) e está mais à direita e acima que o enxofre (mais eletronegativo). [cite: 796, 797, 801]"
   },
   {
     "id": 41,
-    "enunciado": "Analise o contexto histórico/social/geográfico/filosófico apresentado. Qual das alternativas oferece a melhor análise ou conclusão sobre o evento/conceito?",
+    "enunciado": "Sobre o comentário de Tocqueville sobre Manchester, pode-se argumentar que:",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação anacrônica ou descontextualizada.",
-      "Contém um erro factual ou uma generalização indevida.",
-      "Esta alternativa oferece a análise mais precisa e fundamentada sobre o tema de ciências humanas.",
-      "Ignora a complexidade das relações sociais/políticas/econômicas."
+      "O autor destaca unicamente processos produtivos exuberantes.",
+      "Tocqueville sempre foi contrário aos avanços tecnológicos.",
+      "O autor demonstra posicionamento paradoxal (elogio à produção vs. brutalidade).",
+      "Tocqueville ressalta problemas de aquecimento global."
     ],
     "resposta": 2,
-    "explicacao": "A alternativa C é a correta, pois reflete a análise histórica, geográfica, sociológica ou filosófica mais precisa sobre o tema abordado."
+    "explicacao": "O texto fala em 'ouro puro' saindo de uma 'vala imunda', mostrando o contraste entre riqueza e degradação humana. [cite: 812, 819]"
   },
   {
     "id": 42,
-    "enunciado": "Analise o contexto histórico/social/geográfico/filosófico apresentado. Qual das alternativas oferece a melhor análise ou conclusão sobre o evento/conceito?",
+    "enunciado": "Sobre a censura no período militar em relação à música de Rita Lee, pode-se inferir:",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação anacrônica ou descontextualizada.",
-      "Contém um erro factual ou uma generalização indevida.",
-      "Esta alternativa oferece a análise mais precisa e fundamentada sobre o tema de ciências humanas.",
-      "Ignora a complexidade das relações sociais/políticas/econômicas."
+      "Tinha como alvo apenas o que atentasse contra o governo.",
+      "Não se preocupava com política, apenas com a moral.",
+      "Era focada em política, mas também havia grande preocupação com temas morais.",
+      "Foi um elemento exclusivo da ditadura brasileira."
     ],
     "resposta": 2,
-    "explicacao": "A alternativa C é a correta, pois reflete a análise histórica, geográfica, sociológica ou filosófica mais precisa sobre o tema abordado."
+    "explicacao": "A censura vetou a música por mencionar menstruação ('todo mês sangra'), evidenciando o controle sobre a moral e costumes. [cite: 850, 854]"
   },
   {
     "id": 43,
-    "enunciado": "Analise o contexto histórico/social/geográfico/filosófico apresentado. Qual das alternativas oferece a melhor análise ou conclusão sobre o evento/conceito?",
+    "enunciado": "Sobre a Guerra Fria e suas consequências, pode-se afirmar corretamente que:",
     "formula": "",
     "alternativas": [
-      "Esta alternativa oferece a análise mais precisa e fundamentada sobre o tema de ciências humanas.",
-      "Apresenta uma interpretação anacrônica ou descontextualizada.",
-      "Contém um erro factual ou uma generalização indevida.",
-      "Ignora a complexidade das relações sociais/políticas/econômicas."
+      "Houve confronto Franco-Prussiano nesse período.",
+      "Foi uma disputa entre bloco socialista americano e capitalista soviético.",
+      "O termo deve-se a uma disputa bélica no inverno russo de 1970.",
+      "Um dos marcos simbólicos foi a construção do Muro de Berlim."
     ],
-    "resposta": 0,
-    "explicacao": "A alternativa A é a correta, pois reflete a análise histórica, geográfica, sociológica ou filosófica mais precisa sobre o tema abordado."
+    "resposta": 3,
+    "explicacao": "O Muro de Berlim dividiu o mundo entre os blocos liderados por EUA (capitalista) e URSS (socialista). [cite: 869]"
   },
   {
     "id": 44,
-    "enunciado": "Analise o contexto histórico/social/geográfico/filosófico apresentado. Qual das alternativas oferece a melhor análise ou conclusão sobre o evento/conceito?",
+    "enunciado": "A partir da leitura dos textos sobre doenças e povos indígenas, infere-se que:",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação anacrônica ou descontextualizada.",
-      "Esta alternativa oferece a análise mais precisa e fundamentada sobre o tema de ciências humanas.",
-      "Contém um erro factual ou uma generalização indevida.",
-      "Ignora a complexidade das relações sociais/políticas/econômicas."
+      "Sempre houve respeito às propriedades indígenas no Brasil.",
+      "O Estado brasileiro resolveu todas as mazelas no período republicano.",
+      "Interesses econômicos vulnerabilizam a saúde indígena e aumentam a mortalidade.",
+      "A situação Yanomami é um foco de crise que não pode ser generalizado."
     ],
-    "resposta": 1,
-    "explicacao": "A alternativa B é a correta, pois reflete a análise histórica, geográfica, sociológica ou filosófica mais precisa sobre o tema abordado."
+    "resposta": 2,
+    "explicacao": "O texto II conecta explicitamente a malária e desnutrição à expansão do garimpo. [cite: 881, 890]"
   },
   {
     "id": 45,
-    "enunciado": "Analise o contexto histórico/social/geográfico/filosófico apresentado. Qual das alternativas oferece a melhor análise ou conclusão sobre o evento/conceito?",
+    "enunciado": "Assinale a alternativa que expressa a melhor aplicabilidade social para os dados do Censo Quilombola:",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação anacrônica ou descontextualizada.",
-      "Contém um erro factual ou uma generalização indevida.",
-      "Ignora a complexidade das relações sociais/políticas/econômicas.",
-      "Esta alternativa oferece a análise mais precisa e fundamentada sobre o tema de ciências humanas."
+      "Orientar políticas públicas de habitação, trabalho e regularização fundiária.",
+      "Atender à distribuição de alimentos prevista desde o período colonial.",
+      "Compreender motivos migratórios para controlar estratégias.",
+      "Organizar ações de imersão artística contemporânea."
     ],
-    "resposta": 3,
-    "explicacao": "A alternativa D é a correta, pois reflete a análise histórica, geográfica, sociológica ou filosófica mais precisa sobre o tema abordado."
+    "resposta": 0,
+    "explicacao": "Dados demográficos precisos são essenciais para planejar infraestrutura e garantir direitos constitucionais. [cite: 901, 905]"
   },
   {
     "id": 46,
-    "enunciado": "Analise o contexto histórico/social/geográfico/filosófico apresentado. Qual das alternativas oferece a melhor análise ou conclusão sobre o evento/conceito?",
+    "enunciado": "Assinale a alternativa que explica corretamente a evolução e diversificação energética brasileira:",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação anacrônica ou descontextualizada.",
-      "Contém um erro factual ou uma generalização indevida.",
-      "Esta alternativa oferece a análise mais precisa e fundamentada sobre o tema de ciências humanas.",
-      "Ignora a complexidade das relações sociais/políticas/econômicas."
+      "O Brasil busca priorizar a venda de cotas de carbono.",
+      "O país é autossuficiente em todos os tipos de produção.",
+      "O país facilita o uso imediato de veículos elétricos.",
+      "O uso exorbitante de combustíveis fósseis é objeto central das preocupações ambientais."
     ],
-    "resposta": 2,
-    "explicacao": "A alternativa C é a correta, pois reflete a análise histórica, geográfica, sociológica ou filosófica mais precisa sobre o tema abordado."
+    "resposta": 3,
+    "explicacao": "Apesar de o Brasil ter uma matriz limpa, o gráfico mostra que o petróleo ainda é a maior fonte (38%), o que gera críticas. [cite: 925, 950]"
   },
   {
     "id": 47,
-    "enunciado": "Analise o contexto histórico/social/geográfico/filosófico apresentado. Qual das alternativas oferece a melhor análise ou conclusão sobre o evento/conceito?",
+    "enunciado": "Qual termo melhor traduz as condições atmosféricas recentes de BH (altas temperaturas e recordes)?",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação anacrônica ou descontextualizada.",
-      "Esta alternativa oferece a análise mais precisa e fundamentada sobre o tema de ciências humanas.",
-      "Contém um erro factual ou uma generalização indevida.",
-      "Ignora a complexidade das relações sociais/políticas/econômicas."
+      "El Niño.",
+      "Onda de Calor.",
+      "Umidade Súbita.",
+      "Choque Atmosférico."
     ],
     "resposta": 1,
-    "explicacao": "A alternativa B é a correta, pois reflete a análise histórica, geográfica, sociológica ou filosófica mais precisa sobre o tema abordado."
+    "explicacao": "O texto menciona temperaturas 2,4°C acima da média e recordes históricos, característicos de ondas de calor. [cite: 955, 985]"
   },
   {
     "id": 48,
-    "enunciado": "Analise o contexto histórico/social/geográfico/filosófico apresentado. Qual das alternativas oferece a melhor análise ou conclusão sobre o evento/conceito?",
+    "enunciado": "Qual a relação entre manutenção da vegetação e o surgimento de novos cursos d'água?",
     "formula": "",
     "alternativas": [
-      "Esta alternativa oferece a análise mais precisa e fundamentada sobre o tema de ciências humanas.",
-      "Apresenta uma interpretação anacrônica ou descontextualizada.",
-      "Contém um erro factual ou uma generalização indevida.",
-      "Ignora a complexidade das relações sociais/políticas/econômicas."
+      "A vegetação libera oxigênio que se liga ao hidrogênio.",
+      "As plantas carregam microrganismos que geram água.",
+      "Os rios transportam folhas aumentando a capacidade orgânica.",
+      "A cobertura vegetal contribui para a permeabilidade e acúmulo de água no solo."
     ],
-    "resposta": 0,
-    "explicacao": "A alternativa A é a correta, pois reflete a análise histórica, geográfica, sociológica ou filosófica mais precisa sobre o tema abordado."
+    "resposta": 3,
+    "explicacao": "A mata ciliar e a vegetação evitam o escoamento superficial rápido, permitindo que a água infiltre e alimente o lençol freático. [cite: 1035]"
   },
   {
     "id": 49,
-    "enunciado": "Analise o contexto histórico/social/geográfico/filosófico apresentado. Qual das alternativas oferece a melhor análise ou conclusão sobre o evento/conceito?",
+    "enunciado": "Qual tipo de estrutura geológica está associada à formação de reservas de combustíveis fósseis?",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação anacrônica ou descontextualizada.",
-      "Contém um erro factual ou uma generalização indevida.",
-      "Esta alternativa oferece a análise mais precisa e fundamentada sobre o tema de ciências humanas.",
-      "Ignora a complexidade das relações sociais/políticas/econômicas."
+      "Basáltica.",
+      "Cristalina.",
+      "Metamórfica.",
+      "Sedimentar."
     ],
-    "resposta": 2,
-    "explicacao": "A alternativa C é a correta, pois reflete a análise histórica, geográfica, sociológica ou filosófica mais precisa sobre o tema abordado."
+    "resposta": 3,
+    "explicacao": "O petróleo e o gás formam-se a partir da decomposição de matéria orgânica em bacias sedimentares ao longo de milhões de anos. [cite: 1059, 1063]"
   },
   {
     "id": 50,
-    "enunciado": "Analise o contexto histórico/social/geográfico/filosófico apresentado. Qual das alternativas oferece a melhor análise ou conclusão sobre o evento/conceito?",
+    "enunciado": "Qual alternativa NÃO apresenta relação direta com a difusão da miséria e pobreza multidimensional?",
     "formula": "",
     "alternativas": [
-      "Apresenta uma interpretação anacrônica ou descontextualizada.",
-      "Contém um erro factual ou uma generalização indevida.",
-      "Ignora a complexidade das relações sociais/políticas/econômicas.",
-      "Esta alternativa oferece a análise mais precisa e fundamentada sobre o tema de ciências humanas."
+      "Desigualdade - má distribuição de renda.",
+      "Educação - falta de acesso propicia marginalização.",
+      "Ambiente - catástrofes são o principal impeditivo de habitação.",
+      "Fome - disparidade no acesso aos alimentos."
     ],
-    "resposta": 3,
-    "explicacao": "A alternativa D é a correta, pois reflete a análise histórica, geográfica, sociológica ou filosófica mais precisa sobre o tema abordado."
+    "resposta": 2,
+    "explicacao": "Embora o ambiente afete a pobreza, não é considerado o 'principal impeditivo' estrutural comparado a fatores econômicos e educacionais. [cite: 1081, 1085, 1088]"
   }
 ]
