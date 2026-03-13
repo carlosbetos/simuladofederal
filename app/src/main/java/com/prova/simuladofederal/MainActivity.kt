@@ -72,29 +72,43 @@ class MainActivity : ComponentActivity() {
 // --- UTILITÁRIOS ---
 fun extrairDataDoNome(nome: String): String {
     return try {
-        val parteData = nome.substringAfter("-").substringBefore(".txt")
-        parteData.replace("-", "/")
+        val raw = nome.substringBefore(".txt")
+        val dataPart = if (raw.contains("-")) {
+            if (raw.first().isDigit()) raw else raw.substringAfter("-")
+        } else raw
+        dataPart.replace("-", "/")
     } catch (e: Exception) { "Simulado" }
 }
 
 @Composable
 fun QuestaoParser(rawText: String, modifier: Modifier = Modifier) {
-    // Regex que ignora R$ e captura $ ou $$ - usando concatenação para evitar erro de syntax do Kotlin
     val regex = remember { Regex("(?<!R)\\${'$'}{1,2}(.*?)\\${'$'}{1,2}") }
     val parts = mutableListOf<Pair<String, Boolean>>()
     var lastIndex = 0
+    
     regex.findAll(rawText).forEach { match ->
-        if (match.range.first > lastIndex) parts.add(rawText.substring(lastIndex, match.range.first) to false)
+        if (match.range.first > lastIndex) {
+            parts.add(rawText.substring(lastIndex, match.range.first) to false)
+        }
         parts.add(match.groupValues[1] to true)
         lastIndex = match.range.last + 1
     }
-    if (lastIndex < rawText.length) parts.add(rawText.substring(lastIndex) to false)
+    if (lastIndex < rawText.length) {
+        parts.add(rawText.substring(lastIndex) to false)
+    }
 
     Column(modifier = modifier.fillMaxWidth()) {
         parts.forEach { (content, isMath) ->
-            if (isMath) KaTeXView(formula = content)
-            else if (content.trim().isNotEmpty() || content.contains("R$")) {
-                Text(text = content.trim(), style = MaterialTheme.typography.bodyLarge.copy(fontSize = 17.sp, lineHeight = 24.sp), modifier = Modifier.padding(vertical = 4.dp))
+            if (isMath) {
+                KaTeXView(formula = content)
+            } else {
+                if (content.trim().isNotEmpty() || content.contains("R$")) {
+                    Text(
+                        text = content.trim(),
+                        style = MaterialTheme.typography.bodyLarge.copy(fontSize = 17.sp, lineHeight = 24.sp),
+                        modifier = Modifier.padding(vertical = 4.dp)
+                    )
+                }
             }
         }
     }
@@ -131,7 +145,7 @@ fun AppNavegacao() {
     when (telaAtual) {
         "home" -> TelaPrincipal(
             onSimuladosClick = { telaAtual = "selecao_materia" },
-            onSimuladoGeralClick = { telaAtual = "simulado_geral" },
+            onSimuladoGeralClick = { telaAtual = "selecao_data_geral" },
             onGlossarioClick = { telaAtual = "glossario" },
             onVideosClick = { telaAtual = "videos" }
         )
@@ -139,9 +153,22 @@ fun AppNavegacao() {
             materiaSelecionada = it
             telaAtual = "selecao_data"
         }, { telaAtual = "home" })
-        "selecao_data" -> TelaListaSimulados(materiaSelecionada!!, { arquivo -> simuladoArquivo = arquivo; telaAtual = "simulado" }, { telaAtual = "selecao_materia" })
-        "simulado" -> SimuladoApp(materiaSelecionada!!, simuladoArquivo!!) { simuladoArquivo = null; telaAtual = "home" }
-        "simulado_geral" -> SimuladoGeralApp { telaAtual = "home" }
+        "selecao_data" -> TelaListaSimulados(materiaSelecionada!!.pasta, materiaSelecionada!!.nome, { arquivo -> 
+            simuladoArquivo = arquivo
+            telaAtual = "simulado" 
+        }, { telaAtual = "selecao_materia" })
+        "selecao_data_geral" -> TelaListaSimulados("simuladogeral", "Simulado Geral", { arquivo ->
+            simuladoArquivo = arquivo
+            telaAtual = "simulado_geral_quizz"
+        }, { telaAtual = "home" })
+        "simulado" -> SimuladoApp(materiaSelecionada!!, simuladoArquivo!!) {
+            simuladoArquivo = null
+            telaAtual = "home"
+        }
+        "simulado_geral_quizz" -> SimuladoGeralApp(simuladoArquivo!!) {
+            simuladoArquivo = null
+            telaAtual = "home"
+        }
         "glossario" -> TelaGlossario { telaAtual = "home" }
         "videos" -> TelaVideos { telaAtual = "home" }
     }
@@ -154,7 +181,7 @@ fun TelaPrincipal(onSimuladosClick: () -> Unit, onSimuladoGeralClick: () -> Unit
         Text("Preparação de Elite", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.height(48.dp))
         MenuButton("Simulados por Matéria", "Escolha disciplina e data", Icons.Default.PlayArrow, Color(0xFF1B5E20), onSimuladosClick)
-        MenuButton("Simulado Geral", "Questões em JSON", Icons.Default.List, Color(0xFF2E7D32), onSimuladoGeralClick)
+        MenuButton("Simulado Geral", "Questões variadas por data", Icons.Default.List, Color(0xFF2E7D32), onSimuladoGeralClick)
         MenuButton("Glossário", "Termos importantes", Icons.Default.Info, Color(0xFF388E3C), onGlossarioClick)
         MenuButton("Aulas em Vídeo", "Dicas do YouTube", Icons.Default.Search, Color(0xFF43A047), onVideosClick)
     }
@@ -171,8 +198,9 @@ fun MenuButton(titulo: String, subtitulo: String, icone: ImageVector, cor: Color
     }
 }
 
+// --- SIMULADO GERAL (JSON DINÂMICO) ---
 @Composable
-fun SimuladoGeralApp(onVoltar: () -> Unit) {
+fun SimuladoGeralApp(nomeArquivo: String, onVoltar: () -> Unit) {
     val context = LocalContext.current
     var lista by remember { mutableStateOf<List<Questao>>(emptyList()) }
     var carregando by remember { mutableStateOf(true) }
@@ -181,8 +209,9 @@ fun SimuladoGeralApp(onVoltar: () -> Unit) {
     val stats = remember { mutableStateMapOf<String, ResultadoMateria>() }
     val respUser = remember { mutableStateMapOf<Int, Int>() }
 
-    LaunchedEffect(Unit) {
-        val jsonStr = carregarUrlGit("questoesgeral.txt") ?: try { context.assets.open("questoesgeral.txt").bufferedReader().use { it.readText() } } catch (e: Exception) { null }
+    LaunchedEffect(nomeArquivo) {
+        val path = "simuladogeral/$nomeArquivo"
+        val jsonStr = carregarUrlGit(path) ?: try { context.assets.open(path).bufferedReader().use { it.readText() } } catch (e: Exception) { null }
         if (jsonStr != null) {
             lista = parsearQuestoesJson(jsonStr)
         }
@@ -199,49 +228,21 @@ fun SimuladoGeralApp(onVoltar: () -> Unit) {
             }
             if (idx < lista.size - 1) idx++ else finalizado = true
         }
-    } else { TelaDesempenho("Simulado Geral", "JSON", stats.values.toList(), onVoltar) }
-}
-
-suspend fun carregarUrlGit(nome: String): String? = withContext(Dispatchers.IO) {
-    try { URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$nome?t=${System.currentTimeMillis()}").openConnection().getInputStream().bufferedReader().use { it.readText() } } catch (e: Exception) { null }
+    } else { TelaDesempenho("Simulado Geral", extrairDataDoNome(nomeArquivo), stats.values.toList(), onVoltar) }
 }
 
 fun parsearQuestoesJson(jsonStr: String): List<Questao> {
     val qList = mutableListOf<Questao>()
     try {
-        // Limpeza básica: tenta encontrar onde o JSON começa e termina
-        // caso haja lixo no arquivo txt
-        val startIndex = jsonStr.indexOf("[")
-        val endIndex = jsonStr.lastIndexOf("]")
-
-        if (startIndex == -1 || endIndex == -1) {
-            Log.e("Parser", "JSON não encontrado no arquivo")
-            return emptyList()
-        }
-
-        val cleanJson = jsonStr.substring(startIndex, endIndex + 1)
-        val array = JSONArray(cleanJson)
-
+        val array = JSONArray(jsonStr)
         for (i in 0 until array.length()) {
             val obj = array.getJSONObject(i)
             val alts = mutableListOf<String>()
             val altArr = obj.getJSONArray("alternativas")
             for (j in 0 until altArr.length()) alts.add(altArr.getString(j))
-
-            qList.add(Questao(
-                materia = obj.optString("materia", "Geral"),
-                identificacao = "Questão ${obj.optInt("id", i + 1)}",
-                pergunta = obj.getString("enunciado"),
-                caminhoImagem = null,
-                opcoes = alts,
-                respostaCorreta = obj.getInt("resposta"),
-                explicacao = obj.optString("explicacao", "")
-            ))
+            qList.add(Questao(obj.optString("materia", "Geral"), "Questão ${obj.getInt("id")}", obj.getString("enunciado"), null, alts, obj.getInt("resposta"), obj.optString("explicacao", "")))
         }
-    } catch (e: Exception) {
-        Log.e("ParserError", "Erro ao processar JSON: ${e.message}")
-        e.printStackTrace()
-    }
+    } catch (e: Exception) { e.printStackTrace() }
     return qList
 }
 
@@ -271,7 +272,7 @@ fun TelaQuestao(q: Questao, n: Int, total: Int, respDada: Int, onVoltar: (() -> 
                 OutlinedButton(onClick = { if (!respondeu) sel = i }, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp), colors = ButtonDefaults.outlinedButtonColors(containerColor = cor, contentColor = Color.Black), shape = RoundedCornerShape(8.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                         Text("$letra) ", fontWeight = FontWeight.Bold)
-                        Text(text = t.replace("$", "").replace("$$", ""))
+                        Text(t.replace("$", "").replace("$$", ""))
                     }
                 }
             }
@@ -323,17 +324,17 @@ fun TelaSelecaoMateria(materias: List<Materia>, onMateriaEscolhida: (Materia) ->
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TelaListaSimulados(materia: Materia, onSimuladoEscolhido: (String) -> Unit, onVoltar: () -> Unit) {
+fun TelaListaSimulados(pasta: String, titulo: String, onSimuladoEscolhido: (String) -> Unit, onVoltar: () -> Unit) {
     var simulados by remember { mutableStateOf<List<SimuladoInfo>>(emptyList()) }
     var carregando by remember { mutableStateOf(true) }
     val context = LocalContext.current
-    LaunchedEffect(materia) { 
-        simulados = carregarUrlGitLista(materia.pasta).ifEmpty { 
-            try { context.assets.list(materia.pasta)?.filter { it.endsWith(".txt") }?.map { SimuladoInfo(it, extrairDataDoNome(it)) } ?: emptyList() } catch (e: Exception) { emptyList() }
+    LaunchedEffect(pasta) { 
+        simulados = carregarUrlGitLista(pasta).ifEmpty { 
+            try { context.assets.list(pasta)?.filter { it.endsWith(".txt") }?.map { SimuladoInfo(it, extrairDataDoNome(it)) } ?: emptyList() } catch (e: Exception) { emptyList() }
         }
         carregando = false 
     }
-    Scaffold(topBar = { TopAppBar(title = { Text("Simulados: ${materia.nome}") }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }) { padding ->
+    Scaffold(topBar = { TopAppBar(title = { Text(titulo) }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }) { padding ->
         if (carregando) Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
         else Column(modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())) {
             simulados.forEach { s -> Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { onSimuladoEscolhido(s.nomeArquivo) }, shape = RoundedCornerShape(12.dp)) { Row(modifier = Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Default.DateRange, null, tint = Color(0xFF1B5E20)); Spacer(modifier = Modifier.width(16.dp)); Text("Simulado de ${s.dataFormatada}", fontWeight = FontWeight.Bold) } } }
@@ -412,6 +413,10 @@ fun TelaVideos(onVoltar: () -> Unit) {
         if (carregando) Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
         else Column(modifier = Modifier.padding(padding).verticalScroll(rememberScrollState()).padding(16.dp)) { videos.forEach { video -> Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url)); context.startActivity(intent) }, colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))) { Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) { Box(modifier = Modifier.size(50.dp).background(Color.Red, RoundedCornerShape(25.dp)), contentAlignment = Alignment.Center) { Icon(Icons.Default.PlayArrow, null, tint = Color.White) }; Spacer(modifier = Modifier.width(16.dp)); Text(video.titulo, fontWeight = FontWeight.Bold, fontSize = 16.sp) } } } }
     }
+}
+
+suspend fun carregarUrlGit(path: String): String? = withContext(Dispatchers.IO) {
+    try { URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$path?t=${System.currentTimeMillis()}").openConnection().getInputStream().bufferedReader().use { it.readText() } } catch (e: Exception) { null }
 }
 
 fun parsearGlossario(texto: String): List<GlossarioItem> = texto.split("---").mapNotNull { b ->
