@@ -72,16 +72,22 @@ class MainActivity : ComponentActivity() {
 // --- UTILITÁRIOS ---
 fun extrairDataDoNome(nome: String): String {
     return try {
-        // Remove o .txt
-        val base = nome.substringBefore(".txt")
-        // Se o nome for simulado_geral_2024_1
-        // Pega as partes finais para montar a exibição
-        val partes = base.split("_")
-        if (partes.size >= 3) {
-            "Simulado ${partes[partes.size-2]} - Edição ${partes.last()}"
-        } else {
-            base.replace("_", " ")
+        val raw = nome.substringBefore(".txt")
+        
+        // Trata simulado_geral_2024_1 -> 2024 - Edição 1
+        if (raw.startsWith("simulado_geral_")) {
+            val partes = raw.split("_")
+            if (partes.size >= 4) {
+                return "${partes[2]} - Edição ${partes[3]}"
+            }
         }
+        
+        // Trata matematica-05-03-26 -> 05/03/26
+        val dataPart = if (raw.contains("-")) {
+            if (raw.first().isDigit()) raw else raw.substringAfter("-")
+        } else raw
+        
+        dataPart.replace("-", "/")
     } catch (e: Exception) { "Simulado" }
 }
 
@@ -90,30 +96,18 @@ fun QuestaoParser(rawText: String, modifier: Modifier = Modifier) {
     val regex = remember { Regex("(?<!R)\\${'$'}{1,2}(.*?)\\${'$'}{1,2}") }
     val parts = mutableListOf<Pair<String, Boolean>>()
     var lastIndex = 0
-    
     regex.findAll(rawText).forEach { match ->
-        if (match.range.first > lastIndex) {
-            parts.add(rawText.substring(lastIndex, match.range.first) to false)
-        }
+        if (match.range.first > lastIndex) parts.add(rawText.substring(lastIndex, match.range.first) to false)
         parts.add(match.groupValues[1] to true)
         lastIndex = match.range.last + 1
     }
-    if (lastIndex < rawText.length) {
-        parts.add(rawText.substring(lastIndex) to false)
-    }
+    if (lastIndex < rawText.length) parts.add(rawText.substring(lastIndex) to false)
 
     Column(modifier = modifier.fillMaxWidth()) {
         parts.forEach { (content, isMath) ->
-            if (isMath) {
-                KaTeXView(formula = content)
-            } else {
-                if (content.trim().isNotEmpty() || content.contains("R$")) {
-                    Text(
-                        text = content.trim(),
-                        style = MaterialTheme.typography.bodyLarge.copy(fontSize = 17.sp, lineHeight = 24.sp),
-                        modifier = Modifier.padding(vertical = 4.dp)
-                    )
-                }
+            if (isMath) KaTeXView(formula = content)
+            else if (content.trim().isNotEmpty() || content.contains("R$")) {
+                Text(text = content.trim(), style = MaterialTheme.typography.bodyLarge.copy(fontSize = 17.sp, lineHeight = 24.sp), modifier = Modifier.padding(vertical = 4.dp))
             }
         }
     }
@@ -186,7 +180,7 @@ fun TelaPrincipal(onSimuladosClick: () -> Unit, onSimuladoGeralClick: () -> Unit
         Text("Preparação de Elite", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.height(48.dp))
         MenuButton("Simulados por Matéria", "Escolha disciplina e data", Icons.Default.PlayArrow, Color(0xFF1B5E20), onSimuladosClick)
-        MenuButton("Simulado Geral", "Questões variadas por data", Icons.Default.List, Color(0xFF2E7D32), onSimuladoGeralClick)
+        MenuButton("Simulado Geral", "Questões variadas por edição", Icons.Default.List, Color(0xFF2E7D32), onSimuladoGeralClick)
         MenuButton("Glossário", "Termos importantes", Icons.Default.Info, Color(0xFF388E3C), onGlossarioClick)
         MenuButton("Aulas em Vídeo", "Dicas do YouTube", Icons.Default.Search, Color(0xFF43A047), onVideosClick)
     }
@@ -203,7 +197,6 @@ fun MenuButton(titulo: String, subtitulo: String, icone: ImageVector, cor: Color
     }
 }
 
-// --- SIMULADO GERAL (JSON DINÂMICO) ---
 @Composable
 fun SimuladoGeralApp(nomeArquivo: String, onVoltar: () -> Unit) {
     val context = LocalContext.current
@@ -245,7 +238,7 @@ fun parsearQuestoesJson(jsonStr: String): List<Questao> {
             val alts = mutableListOf<String>()
             val altArr = obj.getJSONArray("alternativas")
             for (j in 0 until altArr.length()) alts.add(altArr.getString(j))
-            qList.add(Questao(obj.optString("materia", "Geral"), "Questão ${obj.getInt("id")}", obj.getString("enunciado"), null, alts, obj.getInt("resposta"), obj.optString("explicacao", "")))
+            qList.add(Questao(obj.optString("materia", "Geral"), "Questão ${obj.getInt("id")}", obj.getString("enunciado"), obj.optString("imagem", null).takeIf { it?.isNotEmpty() == true }, alts, obj.getInt("resposta"), obj.optString("explicacao", "")))
         }
     } catch (e: Exception) { e.printStackTrace() }
     return qList
@@ -277,7 +270,7 @@ fun TelaQuestao(q: Questao, n: Int, total: Int, respDada: Int, onVoltar: (() -> 
                 OutlinedButton(onClick = { if (!respondeu) sel = i }, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp), colors = ButtonDefaults.outlinedButtonColors(containerColor = cor, contentColor = Color.Black), shape = RoundedCornerShape(8.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                         Text("$letra) ", fontWeight = FontWeight.Bold)
-                        Text(t.replace("$", "").replace("$$", ""))
+                        Text(text = t.replace("$", "").replace("$$", ""))
                     }
                 }
             }
@@ -342,9 +335,13 @@ fun TelaListaSimulados(pasta: String, titulo: String, onSimuladoEscolhido: (Stri
     Scaffold(topBar = { TopAppBar(title = { Text(titulo) }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }) { padding ->
         if (carregando) Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
         else Column(modifier = Modifier.padding(padding).fillMaxSize().padding(16.dp).verticalScroll(rememberScrollState())) {
-            simulados.forEach { s -> Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { onSimuladoEscolhido(s.nomeArquivo) }, shape = RoundedCornerShape(12.dp)) { Row(modifier = Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Default.DateRange, null, tint = Color(0xFF1B5E20)); Spacer(modifier = Modifier.width(16.dp)); Text("Simulado de ${s.dataFormatada}", fontWeight = FontWeight.Bold) } } }
+            simulados.forEach { s -> Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { onSimuladoEscolhido(s.nomeArquivo) }, shape = RoundedCornerShape(12.dp)) { Row(modifier = Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) { Icon(Icons.Default.DateRange, null, tint = Color(0xFF1B5E20)); Spacer(modifier = Modifier.width(16.dp)); Text(simuladoTituloDisplay(s), fontWeight = FontWeight.Bold) } } }
         }
     }
+}
+
+fun simuladoTituloDisplay(s: SimuladoInfo): String {
+    return if (s.nomeArquivo.startsWith("simulado_geral")) s.dataFormatada else "Simulado de ${s.dataFormatada}"
 }
 
 suspend fun carregarUrlGitLista(pasta: String): List<SimuladoInfo> = withContext(Dispatchers.IO) {
@@ -378,24 +375,13 @@ fun SimuladoApp(materia: Materia, nomeArquivo: String, onVoltarMenu: () -> Unit)
 
 fun parsearQuestoesTxt(c: String): List<Questao> = c.split("---").mapNotNull { b ->
     val l = b.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
-    if (l.size >= 6) { // Aumentado para 6 linhas mínimo
-        val materia = l[0] // A primeira linha agora é a Matéria
-        val identificacao = l[1] // A segunda é QUESTÃO XX
-        val idxA = l.indexOfFirst { it.lowercase().startsWith("a)") }
-        if (idxA == -1) return@mapNotNull null
-
+    if (l.size >= 5) {
+        val idxA = l.indexOfFirst { it.startsWith("a)") }; if (idxA == -1) return@mapNotNull null
+        val img = l.find { it.startsWith("IMAGEM:") }?.substringAfter(":")?.trim()
         val perg = l.subList(2, idxA).filter { !it.startsWith("IMAGEM:") }.joinToString("\n")
-        val opc = listOf(
-            l[idxA].substringAfter(")").trim(),
-            l[idxA+1].substringAfter(")").trim(),
-            l[idxA+2].substringAfter(")").trim(),
-            l[idxA+3].substringAfter(")").trim()
-        )
-        val respStr = l.find { it.startsWith("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
-        val explicacao = l.find { it.startsWith("EXPLICAÇÃO:") }?.substringAfter(":")?.trim() ?: ""
-
-        Questao(materia, identificacao, perg, null, opc,
-            when(respStr) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }, explicacao)
+        val opc = listOf(l[idxA].substringAfter("a)").trim(), l[idxA+1].substringAfter("b)").trim(), l[idxA+2].substringAfter("c)").trim(), l[idxA+3].substringAfter("d)").trim())
+        val resp = l.find { it.contains("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
+        Questao(l[0], l[1], perg, img, opc, when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }, l.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: "")
     } else null
 }
 
