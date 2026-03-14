@@ -209,24 +209,41 @@ fun SimuladoGeralApp(nomeArquivo: String, onVoltar: () -> Unit) {
 
     LaunchedEffect(nomeArquivo) {
         val path = "simuladogeral/$nomeArquivo"
-        val jsonStr = carregarUrlGit(path) ?: try { context.assets.open(path).bufferedReader().use { it.readText() } } catch (e: Exception) { null }
-        if (jsonStr != null) {
-            lista = parsearQuestoesJson(jsonStr)
+        // Tenta carregar do Git, se não conseguir, tenta dos Assets locais
+        val textoBruto = carregarUrlGit(path) ?: try {
+            context.assets.open(path).bufferedReader().use { it.readText() }
+        } catch (e: Exception) {
+            null
+        }
+
+        if (textoBruto != null) {
+            // CORREÇÃO: Usar o parser de TXT em vez de JSON
+            lista = parsearQuestoesTxt(textoBruto)
         }
         carregando = false
     }
 
-    if (carregando) Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
-    else if (lista.isEmpty()) Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text("Erro ao carregar simulado.") }
-    else if (!finalizado) {
+    if (carregando) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            CircularProgressIndicator(color = Color(0xFF1B5E20))
+        }
+    } else if (lista.isEmpty()) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text("Erro ao carregar o arquivo TXT ou formato inválido.")
+        }
+    } else if (!finalizado) {
         TelaQuestao(lista[idx], idx + 1, lista.size, respUser[idx] ?: -1, if (idx > 0) { { idx -= 1 } } else onVoltar) { s ->
             if (!respUser.containsKey(idx)) {
                 val res = stats.getOrPut(lista[idx].materia) { ResultadoMateria(lista[idx].materia) }
-                res.total++; if (s == lista[idx].respostaCorreta) res.acertos++; respUser[idx] = s
+                res.total++
+                if (s == lista[idx].respostaCorreta) res.acertos++
+                respUser[idx] = s
             }
             if (idx < lista.size - 1) idx++ else finalizado = true
         }
-    } else { TelaDesempenho("Simulado Geral", extrairDataDoNome(nomeArquivo), stats.values.toList(), onVoltar) }
+    } else {
+        TelaDesempenho("Simulado Geral", extrairDataDoNome(nomeArquivo), stats.values.toList(), onVoltar)
+    }
 }
 
 fun parsearQuestoesJson(jsonStr: String): List<Questao> {
