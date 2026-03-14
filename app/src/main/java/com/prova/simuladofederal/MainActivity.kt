@@ -72,11 +72,16 @@ class MainActivity : ComponentActivity() {
 // --- UTILITÁRIOS ---
 fun extrairDataDoNome(nome: String): String {
     return try {
-        val raw = nome.substringBefore(".txt")
-        val dataPart = if (raw.contains("-")) {
-            if (raw.first().isDigit()) raw else raw.substringAfter("-")
-        } else raw
-        dataPart.replace("-", "/")
+        // Remove o .txt
+        val base = nome.substringBefore(".txt")
+        // Se o nome for simulado_geral_2024_1
+        // Pega as partes finais para montar a exibição
+        val partes = base.split("_")
+        if (partes.size >= 3) {
+            "Simulado ${partes[partes.size-2]} - Edição ${partes.last()}"
+        } else {
+            base.replace("_", " ")
+        }
     } catch (e: Exception) { "Simulado" }
 }
 
@@ -373,13 +378,24 @@ fun SimuladoApp(materia: Materia, nomeArquivo: String, onVoltarMenu: () -> Unit)
 
 fun parsearQuestoesTxt(c: String): List<Questao> = c.split("---").mapNotNull { b ->
     val l = b.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
-    if (l.size >= 5) {
-        val idxA = l.indexOfFirst { it.startsWith("a)") }; if (idxA == -1) return@mapNotNull null
-        val img = l.find { it.startsWith("IMAGEM:") }?.substringAfter(":")?.trim()
+    if (l.size >= 6) { // Aumentado para 6 linhas mínimo
+        val materia = l[0] // A primeira linha agora é a Matéria
+        val identificacao = l[1] // A segunda é QUESTÃO XX
+        val idxA = l.indexOfFirst { it.lowercase().startsWith("a)") }
+        if (idxA == -1) return@mapNotNull null
+
         val perg = l.subList(2, idxA).filter { !it.startsWith("IMAGEM:") }.joinToString("\n")
-        val opc = listOf(l[idxA].substringAfter("a)").trim(), l[idxA+1].substringAfter("b)").trim(), l[idxA+2].substringAfter("c)").trim(), l[idxA+3].substringAfter("d)").trim())
-        val resp = l.find { it.contains("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
-        Questao(l[0], l[1], perg, img, opc, when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }, l.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: "")
+        val opc = listOf(
+            l[idxA].substringAfter(")").trim(),
+            l[idxA+1].substringAfter(")").trim(),
+            l[idxA+2].substringAfter(")").trim(),
+            l[idxA+3].substringAfter(")").trim()
+        )
+        val respStr = l.find { it.startsWith("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
+        val explicacao = l.find { it.startsWith("EXPLICAÇÃO:") }?.substringAfter(":")?.trim() ?: ""
+
+        Questao(materia, identificacao, perg, null, opc,
+            when(respStr) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }, explicacao)
     } else null
 }
 

@@ -1,18 +1,19 @@
 [
-  {
-    "id": 1,
-    "enunciado": "Leia o poema de Patativa do Assaré.\n\n\t\tCante lá, que eu canto cá\n\t\tPoeta, cantô de rua,\n\t\tQue na cidade nasceu,\n\t\tCante a cidade que é sua,\n\t\tQue eu canto o sertão que é meu.\n\t\t\n\t\tSe aí você teve estudo,\n\t\tAqui, Deus me ensinou tudo,\n\t\tSem de livro precisá\n\t\tPor favô, não mêxa aqui,\n\t\tQue eu também não mexo aí,\n\t\tCante lá, que eu canto cá.\n\t\t\n\t\tVocê teve inducação,\n\t\tAprendeu munta ciença,\n\t\tMas das coisa do sertão\n\t\tNão tem boa esperiença.\n\t\tNunca fez uma paioça,\n\t\tNunca trabaiou na roça,\n\t\tNão pode conhecê bem,\n\t\tPois nesta penosa vida,\n\t\tSó quem provou da comida\n\t\tSabe o gosto que ela tem [...]\n\t\t\n\t\tAqui findo esta verdade\n\t\tToda cheia de razão:\n\t\tFique na sua cidade\n\t\tQue eu fico no meu sertão.\n\t\tJá lhe mostrei um ispeio,\n\t\tJá lhe dei grande conseio\n\t\tQue você deve tomá.\n\t\tPor favô, não mexa aqui,\n\t\tQue eu também não mêxo aí,\n\t\tCante lá que eu canto cá.\n\n\t\tDisponível em: http://www.fisica.ufpb.br/~romero/port/ga_pa.htm#Can. Acesso em: 19 out. 2023. Adaptado.\n\t\n\tAcerca da variedade linguística empregada ao longo do texto, constata-se que",
-    "formula": "",
-    "alternativas": [
-      "a falta de conhecimento linguístico adequado comprometeu a produção do poema, que ficou incompreensível.",
-      "a linguagem empregada pelo eu lírico é reflexo do desprezo que ele demonstra pela educação formal.",
-      "o falar do eu lírico foi o motivo da discussão criada entre ele e o interlocutor, um jovem poeta urbano.",
-      "o texto valora os diferentes tipos de conhecimento, valendo-se da linguagem do poeta sertanejo."
-    ],
-    "resposta": 3,
-    "explicacao": "O poema de Patativa do Assaré utiliza a variação linguística regional/sertaneja para exaltar que o conhecimento prático da vida ('Deus me ensinou tudo') tem tanto valor quanto o estudo formal da cidade. [cite: 36, 42, 56]"
-  }
-]
+  [
+    {
+      "id": 1,
+      "enunciado": "Leia o poema de Patativa do Assaré.\n\n\t\tCante lá, que eu canto cá\n\t\tPoeta, cantô de rua,\n\t\tQue na cidade nasceu,\n\t\tCante a cidade que é sua,\n\t\tQue eu canto o sertão que é meu.\n\t\t\n\t\tSe aí você teve estudo,\n\t\tAqui, Deus me ensinou tudo,\n\t\tSem de livro precisá\n\t\tPor favô, não mêxa aqui,\n\t\tQue eu também não mexo aí,\n\t\tCante lá, que eu canto cá.\n\t\t\n\t\tVocê teve inducação,\n\t\tAprendeu munta ciença,\n\t\tMas das coisa do sertão\n\t\tNão tem boa esperiença.\n\t\tNunca fez uma paioça,\n\t\tNunca trabaiou na roça,\n\t\tNão pode conhecê bem,\n\t\tPois nesta penosa vida,\n\t\tSó quem provou da comida\n\t\tSabe o gosto que ela tem [...]\n\t\t\n\t\tAqui findo esta verdade\n\t\tToda cheia de razão:\n\t\tFique na sua cidade\n\t\tQue eu fico no meu sertão.\n\t\tJá lhe mostrei um ispeio,\n\t\tJá lhe dei grande conseio\n\t\tQue você deve tomá.\n\t\tPor favô, não mexa aqui,\n\t\tQue eu também não mêxo aí,\n\t\tCante lá que eu canto cá.\n\n\t\tDisponível em: http://www.fisica.ufpb.br/~romero/port/ga_pa.htm#Can. Acesso em: 19 out. 2023. Adaptado.\n\t\n\tAcerca da variedade linguística empregada ao longo do texto, constata-se que",
+      "formula": "",
+      "alternativas": [
+        "a falta de conhecimento linguístico adequado comprometeu a produção do poema, que ficou incompreensível.",
+        "a linguagem empregada pelo eu lírico é reflexo do desprezo que ele demonstra pela educação formal.",
+        "o falar do eu lírico foi o motivo da discussão criada entre ele e o interlocutor, um jovem poeta urbano.",
+        "o texto valora os diferentes tipos de conhecimento, valendo-se da linguagem do poeta sertanejo."
+      ],
+      "resposta": 3,
+      "explicacao": "O poema de Patativa do Assaré utiliza a variação linguística regional/sertaneja para exaltar que o conhecimento prático da vida ('Deus me ensinou tudo') tem tanto valor quanto o estudo formal da cidade. [cite: 36, 42, 56]"
+    }
+  ],
   {
     "id": 2,
     "enunciado": "A comparação entre os textos (I e II) possibilita a percepção de que há:",
