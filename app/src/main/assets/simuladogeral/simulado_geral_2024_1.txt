@@ -39,7 +39,9 @@ b) a linguagem empregada pelo eu lírico é reflexo do desprezo que ele demonstr
 c) o falar do eu lírico foi o motivo da discussão criada entre ele e o interlocutor, um jovem poeta urbano.
 d) o texto valora os diferentes tipos de conhecimento, valendo-se da linguagem do poeta sertanejo.
 RESPOSTA: d
-EXPLICAÇÃO: O poema valoriza o conhecimento prático e a cultura do sertanejo, utilizando sua variedade regional.Português
+EXPLICAÇÃO: O poema valoriza o conhecimento prático e a cultura do sertanejo, utilizando sua variedade regional.
+---
+Português
 QUESTÃO 02
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Leia e observe os textos a seguir.
@@ -51,7 +53,9 @@ b) alienação social no uso das tecnologias.
 c) incerteza sobre a utilidade das tecnologias.
 d) indiferença quanto ao uso das redes sociais.
 RESPOSTA: b
-EXPLICAÇÃO: A relação entre os textos aponta para a alienação causada pelo uso excessivo de redes e tecnologias.Português
+EXPLICAÇÃO: A relação entre os textos aponta para a alienação causada pelo uso excessivo de redes e tecnologias.
+---
+Português
 QUESTÃO 03
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 TEXTO II: Vinicius Jr sofre racismo e é expulso de partida do Real Madrid.
@@ -63,7 +67,9 @@ b) o texto III é histórico e, apesar de dialogar com os demais textos, é disp
 c) os textos I e II são essencialmente opinativos e demonstram posicionamento favorável ao jogador brasileiro.
 d) os textos II e III podem ser definidos como “notícias”, pois personalizam a opinião do jornalista que os produziu.
 RESPOSTA: a
-EXPLICAÇÃO: O texto I utiliza elementos de outros textos (intertextualidade) para construir sua crítica.Português
+EXPLICAÇÃO: O texto I utiliza elementos de outros textos (intertextualidade) para construir sua crítica.
+---
+Português
 QUESTÃO 04
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Leia o texto "Fins sem princípios" de Lygia Maria.
@@ -74,7 +80,9 @@ b) desvalorização dos cursos de humanidades nas universidades brasileiras.
 c) hierarquização das más atitudes humanas das partes envolvidas no conflito.
 d) validação da tese de equivalência entre a causa palestina e o grupo Hamas.
 RESPOSTA: c
-EXPLICAÇÃO: A autora critica a forma como as atrocidades são justificadas ou relativizadas por acadêmicos.Português
+EXPLICAÇÃO: A autora critica a forma como as atrocidades são justificadas ou relativizadas por acadêmicos.
+---
+Português
 QUESTÃO 05
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Texto: O surpreendente 'país' onde imigrantes brasileiros podem ser 30% da população (Vitor Tavares, BBC).
@@ -84,7 +92,9 @@ b) apresentar dados sobre o aumento da imigração brasileira para a Guiana Fran
 c) criticar a postura de um número cada vez maior de brasileiros que decide imigrar para o país vizinho.
 d) denunciar o crescimento da entrada significativa de imigrantes ilegais brasileiros na Guiana Francesa.
 RESPOSTA: b
-EXPLICAÇÃO: O texto foca em dados estatísticos e no crescimento populacional de brasileiros no território.Português
+EXPLICAÇÃO: O texto foca em dados estatísticos e no crescimento populacional de brasileiros no território.
+---
+Português
 QUESTÃO 06
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Texto: 'Inteligência Artificial não ameaça humanidade' (Chris Vallance, BBC).
@@ -94,7 +104,9 @@ b) “A carta foi organizada pela Sociedade Britânica de Computação... para c
 c) “Em março, líderes do setor de tecnologia assinaram uma carta pedindo uma pausa no desenvolvimento de sistemas poderosos.”
 d) “Assim como outros signatários da carta, ele acredita que a regulamentação vai ser necessária.”
 RESPOSTA: c
-EXPLICAÇÃO: O pedido de pausa no desenvolvimento é fundamentado no risco existencial citado por alguns especialistas.Português
+EXPLICAÇÃO: O pedido de pausa no desenvolvimento é fundamentado no risco existencial citado por alguns especialistas.
+---
+Português
 QUESTÃO 07
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Texto: A Guerra dos Emus. "Confira um exemplo de quando a gente foi mexer com a mãe natureza e o tiro saiu pela culatra."
@@ -104,7 +116,9 @@ b) “...foi decretado oficialmente o impensável.”
 c) “...porque não conhece a habilidade militar dos emus.”
 d) “...o que deixou todos os agricultores em pânico.”
 RESPOSTA: a
-EXPLICAÇÃO: "Tiro saiu pela culatra" é uma expressão idiomática coloquial.Português
+EXPLICAÇÃO: "Tiro saiu pela culatra" é uma expressão idiomática coloquial.
+---
+Português
 QUESTÃO 08
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Texto sobre Radioamadores e Eclipse Solar.
@@ -114,7 +128,9 @@ b) Repleta de antenas, a estrutura de 30 metros é mais alta do que diversas ár
 c) Ele se identifica não só pelo seu nome, mas também pelo seu indicativo... (adição)
 d) No próximo sábado, ele e outros radioamadores irão lotar as frequências... (lugar)
 RESPOSTA: c
-EXPLICAÇÃO: "Não só... mas também" expressa uma relação clara de adição.Português
+EXPLICAÇÃO: "Não só... mas também" expressa uma relação clara de adição.
+---
+Português
 QUESTÃO 09
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Texto: Como fins de semana de três dias podem ajudar a salvar o mundo.
@@ -124,7 +140,9 @@ b) questionar o argumento defendido no parágrafo anterior.
 c) legitimar a tese do texto mediante referência a pesquisas especializadas.
 d) sustentar a argumentação textual a partir da utilização de dados estatísticos.
 RESPOSTA: c
-EXPLICAÇÃO: Citar especialistas serve para dar autoridade e legitimidade ao argumento proposto.Português
+EXPLICAÇÃO: Citar especialistas serve para dar autoridade e legitimidade ao argumento proposto.
+---
+Português
 QUESTÃO 10
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 TEXTO I: Rapaz comum (Racionais MC’s).
@@ -135,43 +153,57 @@ b) destacarem, no velório, a presença massiva de parentes do morto.
 c) narrarem os acontecimentos pela perspectiva da pessoa morta.
 d) relembrarem a morte de pessoas falecidas há muito tempo.
 RESPOSTA: c
-EXPLICAÇÃO: Ambos utilizam o recurso do "defunto autor" ou da voz de quem já partiu narrando a própria situação fúnebre.Português
+EXPLICAÇÃO: Ambos utilizam o recurso do "defunto autor" ou da voz de quem já partiu narrando a própria situação fúnebre.
+---
+Português
 QUESTÃO 11
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Postagem do perfil “Ministério dos Povos Indígenas”. A principal estratégia argumentativa presente nessa postagem é a:
+Postagem do perfil “Ministério dos Povos Indígenas”.
+A principal estratégia argumentativa presente nessa postagem é a:
 a) acusação contra o desmatamento e a mineração como consequências da ocupação ilegal.
 b) contestação do conhecimento ancestral dos indígenas, ao enfatizar o caráter antiquado.
 c) demonstração numérica da eficiência dos modos de vida indígenas em preservar áreas.
 d) criação de espaços de decisão política que defendam a segurança das terras.
 RESPOSTA: c
-EXPLICAÇÃO: A postagem utiliza dados para provar que terras indígenas são as mais preservadas.Português
+EXPLICAÇÃO: A postagem utiliza dados para provar que terras indígenas são as mais preservadas.
+---
+Português
 QUESTÃO 12
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Postagem com a palavra "vitamina". O humor produzido no texto é gerado a partir de qual efeito de sentido?
+Postagem com a palavra "vitamina".
+O humor produzido no texto é gerado a partir de qual efeito de sentido?
 a) Comparação.
 b) Polissemia.
 c) Metáfora.
 d) Ironia.
 RESPOSTA: b
-EXPLICAÇÃO: A polissemia ocorre quando uma palavra (vitamina) tem múltiplos significados explorados para o humor.Português
+EXPLICAÇÃO: A polissemia ocorre quando uma palavra (vitamina) tem múltiplos significados explorados para o humor.
+---
+Português
 QUESTÃO 13
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Análise da tirinha do cacto. O efeito de sentido decorre:
+Análise da tirinha do cacto.
+O efeito de sentido decorre:
 a) da paráfrase que remete a uma expressão popular.
 b) da personificação atribuída a um ser irracional.
 c) do eufemismo que abranda a agressividade do cacto.
 d) do paradoxo representado por uma planta violenta.
 RESPOSTA: b
-EXPLICAÇÃO: Personificação (prosopopeia) é dar características humanas a seres não humanos.Português
+EXPLICAÇÃO: Personificação (prosopopeia) é dar características humanas a seres não humanos.
+---
+Português
 QUESTÃO 14
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Romance “Torto arado”. A utilização reiterada do verbo “poder” indica a:
+Romance “Torto arado”.
+A utilização reiterada do verbo “poder” indica a:
 a) apropriação indevida da fazenda por parte de seu gerente.
 b) negociação dos empregados acerca de seus benefícios.
 c) ocupação pacífica e consensual de terras improdutivas.
 d) romantização de uma relação de trabalho exploratória.
 RESPOSTA: d
-EXPLICAÇÃO: O verbo "poder" mascara as permissões limitadas de uma relação de exploração no campo.Português
+EXPLICAÇÃO: O verbo "poder" mascara as permissões limitadas de uma relação de exploração no campo.
+---
+Português
 QUESTÃO 15
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 O vocábulo sublinhado refere-se ao(s) termo(s) indicado(s) em:
@@ -180,7 +212,9 @@ b) “...afinal, era para isso que se permitia...” – colocar roça pequena.
 c) “...assim, porque quando eles crescessem...” – mulher e filhos.
 d) “...mostrando a mata ao redor deles...” – meu pai e meu tio.
 RESPOSTA: c
-EXPLICAÇÃO: "Eles" retoma os sujeitos mencionados anteriormente (mulher e filhos).Matemática
+EXPLICAÇÃO: "Eles" retoma os sujeitos mencionados anteriormente (mulher e filhos).
+---
+Matemática
 QUESTÃO 16
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Balanças em equilíbrio.
@@ -190,47 +224,57 @@ b) S = 2, Q = 7, T = 15 e R = 10
 c) S = 3, Q = 8, T = 20 e R = 13
 d) S = 4, Q = 3, T = 18 e R = 13
 RESPOSTA: b
-EXPLICAÇÃO: Substituindo os valores nas equações de equilíbrio das balanças, a opção B é a única matematicamente consistente.Matemática
+EXPLICAÇÃO: Substituindo os valores nas equações de equilíbrio das balanças, a opção B é a única matematicamente consistente.
+---
+Matemática
 QUESTÃO 17
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Probabilidade em sorteio de cartas. A banca embaralha quatro cartas.
-Qual a probabilidade do jogador vencer com sua sequência de 3 cartas?
+Probabilidade em sorteio de cartas.
+A banca embaralha quatro cartas. Qual a probabilidade do jogador vencer com sua sequência de 3 cartas?
 a) 4%
 b) 8%
 c) 17%
 d) 75%
 RESPOSTA: b
-EXPLICAÇÃO: Cálculo baseado em permutações das cartas da banca e as posições possíveis da sequência do jogador.Matemática
+EXPLICAÇÃO: Cálculo baseado em permutações das cartas da banca e as posições possíveis da sequência do jogador.
+---
+Matemática
 QUESTÃO 18
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Pesquisas de intenção de voto. Classifique (V) ou (F): i-Censo, ii-Amostra casual, iii-Estratos, iv-Capitais.
+Pesquisas de intenção de voto.
+Classifique (V) ou (F): i-Censo, ii-Amostra casual, iii-Estratos, iv-Capitais.
 a) FVVF
 b) FFVF
 c) VVFV
 d) VFFV
 RESPOSTA: a
-EXPLICAÇÃO: i(F) - não é censo; ii(V) - pode ser amostra simples;
-iii(V) - usa estratificação; iv(F) - focar só em capitais gera viés.Matemática
+EXPLICAÇÃO: i(F) - não é censo; ii(V) - pode ser amostra simples; iii(V) - usa estratificação; iv(F) - focar só em capitais gera viés.
+---
+Matemática
 QUESTÃO 19
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Unidade Astronômica (UA) = 1,5 milhões de km. Distância Lunar (DL) = 384 mil km.
-A distância Terra-Lua em UA é:
+Unidade Astronômica (UA) = 1,5 milhões de km.
+Distância Lunar (DL) = 384 mil km. A distância Terra-Lua em UA é:
 a) 0,004
 b) 0,256
 c) 3,906
 d) 256,0
 RESPOSTA: a
-EXPLICAÇÃO: 384.000 / 1.500.000 ≈ 0,004 UA.Matemática
+EXPLICAÇÃO: 384.000 / 1.500.000 ≈ 0,004 UA.
+---
+Matemática
 QUESTÃO 20
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Smartphone de R$ 1200. Opção 1: 3% cashback à vista.
-Opção 2: 3 parcelas (entrada + 2 parcelas com 5% cashback).
+Smartphone de R$ 1200.
+Opção 1: 3% cashback à vista. Opção 2: 3 parcelas (entrada + 2 parcelas com 5% cashback).
 a) Opção 1, com R$ 360,00 de cashback.
 b) Opção 1, com R$ 3,60 de cashback.
 c) Opção 2, com R$ 60,00 de cashback.
 d) Opção 2, com R$ 40,00 de cashback.
 RESPOSTA: d
-EXPLICAÇÃO: Opção 1: 3% de 1200 = 36. Opção 2: 5% de 400 = 20 (x2 parcelas) = 40.Matemática
+EXPLICAÇÃO: Opção 1: 3% de 1200 = 36. Opção 2: 5% de 400 = 20 (x2 parcelas) = 40.
+---
+Matemática
 QUESTÃO 21
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Semanas de moda em Milão e Paris.
@@ -240,7 +284,9 @@ b) 3
 c) 6
 d) 20
 RESPOSTA: b
-EXPLICAÇÃO: 42 marcas / 14 dias = 3 desfiles por dia.Matemática
+EXPLICAÇÃO: 42 marcas / 14 dias = 3 desfiles por dia.
+---
+Matemática
 QUESTÃO 22
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Consumo de energia.
@@ -250,47 +296,57 @@ b) 320 kWh e R$ 173,50
 c) 347 kWh e R$160,00
 d) 347 kWh e R$173,50
 RESPOSTA: a
-EXPLICAÇÃO: Diferença = 320 kWh.
-Preço = 320 * 0,50 = R$ 160,00.Matemática
+EXPLICAÇÃO: Diferença = 320 kWh. Preço = 320 * 0,50 = R$ 160,00.
+---
+Matemática
 QUESTÃO 23
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Retângulo ABCD área 33cm². N e M são pontos médios.
-Comprimento do segmento MN:
+Retângulo ABCD área 33cm².
+N e M são pontos médios. Comprimento do segmento MN:
 a) 2,75
 b) 8,25
 c) 11,5
 d) 23,0
 RESPOSTA: a
-EXPLICAÇÃO: Aplicação de propriedades de pontos médios e proporções de área em geometria plana.Matemática
+EXPLICAÇÃO: Aplicação de propriedades de pontos médios e proporções de área em geometria plana.
+---
+Matemática
 QUESTÃO 24
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Pirulito da Praça Sete. Altura 13,57m. Distância base ao ponto X = 13,29m.
-Distância percorrida pelo pássaro (hipotenusa):
+Pirulito da Praça Sete.
+Altura 13,57m. Distância base ao ponto X = 13,29m. Distância percorrida pelo pássaro (hipotenusa):
 a) 0,3
 b) 19
 c) 27
 d) 361
 RESPOSTA: b
-EXPLICAÇÃO: Teorema de Pitágoras: √(13,57² + 13,29²) ≈ 19 metros.Matemática
+EXPLICAÇÃO: Teorema de Pitágoras: √(13,57² + 13,29²) ≈ 19 metros.
+---
+Matemática
 QUESTÃO 25
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Seja z um número real maior que 1. A expressão simplificada é:
+Seja z um número real maior que 1.
+A expressão simplificada é:
 a) Opção A
 b) Opção B
 c) Opção C
 d) Opção D
 RESPOSTA: b
-EXPLICAÇÃO: Manipulação algébrica de expressões racionais.Matemática
+EXPLICAÇÃO: Manipulação algébrica de expressões racionais.
+---
+Matemática
 QUESTÃO 26
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Sistemas lineares equivalentes com constantes apagadas. Os membros apagados eram iguais a:
+Sistemas lineares equivalentes com constantes apagadas.
+Os membros apagados eram iguais a:
 a) – 6
 b) – 5
 c) – 3
 d) 5
 RESPOSTA: d
-EXPLICAÇÃO: Como os sistemas são equivalentes, eles possuem a mesma solução (x,y).
-Substituindo, descobre-se a constante.Matemática
+EXPLICAÇÃO: Como os sistemas são equivalentes, eles possuem a mesma solução (x,y). Substituindo, descobre-se a constante.
+---
+Matemática
 QUESTÃO 27
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Equação da reta y = ax + b.
@@ -300,25 +356,33 @@ b) 38
 c) 43
 d) 72
 RESPOSTA: b
-EXPLICAÇÃO: Cálculo das coordenadas dos vértices (interseções) e aplicação da fórmula da área de polígonos.Matemática
+EXPLICAÇÃO: Cálculo das coordenadas dos vértices (interseções) e aplicação da fórmula da área de polígonos.
+---
+Matemática
 QUESTÃO 28
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Trapézio retângulo ABCD. Diagonais perpendiculares. Medida do segmento BC:
+Trapézio retângulo ABCD.
+Diagonais perpendiculares. Medida do segmento BC:
 a) Opção A
 b) Opção B
 c) Opção C
 d) Opção D
 RESPOSTA: a
-EXPLICAÇÃO: Uso de relações métricas no trapézio com diagonais ortogonais.Matemática
+EXPLICAÇÃO: Uso de relações métricas no trapézio com diagonais ortogonais.
+---
+Matemática
 QUESTÃO 29
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Divisibilidade por 13. Número A54321 é divisível por 13. O algarismo A é:
+Divisibilidade por 13.
+Número A54321 é divisível por 13. O algarismo A é:
 a) um número ímpar.
 b) um quadrado perfeito.
 c) um número que tem uma quantidade par de divisores.
 d) um número que tem uma quantidade ímpar de divisores.
 RESPOSTA: d
-EXPLICAÇÃO: Testando os valores para A que tornam o número múltiplo de 13, A deve ser 9 (quadrado perfeito/divisores ímpares).Matemática
+EXPLICAÇÃO: Testando os valores para A que tornam o número múltiplo de 13, A deve ser 9 (quadrado perfeito/divisores ímpares).
+---
+Matemática
 QUESTÃO 30
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Frações entre duas dadas com denominador 91 e numerador par.
@@ -328,36 +392,45 @@ b) 2
 c) 3
 d) 8
 RESPOSTA: c
-EXPLICAÇÃO: Conversão para denominador comum e contagem dos numeradores pares no intervalo.Ciências da Natureza
+EXPLICAÇÃO: Conversão para denominador comum e contagem dos numeradores pares no intervalo.
+---
+Ciências da Natureza
 QUESTÃO 31
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Eclipse solar e lunar. Posição relativa dos corpos.
-Identifique a VERDADEIRA:
+Eclipse solar e lunar.
+Posição relativa dos corpos. Identifique a VERDADEIRA:
 a) O diâmetro médio da Lua é igual ao do Sol.
 b) O diâmetro médio da Terra é igual ao da Lua.
 c) O diâmetro médio da Terra é igual ao do Sol.
 d) Os diâmetros médios dos três corpos são consideravelmente diferentes.
 RESPOSTA: d
-EXPLICAÇÃO: Sol é muito maior que a Terra, que é maior que a Lua.Ciências da Natureza
+EXPLICAÇÃO: Sol é muito maior que a Terra, que é maior que a Lua.
+---
+Ciências da Natureza
 QUESTÃO 32
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Conversões de energia (Arco e flecha). São verdadeiras as afirmativas:
+Conversões de energia (Arco e flecha).
+São verdadeiras as afirmativas:
 a) I e II.
 b) II e IV.
 c) III e IV.
 d) I e III.
 RESPOSTA: b
-EXPLICAÇÃO: II-Cinética vira potencial na subida. IV-Cinética vira sonora no impacto.Ciências da Natureza
+EXPLICAÇÃO: II-Cinética vira potencial na subida. IV-Cinética vira sonora no impacto.
+---
+Ciências da Natureza
 QUESTÃO 33
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Consumo TV. 150W, 4h diárias, 30 dias. Tarifa R$ 0,80 por kWh. Valor cobrado:
+Consumo TV.
+150W, 4h diárias, 30 dias. Tarifa R$ 0,80 por kWh. Valor cobrado:
 a) R$ 0,48.
 b) R$ 3,60.
 c) R$ 14,40.
 d) R$ 36,00.
 RESPOSTA: c
-EXPLICAÇÃO: (150W * 4h * 30 dias) / 1000 = 18 kWh.
-18 * 0,80 = R$ 14,40.Ciências da Natureza
+EXPLICAÇÃO: (150W * 4h * 30 dias) / 1000 = 18 kWh. 18 * 0,80 = R$ 14,40.
+---
+Ciências da Natureza
 QUESTÃO 34
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Transferência espontânea de energia (calor) ocorre sempre que os corpos tiverem:
@@ -366,34 +439,45 @@ b) densidades diferentes.
 c) volumes diferentes.
 d) massas diferentes.
 RESPOSTA: a
-EXPLICAÇÃO: Calor é energia térmica em trânsito motivada por diferença de temperatura.Ciências da Natureza
+EXPLICAÇÃO: Calor é energia térmica em trânsito motivada por diferença de temperatura.
+---
+Ciências da Natureza
 QUESTÃO 35
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Primeiras células. Registros fósseis indicam que elas eram:
+Primeiras células.
+Registros fósseis indicam que elas eram:
 a) procarióticas, com material genético num núcleo.
 b) procarióticas, com material genético no citoplasma.
 c) eucarióticas, com material genético num núcleo.
 d) eucarióticas, com material genético no citoplasma.
 RESPOSTA: b
-EXPLICAÇÃO: As primeiras células eram as mais simples: procariontes (sem núcleo).Ciências da Natureza
+EXPLICAÇÃO: As primeiras células eram as mais simples: procariontes (sem núcleo).
+---
+Ciências da Natureza
 QUESTÃO 36
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Pão e Bolo (Fermentação). Afirmação correta:
+Pão e Bolo (Fermentação).
+Afirmação correta:
 a) mesmos fenômenos de formação de gases.
 b) bolo necessita de organismos vivos no fermento químico.
 c) tipo de fermentação do pão é o mesmo da cerveja.
 d) pão necessita de oxigênio (sovar).
 RESPOSTA: c
-EXPLICAÇÃO: Pão e cerveja usam o fungo Saccharomyces cerevisiae (fermentação alcoólica).Ciências da Natureza
+EXPLICAÇÃO: Pão e cerveja usam o fungo Saccharomyces cerevisiae (fermentação alcoólica).
+---
+Ciências da Natureza
 QUESTÃO 37
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Ciclo da água. Podemos afirmar que:
+Ciclo da água.
+Podemos afirmar que:
 a) vegetação é importante para regulação e diminuição da perda de água do solo.
 b) respiração/transpiração não contribui.
 c) água nas geleiras é irrisória.
 d) evaporação de rios é a maior responsável pela chuva litoral.
 RESPOSTA: a
-EXPLICAÇÃO: A cobertura vegetal retém umidade e protege o solo contra dessecação.Ciências da Natureza
+EXPLICAÇÃO: A cobertura vegetal retém umidade e protege o solo contra dessecação.
+---
+Ciências da Natureza
 QUESTÃO 38
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Neutralização (Leite de magnésia).
@@ -403,8 +487,9 @@ b) base, ácido, sal e ácido.
 c) sal, base, base e óxido.
 d) sal, base, sal e ácido.
 RESPOSTA: a
-EXPLICAÇÃO: Hidróxido = base; HCl = ácido;
-MgCl2 = sal; Água = óxido de hidrogênio.Ciências da Natureza
+EXPLICAÇÃO: Hidróxido = base; HCl = ácido; MgCl2 = sal; Água = óxido de hidrogênio.
+---
+Ciências da Natureza
 QUESTÃO 39
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Ponto de Fusão e Ebulição a 1 atm e 35 °C.
@@ -414,44 +499,57 @@ b) apenas II estará gasoso.
 c) apenas III estará líquido.
 d) II e III estarão líquidos.
 RESPOSTA: d
-EXPLICAÇÃO: Com base nos dados da tabela fictícia e temperatura de 35°C.Ciências da Natureza
+EXPLICAÇÃO: Com base nos dados da tabela fictícia e temperatura de 35°C.
+---
+Ciências da Natureza
 QUESTÃO 40
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Tabela Periódica. Verdadeiras apenas as afirmativas:
+Tabela Periódica.
+Verdadeiras apenas as afirmativas:
 a) I e III.
 b) II e III.
 c) II e IV.
 d) I e IV.
 RESPOSTA: b
-EXPLICAÇÃO: II-Raio aumenta na coluna. III-Eletronegatividade aumenta para a direita no período.Ciências Humanas
+EXPLICAÇÃO: II-Raio aumenta na coluna. III-Eletronegatividade aumenta para a direita no período.
+---
+Ciências Humanas
 QUESTÃO 41
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Alexis de Tocqueville e Manchester (1835). Contexto da Revolução Industrial.
-Pode-se argumentar que:
+Alexis de Tocqueville e Manchester (1835).
+Contexto da Revolução Industrial. Pode-se argumentar que:
 a) O autor destaca apenas o desenvolvimento exuberante.
 b) Tocqueville era totalmente contrário aos avanços tecnológicos.
 c) O autor demonstra um posicionamento paradoxal (elogio e crítica).
 d) Tocqueville ressalta o aquecimento global.
 RESPOSTA: c
-EXPLICAÇÃO: Ele vê os "milagres" da produção mas também a "brutalidade" e o "esgoto".Ciências Humanas
+EXPLICAÇÃO: Ele vê os "milagres" da produção mas também a "brutalidade" e o "esgoto".
+---
+Ciências Humanas
 QUESTÃO 42
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Censura na Ditadura Militar (Rita Lee). Pode-se inferir:
+Censura na Ditadura Militar (Rita Lee).
+Pode-se inferir:
 a) Tinha como alvo apenas o governo ditatorial.
 b) Possuía setor só para moral e bons costumes.
 c) Focada em temas políticos mas também morais.
 d) Elemento exclusivo do Brasil e degredo moral.
 RESPOSTA: c
-EXPLICAÇÃO: A censura vetava críticas políticas e comportamentos que "ferissem" a família tradicional.Ciências Humanas
+EXPLICAÇÃO: A censura vetava críticas políticas e comportamentos que "ferissem" a família tradicional.
+---
+Ciências Humanas
 QUESTÃO 43
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Guerra Fria (EUA e China hoje). Sobre a Guerra Fria original:
+Guerra Fria (EUA e China hoje).
+Sobre a Guerra Fria original:
 a) Conflitos como Vietnã, Coreia e Franco-Prussiana.
 b) Disputa entre bloco socialista americano e capitalista soviético.
 c) Termo devido ao inverno russo de 1970.
 d) Marco simbólico foi a construção do muro de Berlim.
 RESPOSTA: d
-EXPLICAÇÃO: O Muro de Berlim dividia o mundo entre capitalismo e socialismo.Ciências Humanas
+EXPLICAÇÃO: O Muro de Berlim dividia o mundo entre capitalismo e socialismo.
+---
+Ciências Humanas
 QUESTÃO 44
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
 Índios e doenças (Yanomami).
@@ -461,49 +559,76 @@ b) O Estado republicano resolveu as mazelas indígenas.
 c) Interesses econômicos tornam indígenas vulneráveis a condições bacteriológicas.
 d) Situação Yanomami não pode ser generalizada.
 RESPOSTA: c
-EXPLICAÇÃO: A entrada de garimpeiros e exploradores leva doenças para as quais os índios não têm imunidade.Ciências Humanas
+EXPLICAÇÃO: A entrada de garimpeiros e exploradores leva doenças para as quais os índios não têm imunidade.
+---
+Ciências Humanas
 QUESTÃO 45
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Censo 2022 e Quilombolas. Aplicabilidade social dos dados obtidos:
+Censura 2022 e Quilombolas.
+Aplicabilidade social dos dados obtidos:
 a) Orientar políticas públicas de habitação, renda e regularização fundiária.
 b) Atender à distribuição de alimentos desde o período colonial.
 c) Controlar as estratégias de movimentos migratórios.
 d) Organizar imersão artística contemporânea.
 RESPOSTA: a
-EXPLICAÇÃO: Conhecer a população permite planejar melhor os serviços básicos e direitos de terra.Ciências Humanas
+EXPLICAÇÃO: Conhecer a população permite planejar melhor os serviços básicos e direitos de terra.
+---
+Ciências Humanas
 QUESTÃO 46
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Matriz energética brasileira. Explica a diversificação:
+Matriz energética brasileira.
+Explica a diversificação:
 a) Busca enriquecer com cotas de carbono.
 b) Autossuficiente em todos os tipos.
 c) Facilita uso imediato de carros elétricos.
 d) O uso de combustíveis fósseis é objeto central das preocupações ambientais.
 RESPOSTA: d
-EXPLICAÇÃO: O foco global é reduzir fósseis; o Brasil se destaca pela alta porcentagem de renováveis.Ciências Humanas
+EXPLICAÇÃO: O foco global é reduzir fósseis; o Brasil se destaca pela alta porcentagem de renováveis.
+---
+Ciências Humanas
 QUESTÃO 47
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Escassez de chuva e calor em BH (Setembro/2023). Qual termo traduz a condição atmosférica?
+Escassez de chuva e calor em BH (Setembro/2023).
+Qual termo traduz a condição atmosférica?
 a) El Niño.
 b) Onda de Calor.
 c) Umidade Súbita.
 d) Choque Atmosférico.
 RESPOSTA: b
-EXPLICAÇÃO: O texto cita recorde de temperatura máxima, caracterizando a onda de calor mencionada.Ciências Humanas
+EXPLICAÇÃO: O texto cita recorde de temperatura máxima, caracterizando a onda de calor mencionada.
+---
+Ciências Humanas
 QUESTÃO 48
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Programa Semeando Águas e matas ciliares. Relação vegetação e água:
+Programa Semeando Águas e matas ciliares.
+Relação vegetação e água:
 a) Vegetação libera oxigênio que vira água.
 b) Plantas geram água através de microrganismos.
 c) Rios transportam folhas.
 d) Cobertura vegetal contribui para permeabilidade e acúmulo de água no solo.
 RESPOSTA: d
-EXPLICAÇÃO: A mata ciliar protege as margens e ajuda a água da chuva a infiltrar no lençol freático.Ciências Humanas
+EXPLICAÇÃO: A mata ciliar protege as margens e ajuda a água da chuva a infiltrar no lençol freático.
+---
+Ciências Humanas
 QUESTÃO 49
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Fósseis na Bahia e pré-sal. Tipo de estrutura geológica associada a combustíveis fósseis:
+Fósseis na Bahia e pré-sal.
+Tipo de estrutura geológica associada a combustíveis fósseis:
 a) Basáltica.
 b) Cristalina.
 c) Metamórfica.
 d) Sedimentar.
 RESPOSTA: d
-EXPLICAÇÃO: Petróleo e carvão formam-se em bacias sedimentares ao longo de milhões de anos.Ciências HumanasQUESTÃO 50IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/Mapa da pobreza extrema (Sul Global). Não apresenta relação com a difusão da miséria:a) Desigualdade.b) Educação.c) Ambiente (catástrofes como único impeditivo).d) Fome.RESPOSTA: cEXPLICAÇÃO: Embora desastres afetem, a pobreza é um fenômeno social e econômico complexo, não puramente ambiental.
+EXPLICAÇÃO: Petróleo e carvão formam-se em bacias sedimentares ao longo de milhões de anos.
+---
+Ciências Humanas
+QUESTÃO 50
+IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
+Mapa da pobreza extrema (Sul Global).
+Não apresenta relação com a difusão da miséria:
+a) Desigualdade.
+b) Educação.
+c) Ambiente (catástrofes como único impeditivo).
+d) Fome.
+RESPOSTA: c
+EXPLICAÇÃO: Embora desastres afetem, a pobreza é um fenômeno social e econômico complexo, não puramente ambiental.
