@@ -6,7 +6,7 @@ IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagen
 
 Texto 2
 
-IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/q01_agro.png
+IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/q01_charge.png
 Leia o poema de Patativa do Assaré.
 Cante lá, que eu canto cá
 Poeta, cantô de rua,
