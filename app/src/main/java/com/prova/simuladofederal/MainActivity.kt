@@ -394,11 +394,30 @@ fun parsearQuestoesTxt(c: String): List<Questao> = c.split("---").mapNotNull { b
     val l = b.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
     if (l.size >= 5) {
         val idxA = l.indexOfFirst { it.startsWith("a)") }; if (idxA == -1) return@mapNotNull null
-        val img = l.find { it.startsWith("IMAGEM:") }?.substringAfter(":")?.trim()
+
+        // Captura o link completo
+        val rawImg = l.find { it.startsWith("IMAGEM:") }?.substringAfter("IMAGEM:")?.trim()
+
+        // Lógica: Se o link termina com "/" ou está vazio, define como null
+        val img = if (rawImg != null && rawImg.endsWith("/") || rawImg.isNullOrEmpty()) {
+            null
+        } else {
+            rawImg
+        }
+
         val perg = l.subList(2, idxA).filter { !it.startsWith("IMAGEM:") }.joinToString("\n")
         val opc = listOf(l[idxA].substringAfter("a)").trim(), l[idxA+1].substringAfter("b)").trim(), l[idxA+2].substringAfter("c)").trim(), l[idxA+3].substringAfter("d)").trim())
         val resp = l.find { it.contains("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
-        Questao(l[0], l[1], perg, img, opc, when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 }, l.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: "")
+
+        Questao(
+            l[0],
+            l[1],
+            perg,
+            img,
+            opc,
+            when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 },
+            l.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: ""
+        )
     } else null
 }
 

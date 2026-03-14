@@ -1,6 +1,6 @@
 Português
 QUESTÃO 01
-IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
+IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/q01_agro.png
 Leia o poema de Patativa do Assaré.
 Cante lá, que eu canto cá
 Poeta, cantô de rua,
