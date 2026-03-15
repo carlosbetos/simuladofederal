@@ -345,9 +345,12 @@ EXPLICAÇÃO: Diferença = 320 kWh. Preço = 320 * 0,50 = R$ 160,00.
 ---
 Matemática
 QUESTÃO 23
+
+Na figura a seguir, temos que o segmento mede 6cm e que a área do retângulo ABCD é de 33cm².
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Retângulo ABCD área 33cm².
-N e M são pontos médios. Comprimento do segmento MN:
+
+Sabendo que N é o ponto médio do segmento  DC e que M é o ponto médio do segmento AD; o comprimento,
+em centímetros, do segmento AM é
 a) 2,75
 b) 8,25
 c) 11,5
