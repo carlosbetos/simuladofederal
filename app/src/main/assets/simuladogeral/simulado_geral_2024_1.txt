@@ -97,10 +97,29 @@ EXPLICAÇÃO: O texto I utiliza elementos de outros textos (intertextualidade) p
 ---
 Português
 QUESTÃO 04
+Leia o texto abaixo
+
+Fins sem princípios
+- Lygia Maria
+Tão repulsivos quanto os ataques do Hamas a Israel
+foram os comentários que se seguiram à barbárie,
+inúmeros partindo daquela famosa instituição que há
+séculos tem o papel de produzir conhecimento e defender
+princípios civilizatórios como a ética e a liberdade:
+a universidade. Ainda pior, parte significativa
+do respaldo às atrocidades veio de professores e alunos
+de humanidades, área na qual se espera que pessoas
+não sejam tratadas como objetos. O pretexto é a
+luta contra a opressão de palestinos na região. Ora, é
+inacreditável que pessoas com diploma universitário
+resumam a causa palestina ao Hamas.
+Disponível em: https://www1.folha.uol.com.br/colunas/lygia-maria/
+2023/10/fins-sem-principios.shtml. Acesso em: 19 out. 2023. Fragmento
+
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Leia o texto "Fins sem princípios" de Lygia Maria.
-O texto discute os ataques do Hamas e a reação de setores universitários.
-A crítica apresentada no texto indica uma:
+
+A crítica apresentada no texto indica uma
+
 a) contradição nos atos terroristas do grupo extremista Hamas, da Palestina.
 b) desvalorização dos cursos de humanidades nas universidades brasileiras.
 c) hierarquização das más atitudes humanas das partes envolvidas no conflito.
