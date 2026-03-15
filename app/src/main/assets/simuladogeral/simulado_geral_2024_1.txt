@@ -44,10 +44,17 @@ EXPLICAÇÃO: O poema valoriza o conhecimento prático e a cultura do sertanejo,
 ---
 Português
 QUESTÃO 02
-IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-Leia e observe os textos a seguir.
+
+Texto 1
+IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/q2charge1.png
 TEXTO I: Disponível em: https://2.bp.blogspot.com/-ol51GSKXnjQ/U-4T7OxdKlI/AAAAAAAAL9c/wxnhTeR-fxs/s1600/Charge2014-privacidade-794035.jpg.
+Texto 2
+
+IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/q2charge2.png
 TEXTO II: Disponível em: https://pbs.twimg.com/media/E03TU_oWYAEQ6E4.jpg:large.
+Leia e observe os textos a seguir.
+
+
 A comparação entre os textos possibilita a percepção de que há:
 a) abandono temporário das redes sociais.
 b) alienação social no uso das tecnologias.
