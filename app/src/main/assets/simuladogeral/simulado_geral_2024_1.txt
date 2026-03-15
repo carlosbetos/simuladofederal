@@ -65,15 +65,26 @@ EXPLICAÇÃO: A relação entre os textos aponta para a alienação causada pelo
 ---
 Português
 QUESTÃO 03
+Texto 1
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
-TEXTO II: Vinicius Jr sofre racismo e é expulso de partida do Real Madrid.
-Atacante brasileiro foi xingado de "macaco" por torcedores e sofreu um mata-leão de um adversário em campo.
-TEXTO III: Veni, vidi, vici significa “eu vim, eu vi e eu venci”.
+TEXTO II:
 
+Vinicius Jr sofre racismo e é expulso de partida do Real Madrid
+Atacante brasileiro foi xingado de "macaco" por torcedores e sofreu um mata-leão de um adversário em campo
 O jogador brasileiro Vinicius Junior, do Real Madrid, foi expulso de uma partida contra o Valencia pelo campeonato
 espanhol organizado pela La Liga neste domingo, 21, após reagir a ofensas racistas por torcedores e
 se envolver em uma briga com jogadores do time adversário. Ao longo da partida, foi possível ouvir constantes
 gritos de “macaco!” vindos da torcida do Valencia direcionados ao atacante brasileiro.
+Disponível em: https://veja.abril.com.br/esporte/vinicius-jr-sofre-racismo-e-e-expulso-de-partida-do-real-madrid. Acesso em: 19 out. 2023. Fragmento.
+
+TEXTO III:
+          Em tradução livre, Veni, vidi, vici significa “eu vim, eu vi e eu venci”. O significado de veni, vidi, vici encontra
+          o seu contexto histórico no ano de 47 a.C., quando o então Pontífice Máximo e Ditador Perpétuo de Roma, Júlio
+          César, simplesmente, pegou as legiões disponíveis onde estava e marchou velozmente com o intuito de acabar
+          com a revolta do até então aliado da República Romana, o Rei Fárnaces II, do Ponto. Toda a campanha, o que
+          inclui o tempo de marcha do Egito à Turquia e a vitória na Batalha de Zela, não teria durado mais que alguns dias
+          (apenas 5 dias).
+          Disponível em: https://incrivelhistoria.com.br/veni-vidi-vici-significado/. Acesso em: 19 out. 2023. Fragmento.
 
 A partir da leitura dos textos, conclui-se que:
 a) o texto I explora elemento de texto anterior para construir uma crítica, que revela o ponto de vista do chargista.
