@@ -93,21 +93,54 @@ fun extrairDataDoNome(nome: String): String {
 
 @Composable
 fun QuestaoParser(rawText: String, modifier: Modifier = Modifier) {
-    val regex = remember { Regex("(?<!R)\\${'$'}{1,2}(.*?)\\${'$'}{1,2}") }
-    val parts = mutableListOf<Pair<String, Boolean>>()
-    var lastIndex = 0
-    regex.findAll(rawText).forEach { match ->
-        if (match.range.first > lastIndex) parts.add(rawText.substring(lastIndex, match.range.first) to false)
-        parts.add(match.groupValues[1] to true)
-        lastIndex = match.range.last + 1
+    val mathRegex = remember { Regex("(?<!R)\\${'$'}{1,2}(.*?)\\${'$'}{1,2}") }
+    val imgRegex = remember { Regex("IMAGEM:(https?://[^\\s\\n]+)") }
+    
+    val matches = remember(rawText) {
+        (mathRegex.findAll(rawText).map { it to "MATH" } + 
+         imgRegex.findAll(rawText).map { it to "IMG" })
+        .sortedBy { it.first.range.first }
+        .toList()
     }
-    if (lastIndex < rawText.length) parts.add(rawText.substring(lastIndex) to false)
 
     Column(modifier = modifier.fillMaxWidth()) {
-        parts.forEach { (content, isMath) ->
-            if (isMath) KaTeXView(formula = content)
-            else if (content.trim().isNotEmpty() || content.contains("R$")) {
-                Text(text = content.trim(), style = MaterialTheme.typography.bodyLarge.copy(fontSize = 17.sp, lineHeight = 24.sp), modifier = Modifier.padding(vertical = 4.dp))
+        var lastIndex = 0
+        matches.forEach { (match, type) ->
+            val preText = rawText.substring(lastIndex, match.range.first)
+            if (preText.isNotEmpty()) {
+                val trimmed = preText.trim()
+                if (trimmed.isNotEmpty() || preText.contains("R$")) {
+                    Text(text = trimmed, style = MaterialTheme.typography.bodyLarge.copy(fontSize = 17.sp, lineHeight = 24.sp), modifier = Modifier.padding(vertical = 4.dp))
+                }
+            }
+            
+            if (type == "MATH") {
+                KaTeXView(formula = match.groupValues[1])
+            } else {
+                val url = match.groupValues[1]
+                val base = "https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/"
+                if (url.startsWith(base) && url.length > base.length) {
+                    Card(modifier = Modifier.padding(vertical = 8.dp).fillMaxWidth(), elevation = CardDefaults.cardElevation(2.dp)) {
+                        AsyncImage(
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(url)
+                                .crossfade(true)
+                                .build(),
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxWidth().heightIn(max = 400.dp),
+                            contentScale = ContentScale.Fit
+                        )
+                    }
+                }
+            }
+            lastIndex = match.range.last + 1
+        }
+        
+        if (lastIndex < rawText.length) {
+            val postText = rawText.substring(lastIndex)
+            val trimmed = postText.trim()
+            if (trimmed.isNotEmpty() || postText.contains("R$")) {
+                Text(text = trimmed, style = MaterialTheme.typography.bodyLarge.copy(fontSize = 17.sp, lineHeight = 24.sp), modifier = Modifier.padding(vertical = 4.dp))
             }
         }
     }
@@ -274,10 +307,13 @@ fun TelaQuestao(q: Questao, n: Int, total: Int, respDada: Int, onVoltar: (() -> 
             LinearProgressIndicator(progress = { n.toFloat() / total }, modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp))
             QuestaoParser(rawText = q.pergunta)
             q.caminhoImagem?.let { c ->
-                Spacer(modifier = Modifier.height(16.dp))
-                Card(elevation = CardDefaults.cardElevation(4.dp)) {
-                    if (c.startsWith("http")) AsyncImage(model = ImageRequest.Builder(LocalContext.current).data(c).crossfade(true).build(), null, modifier = Modifier.fillMaxWidth().heightIn(max = 300.dp), contentScale = ContentScale.Fit)
-                    else { val id = context.resources.getIdentifier(c, "drawable", context.packageName); if (id != 0) Image(painterResource(id), null, modifier = Modifier.fillMaxWidth().heightIn(max = 280.dp), contentScale = ContentScale.Fit) }
+                // Evita duplicar se a imagem já estiver no texto processado pelo QuestaoParser
+                if (!q.pergunta.contains(c)) {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Card(elevation = CardDefaults.cardElevation(4.dp)) {
+                        if (c.startsWith("http")) AsyncImage(model = ImageRequest.Builder(LocalContext.current).data(c).crossfade(true).build(), null, modifier = Modifier.fillMaxWidth().heightIn(max = 300.dp), contentScale = ContentScale.Fit)
+                        else { val id = context.resources.getIdentifier(c, "drawable", context.packageName); if (id != 0) Image(painterResource(id), null, modifier = Modifier.fillMaxWidth().heightIn(max = 280.dp), contentScale = ContentScale.Fit) }
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(24.dp))
@@ -287,7 +323,7 @@ fun TelaQuestao(q: Questao, n: Int, total: Int, respDada: Int, onVoltar: (() -> 
                 OutlinedButton(onClick = { if (!respondeu) sel = i }, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp), colors = ButtonDefaults.outlinedButtonColors(containerColor = cor, contentColor = Color.Black), shape = RoundedCornerShape(8.dp)) {
                     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                         Text("$letra) ", fontWeight = FontWeight.Bold)
-                        Text(text = t.replace("$", "").replace("$$", ""))
+                        QuestaoParser(rawText = t, modifier = Modifier.weight(1f))
                     }
                 }
             }
@@ -395,19 +431,36 @@ fun parsearQuestoesTxt(c: String): List<Questao> = c.split("---").mapNotNull { b
     if (l.size >= 5) {
         val idxA = l.indexOfFirst { it.startsWith("a)") }; if (idxA == -1) return@mapNotNull null
 
-        // Captura o link completo
+        // Captura o link completo para compatibilidade legada, mas o QuestaoParser cuidará do render principal
         val rawImg = l.find { it.startsWith("IMAGEM:") }?.substringAfter("IMAGEM:")?.trim()
-
-        // Lógica: Se o link termina com "/" ou está vazio, define como null
-        val img = if (rawImg != null && rawImg.endsWith("/") || rawImg.isNullOrEmpty()) {
+        val base = "https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/"
+        
+        // Se for um link do GitHub válido, deixamos o campo caminhoImagem nulo para evitar duplicidade,
+        // pois ele será processado via QuestaoParser dentro do enunciado ou alternativas.
+        val img = if (rawImg != null && rawImg.startsWith(base) && rawImg.length > base.length) {
             null
-        } else {
+        } else if (rawImg != null && !rawImg.startsWith(base) && !rawImg.endsWith("/")) {
             rawImg
+        } else {
+            null
         }
 
-        val perg = l.subList(2, idxA).filter { !it.startsWith("IMAGEM:") }.joinToString("\n")
-        val opc = listOf(l[idxA].substringAfter("a)").trim(), l[idxA+1].substringAfter("b)").trim(), l[idxA+2].substringAfter("c)").trim(), l[idxA+3].substringAfter("d)").trim())
+        // Mantém as linhas de IMAGEM: no enunciado para o QuestaoParser processar
+        val perg = l.subList(2, idxA).joinToString("\n")
+        
+        val opc = listOf(
+            l[idxA].substringAfter("a)").trim(), 
+            l[idxA+1].substringAfter("b)").trim(), 
+            l[idxA+2].substringAfter("c)").trim(), 
+            l[idxA+3].substringAfter("d)").trim()
+        )
         val resp = l.find { it.contains("RESPOSTA:") }?.substringAfter(":")?.trim()?.lowercase() ?: "a"
+
+        // Melhor extração da explicação (pega todas as linhas até o fim da questão)
+        val idxExpl = l.indexOfFirst { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }
+        val explicacao = if (idxExpl != -1) {
+            l.subList(idxExpl, l.size).joinToString("\n").substringAfter(":").trim()
+        } else ""
 
         Questao(
             l[0],
@@ -416,7 +469,7 @@ fun parsearQuestoesTxt(c: String): List<Questao> = c.split("---").mapNotNull { b
             img,
             opc,
             when(resp) { "a"->0; "b"->1; "c"->2; "d"->3; else->0 },
-            l.find { it.contains("EXPLICAÇÃO:") || it.contains("EXPLICACAO:") }?.substringAfter(":")?.trim() ?: ""
+            explicacao
         )
     } else null
 }
