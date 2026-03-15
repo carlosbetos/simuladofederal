@@ -310,3 +310,178 @@ Escravidão
 O que é:
 Sistema social e jurídico em que pessoas são tratadas como propriedade de outras, sendo privadas de sua liberdade e submetidas a trabalhos forçados.
 Exemplo: A obra Úrsula é considerada pioneira por descrever o infortúnio e o cativeiro de pessoas que viviam sob o regime de escravidão no Brasil.
+---
+Termo:
+Aformosentar
+O que é:
+Tornar algo bonito, embelezar, ornamentar.
+Exemplo:
+"Vou usar uma skin lendária para aformosentar meu personagem no jogo."
+Termo:
+Algente
+O que é:
+Algo extremamente frio, gelado.
+Exemplo:
+"Ninguém quer ficar parado no bioma de neve sem proteção, aquele frio algente drena sua vida rápido."
+Termo:
+Almejar
+O que é:
+Desejar intensamente, ter como objetivo principal.
+Exemplo:
+"Para subir no ranking global, você precisa almejar a vitória em cada partida."
+Termo:
+Altivez
+O que é:
+Sentimento de dignidade, orgulho (no sentido de respeito próprio) ou soberba.
+Exemplo:
+"Aquele jogador profissional joga com uma altivez que intimida os adversários iniciantes."
+Termo:
+Arcaísmo
+O que é:
+Uso de palavras ou expressões antigas que já caíram em desuso no dia a dia.
+Exemplo:
+"Ler os textos de Machado de Assis na prova é difícil porque eles estão cheios de arcaísmos do século XIX."
+Termo:
+Bravio
+O que é:
+Alguém ou algo selvagem, feroz ou difícil de domesticar/tratar.
+Exemplo:
+"Cuidado com aquele boss no mapa da floresta, ele é um animal bravio e ataca sem aviso."
+Termo:
+Cabedal Intellectual
+O que é:
+O conjunto de conhecimentos, cultura e sabedoria que uma pessoa possui.
+Exemplo:
+"Estudar essas palavras aumenta seu cabedal intelectual para detonar na prova de Português."
+Termo:
+Ciosos
+O que é:
+Pessoas zelosas, cuidadosas ou que têm muito interesse em proteger algo.
+Exemplo:
+"Os desenvolvedores são muito ciosos com a segurança do servidor para evitar hackers."
+Termo:
+Connotativo / Denotativo
+O que é:
+Denotativo é o sentido real (dicionário). Conotativo é o sentido figurado (criativo/poético).
+Exemplo:
+"O servidor caiu" (Denotativo - Real). "Meu coração caiu quando perdi o item" (Conotativo - Tristeza, não caiu de verdade).
+Termo:
+Desígnios
+O que é:
+Planos, intenções ou propósitos (muitas vezes referindo-se ao destino ou a Deus).
+Exemplo:
+"Às vezes, os desígnios do mestre da partida são misteriosos e mudam as regras no meio do jogo."
+Termo:
+Dissipar
+O que é:
+Fazer desaparecer, espalhar ou gastar de forma descontrolada.
+Exemplo:
+"Não vale a pena dissipar todos os seus Robux em itens que não dão buffs reais."
+Termo:
+Esgalgada
+O que é:
+Pessoa ou coisa muito magra, esguia (que parece um cachorro galgo).
+Exemplo:
+"O avatar dele era tão magro que parecia uma figura esgalgada correndo pelo mapa."
+Termo:
+Estúrdio
+O que é:
+Algo estranho, extravagante, fora do comum.
+Exemplo:
+"Aconteceu um bug estúrdio hoje: as casas do mapa começaram a dançar!"
+Termo:
+Impenitente
+O que é:
+Alguém que não se arrepende de seus erros ou pecados; obstinado.
+Exemplo:
+"Aquele jogador é um impenitente: ele leva ban, mas volta a quebrar as regras do mesmo jeito."
+Termo:
+Infortúnio
+O que é:
+Má sorte, desgraça ou uma situação de grande sofrimento.
+Exemplo:
+"Perder a conexão na rodada final é o maior infortúnio que pode acontecer com um gamer."
+Termo:
+Interlocução
+O que é:
+Troca de mensagens ou diálogo entre duas ou mais pessoas.
+Exemplo:
+"O chat global serve para manter a interlocução entre os jogadores do servidor."
+Termo:
+Intransigente
+O que é:
+Alguém que não cede, que é rígido e não aceita opiniões diferentes.
+Exemplo:
+"O moderador foi intransigente e não aceitou as desculpas de quem quebrou as regras."
+Termo:
+Louçanias
+O que é:
+Belezas, enfeites exagerados, viço ou elegância.
+Exemplo:
+"Aquele mapa de RPG está cheio de louçanias visuais que deixam o jogo pesado."
+Termo:
+Mancebo
+O que é:
+Um homem jovem, rapaz.
+Exemplo:
+"Antigamente, em vez de 'olha aquele cara', diziam 'olha aquele mancebo'."
+Termo:
+Melindrosas
+O que é:
+Situações delicadas, perigosas ou que exigem muito cuidado para não causar ofensa.
+Exemplo:
+"As negociações de troca de itens raros costumam ser muito melindrosas."
+Termo:
+Mesquinhez
+O que é:
+Falta de generosidade, avareza ou dar algo em quantidade muito pequena.
+Exemplo:
+"O boss dropou o loot com uma mesquinhez irritante; só veio um item comum!"
+Termo:
+Potentado
+O que é:
+Pessoa que possui grande poder, autoridade ou imensa riqueza.
+Exemplo:
+"O dono do servidor é o verdadeiro potentado daquele mundo virtual."
+Termo:
+Precursora
+O que é:
+Pessoa ou ideia que vem antes das outras, abrindo caminho ou servindo de exemplo original.
+Exemplo:
+"A mecânica de construção deste jogo foi a precursora de todos os simuladores atuais."
+Termo:
+Pudicícia
+O que é:
+Qualidade de quem é recatado, tímido ou que tem muito pudor.
+Exemplo:
+"Alguns personagens de RPG são desenhados com roupas que demonstram uma certa pudicícia."
+Termo:
+Reabilitada
+O que é:
+Recuperar a boa fama, ser aceito novamente ou ter seus direitos devolvidos.
+Exemplo:
+"Depois de cumprir a punição, a conta do jogador foi finalmente reabilitada."
+Termo:
+Soberania
+O que é:
+Poder supremo, autoridade total sobre algo ou alguém.
+Exemplo:
+"Vencer o torneio garante a sua soberania sobre todos os outros clãs do mapa."
+Termo:
+Soçobrar
+O que é:
+Afundar (no caso de navios) ou fracassar totalmente.
+Exemplo:
+"Se o time não colaborar, a nossa estratégia vai soçobrar antes do fim da rodada."
+Termo:
+Viandantes
+O que é:
+Pessoas que viajam a pé ou estão de passagem por algum lugar; viajantes.
+Exemplo:
+"Os NPCs que ficam andando pelas estradas do jogo são chamados de viandantes."
+Termo:
+Visceralmente
+O que é:
+Algo que vem de dentro, intenso, profundo ou instintivo.
+Exemplo:
+"Ele ficou visceralmente irritado quando perdeu sua sequência de vitórias."
