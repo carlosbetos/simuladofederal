@@ -65,8 +65,9 @@ EXPLICAÇÃO: A relação entre os textos aponta para a alienação causada pelo
 ---
 Português
 QUESTÃO 03
-Texto 1
+TEXTO I:
 IMAGEM:https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/imagens/
+
 TEXTO II:
 
 Vinicius Jr sofre racismo e é expulso de partida do Real Madrid
