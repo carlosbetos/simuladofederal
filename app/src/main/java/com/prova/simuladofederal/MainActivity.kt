@@ -15,6 +15,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -47,6 +49,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.Calendar
+import kotlin.random.Random
 
 // --- MODELOS DE DADOS ---
 data class Materia(val nome: String, val pasta: String, val icone: String)
@@ -215,7 +219,7 @@ fun TelaPrincipal(onSimuladosClick: () -> Unit, onSimuladoGeralClick: () -> Unit
         MenuButton("Simulados por Matéria", "Escolha disciplina e data", Icons.Default.PlayArrow, Color(0xFF1B5E20), onSimuladosClick)
         MenuButton("Simulado Geral", "Questões variadas por edição", Icons.Default.List, Color(0xFF2E7D32), onSimuladoGeralClick)
         MenuButton("Glossário", "Termos importantes", Icons.Default.Info, Color(0xFF388E3C), onGlossarioClick)
-        MenuButton("Aulas em Vídeo", "Dicas do YouTube", Icons.Default.Search, Color(0xFF43A047), onVideosClick)
+        MenuButton("Aulas e Dicas", "Vídeos e buscas por tema", Icons.Default.Search, Color(0xFF43A047), onVideosClick)
     }
 }
 
@@ -496,13 +500,111 @@ fun TelaGlossario(onVoltar: () -> Unit) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TelaVideos(onVoltar: () -> Unit) {
-    var videos by remember { mutableStateOf<List<VideoItem>>(emptyList()) }
+    var videosFixos by remember { mutableStateOf<List<VideoItem>>(emptyList()) }
     var carregando by remember { mutableStateOf(true) }
     val context = LocalContext.current
-    LaunchedEffect(Unit) { val text = carregarUrlGit("videos.txt") ?: try { context.assets.open("videos.txt").bufferedReader().use { it.readText() } } catch (e: Exception) { null }; if (text != null) videos = parsearVideos(text); carregando = false }
-    Scaffold(topBar = { TopAppBar(title = { Text("Aulas e Dicas") }, navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }) }) { padding ->
-        if (carregando) Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
-        else Column(modifier = Modifier.padding(padding).verticalScroll(rememberScrollState()).padding(16.dp)) { videos.forEach { video -> Card(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp).clickable { val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url)); context.startActivity(intent) }, colors = CardDefaults.cardColors(containerColor = Color(0xFFF1F8E9))) { Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) { Box(modifier = Modifier.size(50.dp).background(Color.Red, RoundedCornerShape(25.dp)), contentAlignment = Alignment.Center) { Icon(Icons.Default.PlayArrow, null, tint = Color.White) }; Spacer(modifier = Modifier.width(16.dp)); Text(video.titulo, fontWeight = FontWeight.Bold, fontSize = 16.sp) } } } }
+    
+    // Lista de temas comuns baseados no seu simulado para busca rápida
+    val temasSimulado = listOf(
+        "Regra de Três", "Potenciação", "Equação do 1º Grau", "Geometria Espacial",
+        "Latitude e Longitude", "Urbanização Brasileira", "Fontes Históricas",
+        "Revolução Industrial no Brasil", "Fórmulas de Física Básica", "Biologia Celular",
+        "Tabela Periódica Resumo", "Interpretação de Texto para Concursos"
+    )
+
+    LaunchedEffect(Unit) { 
+        val text = carregarUrlGit("videos.txt") ?: try { 
+            context.assets.open("videos.txt").bufferedReader().use { it.readText() } 
+        } catch (e: Exception) { null }
+        if (text != null) videosFixos = parsearVideos(text)
+        carregando = false 
+    }
+
+    Scaffold(
+        topBar = { 
+            TopAppBar(
+                title = { Text("Aulas e Dicas") }, 
+                navigationIcon = { IconButton(onClick = onVoltar) { Icon(Icons.Default.ArrowBack, null) } }
+            ) 
+        }
+    ) { padding ->
+        if (carregando) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { CircularProgressIndicator(color = Color(0xFF1B5E20)) }
+        } else {
+            Column(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp)
+            ) {
+                // SEÇÃO 1: Sugestão Aleatória (Seus Vídeos)
+                if (videosFixos.isNotEmpty()) {
+                    val sugerido = remember(videosFixos) { videosFixos.random() }
+                    Text("Sugestão da Equipe", fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20), fontSize = 18.sp)
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(sugerido.url))) },
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFFE8F5E9)),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Default.PlayArrow, null, tint = Color.Red, modifier = Modifier.size(40.dp))
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Text(sugerido.titulo, fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(32.dp))
+                }
+
+                // SEÇÃO 2: Explorar por Tema (Busca na Internet)
+                Text("Explorar Temas do Simulado", fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20), fontSize = 18.sp)
+                Text("Toque em um tema para achar aulas no YouTube:", fontSize = 13.sp, color = Color.Gray)
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Grid de temas para busca dinâmica
+                val temasSorteados = remember { temasSimulado.shuffled().take(8) }
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    temasSorteados.chunked(2).forEach { rowTemas ->
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            rowTemas.forEach { tema ->
+                                Card(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .clickable { 
+                                            val query = Uri.encode("aula de $tema simulado")
+                                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=$query"))
+                                            context.startActivity(intent)
+                                        },
+                                    shape = RoundedCornerShape(12.dp),
+                                    colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5))
+                                ) {
+                                    Box(modifier = Modifier.padding(16.dp), contentAlignment = Alignment.Center) {
+                                        Text(tema, textAlign = TextAlign.Center, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                // SEÇÃO 3: Todos os Vídeos da Lista
+                Text("Todas as Dicas Fixas", fontWeight = FontWeight.Bold, color = Color(0xFF1B5E20), fontSize = 18.sp)
+                Spacer(modifier = Modifier.height(8.dp))
+                videosFixos.forEach { video ->
+                    ListItem(
+                        headlineContent = { Text(video.titulo, fontWeight = FontWeight.SemiBold) },
+                        leadingContent = { Icon(Icons.Default.PlayArrow, null, tint = Color.Gray) },
+                        modifier = Modifier.clickable { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(video.url))) }
+                    )
+                    HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f))
+                }
+            }
+        }
     }
 }
 
@@ -510,17 +612,33 @@ suspend fun carregarUrlGit(path: String): String? = withContext(Dispatchers.IO) 
     try { URL("https://raw.githubusercontent.com/carlosbetos/simuladofederal/main/app/src/main/assets/$path?t=${System.currentTimeMillis()}").openConnection().getInputStream().bufferedReader().use { it.readText() } } catch (e: Exception) { null }
 }
 
-fun parsearGlossario(texto: String): List<GlossarioItem> = texto.split("---").mapNotNull { b ->
-    val l = b.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
-    var t = ""; var o = ""; var e = ""
-    for (i in l.indices) {
-        when {
-            l[i].startsWith("Termo:", true) -> { t = l[i].substringAfter(":").trim(); if (t.isEmpty() && i+1 < l.size) t = l[i+1] }
-            l[i].startsWith("O que é:", true) -> { o = l[i].substringAfter(":").trim(); if (o.isEmpty() && i+1 < l.size) o = l[i+1] }
-            l[i].startsWith("Exemplo:", true) -> { e = l[i].substringAfter(":").trim(); if (e.isEmpty() && i+1 < l.size) e = l[i+1] }
+fun parsearGlossario(texto: String): List<GlossarioItem> {
+    // Regex que separa por "---" OU por uma linha que começa com "Termo:"
+    // O lookahead (?=Termo:) garante que não vamos "comer" a palavra Termo: no split
+    val blocos = texto.split(Regex("---|\n(?=Termo:)"))
+    
+    return blocos.mapNotNull { b ->
+        val l = b.trim().lines().map { it.trim() }.filter { it.isNotEmpty() }
+        var t = ""; var o = ""; var e = ""
+        for (i in l.indices) {
+            val line = l[i]
+            when {
+                line.startsWith("Termo:", ignoreCase = true) -> {
+                    t = line.substringAfter(":").trim()
+                    if (t.isEmpty() && i + 1 < l.size) t = l[i + 1]
+                }
+                line.startsWith("O que é:", ignoreCase = true) || line.startsWith("O que e:", ignoreCase = true) -> {
+                    o = line.substringAfter(":").trim()
+                    if (o.isEmpty() && i + 1 < l.size) o = l[i + 1]
+                }
+                line.startsWith("Exemplo:", ignoreCase = true) -> {
+                    e = line.substringAfter(":").trim()
+                    if (e.isEmpty() && i + 1 < l.size) e = l[i + 1]
+                }
+            }
         }
+        if (t.isNotBlank()) GlossarioItem(t, o, e) else null
     }
-    if (t.isNotBlank()) GlossarioItem(t, o, e) else null
 }
 
 fun parsearVideos(texto: String): List<VideoItem> = texto.split("---").mapNotNull { b ->
